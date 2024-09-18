@@ -1,0 +1,71 @@
+* {
+    margin: 0 1%;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    background-color: #2E4053; /* Color for the margin area */
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+    background-color: #D5D8DC; /* Background color for the body content area */
+    color: #2E4053; /* Text color */
+    margin: 50px; /* Space around the body that will show the `html` background color */
+    box-sizing: border-box; /* Make sure the padding and border are included in body dimensions */
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    opacity: 0.85;
+  }
+
+  nav {
+    position: relatives;
+    display: flex;
+    width: 100%;
+    padding: 1rem 0.5rem;
+    margin-left: -0.5px;
+    /* background-color: #F1C40F; */
+    background-color: #AAB7B8;
+    color: #D5D8DC;
+    font-size: 2rem;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  p {
+    display: block;
+  }
+  
+  h1 {
+    font-size: 5rem;
+  }
+  
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 5%;
+  }
+
+  .register-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 150px;
+  }
+
+  .form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+}

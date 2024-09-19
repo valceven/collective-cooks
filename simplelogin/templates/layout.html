@@ -11,7 +11,8 @@
   <body>
     <nav>
       <a href="/"> <span role="img" aria-label="Home">🏡</span> </a> | 
-      <a href="{% url 'users:users' %}"> <span role="img" aria-label="About"> Log In / Sign Up</span> </a>
+      <a href="{% url 'users:register' %}"> <span role="img" aria-label="About"> Register </span> </a> | 
+      <a href="{% url 'users:login' %}"> <span role="img" aria-label="About"> Login </span> </a>
     </nav>
     <main>{% block content %} {% endblock %}</main>
   </body>

@@ -1,7 +1,19 @@
-Hello adventurer welcome to collective - cooks file repository,
+# <span style="color:orange">Cooks Collective</span> - An Online Recipe Sharing Platform
 
-Below are links to files related to our project: 
+CooksCollective is an online recipe-sharing platform designed to connect cooking enthusiasts, from novice home cooks to seasoned chefs
 
-1. Gantt Chart - https://docs.google.com/spreadsheets/d/1b1wzarpbqBHiPhtYcHZBJfGKpjhJ1iyIiyJ1AtwXjX0/edit?usp=sharing
-2. Figma Link - https://www.figma.com/design/xnHAttOxHgNQuuTlTIxOtG/CooksCollective?node-id=0-1&t=4LLQvR8jBZZn4ZHl-1
-3. ERD Link - https://online.visual-paradigm.com/share.jsp?id=323735393236332d3131
+## Functional Requirements
+ - User Management
+ - Recipe Submission
+ - Search Functionality
+ - Review & Rating System
+ - Favorites & Bookmarking
+ - Popular Recipes Display
+
+
+# Gantt Chart
+Access it [here](https://docs.google.com/spreadsheets/d/1b1wzarpbqBHiPhtYcHZBJfGKpjhJ1iyIiyJ1AtwXjX0/edit?usp=sharing).
+# UI/UX
+Access it [here](https://www.figma.com/design/xnHAttOxHgNQuuTlTIxOtG/CooksCollective?node-id=0-1&t=4LLQvR8jBZZn4ZHl-1).
+# ERD
+Access it [here](https://online.visual-paradigm.com/share.jsp?id=323735393236332d3131).

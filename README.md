@@ -11,9 +11,9 @@ CooksCollective is an online recipe-sharing platform designed to connect cooking
  - Popular Recipes Display
 
 
-##Gantt Chart
+## Gantt Chart
 Access it [here](https://docs.google.com/spreadsheets/d/1b1wzarpbqBHiPhtYcHZBJfGKpjhJ1iyIiyJ1AtwXjX0/edit?usp=sharing).
-##UI/UX
+## UI/UX
 Access it [here](https://www.figma.com/design/xnHAttOxHgNQuuTlTIxOtG/CooksCollective?node-id=0-1&t=4LLQvR8jBZZn4ZHl-1).
-##ERD
+## ERD
 Access it [here](https://online.visual-paradigm.com/share.jsp?id=323735393236332d3131).

@@ -20,12 +20,11 @@ def login_view(request):
             if user is not None:
                 print("User authenticated")
                 login(request, user)
-                messages.success(request, "Congratulations! You are now logged in.")
                 return redirect('homepage')
             else:
                 messages.error(request, "Invalid username or password. Please try again.")
         else:
-            print("Form errors:", form.errors)  # Log specific errors
+            print("Form errors:", form.errors) 
             messages.error(request, 'Please fix your inputs. Errors: {}'.format(form.errors))
     else:
         form = LogInForm()
@@ -38,7 +37,6 @@ def register_view(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, "Registration successful! You are now a mwmeber.")
             return redirect('homepage')
         else :
             messages.error(request, 'Please fix your inputs.')

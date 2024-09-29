@@ -15,9 +15,8 @@ class User(AbstractUser):
         OTHER = 'O',('Other')
 
     birthdate = models.DateField(default=timezone.now)
-
     gender = models.CharField(max_length=1, choices=Gender.choices, default=Gender.OTHER)
     details = models.TextField(max_length=254, null=True, blank=True)   
 
     def __str__(self):
-        return self.username    
+        return f"{self.username} {self.email}"  

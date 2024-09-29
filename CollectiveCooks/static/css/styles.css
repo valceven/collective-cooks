@@ -9,12 +9,6 @@ html {
   background-color: rgb(172, 120, 117);
 }
 
-html,
-body {
-  height: 100%;
-  font
-}
-
 body {
   margin: 0 14%;
   padding: 0;
@@ -167,4 +161,3 @@ main {
   margin-top: 10px;
   cursor: pointer;
 }
-

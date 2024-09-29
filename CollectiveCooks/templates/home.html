@@ -6,5 +6,5 @@
 
 {% block content %}
   <h1>Home</h1>
-  <p>Check out my <a href="/login">login page.</a></p>
+  <p>Check out my <a href="{% url 'auth:login' %}">login page.</a></p>
 {% endblock %}

@@ -1,22 +1,26 @@
 from django import forms  
 from .models import User 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
-class LogInForm(forms.ModelForm):
-    email = forms.EmailField(max_length=255, required=True)
-    password = forms.CharField(widget=forms.PasswordInput)
+class LogInForm(AuthenticationForm):
+    username = forms.CharField(max_length=50, required=True)
+    password = forms.CharField(widget=forms.PasswordInput, required=True)
 
     class Meta: 
         model = User
-        fields = ['email','password']
+        fields = ['username','password']
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(max_length=255,required=True)
     gender = forms.ChoiceField(choices=User.Gender.choices, required=True)
+    birthdate = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}),
+        required=True
+    )
 
     class Meta:
         model = User
-        fields = ['email','gender','birthdate','details','password1','password2']
+        fields = ['username','email','gender','birthdate','password1','password2']
     
     def clean_email(self):
         email = self.cleaned_data.get('email')

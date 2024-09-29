@@ -8,27 +8,41 @@ from django.contrib import messages
 # Create your views here.
 def login_view(request):
     if request.method == "POST":
-        form = LogInForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data('email')
-            password = form.cleaned_data('password')
+        form = LogInForm(data=request.POST) 
 
-            user = authenticate(request, username=email, password=password)
+        if form.is_valid():
+            print("Form is valid")
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(request, username=username, password=password)
 
             if user is not None:
+                print("User authenticated")
                 login(request, user)
-                messages.success(request, f"Congratulations You are now logged in.")
-                return redirect('')
+                messages.success(request, "Congratulations! You are now logged in.")
+                return redirect('homepage')
             else:
-                messages.error(request, "invalid email or password. pleae try again")
+                messages.error(request, "Invalid username or password. Please try again.")
         else:
-            messages.error(request,'Please fix your inputs')
+            print("Form errors:", form.errors)  # Log specific errors
+            messages.error(request, 'Please fix your inputs. Errors: {}'.format(form.errors))
     else:
         form = LogInForm()
 
-    return render(request, 'login/login_page.html', {'form': form})
-
+    return render(request, 'login/login_page.html', {'login_form': form})
 
 
 def register_view(request):
-    return HttpResponse("This is the register page!")
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, "Registration successful! You are now a mwmeber.")
+            return redirect('homepage')
+        else :
+            messages.error(request, 'Please fix your inputs.')
+    else:
+        form = RegistrationForm()
+
+    return render(request, 'register/register_page.html', {'form': form})

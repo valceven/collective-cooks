@@ -3,9 +3,19 @@ from .models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 class LogInForm(AuthenticationForm):
-    username = forms.CharField(max_length=50, required=True)
-    password = forms.CharField(widget=forms.PasswordInput, required=True)
-
+    username = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Enter your username',
+            'class': 'form-control'  # You can also add other classes here
+        })
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Enter your password',
+            'class': 'form-control'
+        })
+    )
     class Meta: 
         model = User
         fields = ['username','password']

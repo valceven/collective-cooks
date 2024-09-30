@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CooksCollective - Login</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="register-body">
+  <main class="auth-body">
+    <div class="auth-container">
+    <div class="auth-background">
+      
+    </div>
+
+    <div class="auth-form-container">
+
+      <h1> CooksCollective </h1>
+      <h1> Login </h1>
+      <p> Enter Your Account Information To Start Cooking!</p>
+      <form method="POST" action="{% url 'auth:login' %}" class="auth-form">
+        {% csrf_token %}
+    
+          <div class="form-group">
+            <label for="id_username">Username: </label>
+            <br>
+            {{ login_form.username }} {% if login_form.username.errors %}
+            <div class="error">{{ login_form.username.errors }}</div>
+            {% endif %}
+          </div>
+    
+          <div class="form-group">
+            <label for="id_password">Password: </label>
+            <br>
+            {{ login_form.password }} {% if login_form.password.errors %}
+            <div class="error">{{ login_form.password.errors }}</div>
+            {% endif %}
+          </div>
+    
+        <button type="submit">Login</button>
+        <p>Don't have an account?<a href="{% url 'auth:register' %}">Register here.</a></p>
+      </form>
+    </div>
+    </div>
+  </main>
+</body>
+</html>

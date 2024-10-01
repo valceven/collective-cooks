@@ -7,7 +7,7 @@ class LogInForm(AuthenticationForm):
         max_length=50,
         widget=forms.TextInput(attrs={
             'placeholder': 'Enter your username',
-            'class': 'form-control'  # You can also add other classes here
+            'class': 'form-control'
         })
     )
     password = forms.CharField(

@@ -1,50 +1,96 @@
 <!DOCTYPE html>
+{% load static %}
 {% load static tailwind_tags %}
-<html lang="en">
-  <head>
+<html lang="en" class=""> <!-- Dark mode will be toggled with this class -->
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
     {% tailwind_css %}
     <title>Cooks Collective</title>
-  </head>
-  <body class="h-screen">
-
+</head>
+<body class="h-screen bg-light-mode dark:bg-dark-mode">
     <!-- Navbar -->
     <header>
-      <nav class="flex justify-between items-center w-[92%] mx-auto bg-[#F53803]">
+        <nav id="navbar" class="flex justify-between items-center w-[92%] mx-auto bg-light-mode dark:bg-dark-mode">
+            <!-- Logo -->
+            <div>
+                <img class="w-32" src="{% static 'images/image-logo.png' %}" alt="CooksCollective">
+            </div>
 
-        <div class=>
-          <img class="w-32" src="{% static 'images/image-logo.png' %}" alt="CooksCollective">
-        </div>
+            <!-- Search Box -->
+            <div class="flex items-center bg-accent1 p-1 rounded-3xl shadow-md w-[32rem]">
+                <input
+                    type="text"
+                    placeholder="Search...."
+                    class="w-[90%] px-4 py-1 rounded-l-2xl focus:outline-none border-none bg-white dark:bg-[#151515] dark:text-light-mode"
+                >
+                <div class="w-[10%] bg-accent1 flex items-center justify-center rounded-r-2xl">
+                  <button id="search-button">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-6 h-6 search-icon">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                      </svg>
+                  </button>
+              </div>
+            </div>
 
-        <div class="bg-[#F53803] md:static md:min-h-fit min-h-[60vh] md:w-auto w-full flex items-center px-9">
-          <input type="text" placeholder="Search....">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-          </svg>
-          
-        </div>
+            <!-- Right Side: Dark Mode Toggle + Login/Signup Buttons -->
+            <div class="mr-5 flex items-center">
+                <!-- Dark Mode Toggle Button -->
+                <button id="theme-toggle" class="mr-5" onclick="toggleDarkMode()">
+                    <!-- Sun Icon (Light Mode) -->
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="size-6 hidden">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                    </svg>
 
-        <div class="">
-          <a href={% url 'auth:register' %}> <button class="bg-[#F5D020] text-white px-5 py-2 rounded-full hover:bg-[#f2e18d]"> Sign in </button> </a> 
-        </div>
-        
-      </nav>
+                    <!-- Moon Icon (Dark Mode) -->
+                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                    </svg>
+                </button>
+
+                <!-- Login Button -->
+                <a href="{% url 'auth:login' %}">
+                    <button class="bg-light-mode text-light-mode dark:text-dark-t_color px-5 py-2 rounded-lg hover:bg-accent1 dark:hover:bg-dark-accent2 mx-2 dark:bg-dark-mode dark:text-white">
+                        Login
+                    </button>
+                </a>
+
+                <!-- Signup Button -->
+                <a href="{% url 'auth:register' %}">
+                    <button class="bg-accent1 text-light-mode dark:bg-dark-accent2 dark:text-dark-t_color px-5 py-2 rounded-lg hover:bg-accent2 dark:hover:bg-dark-bg dark:text-white">
+                        SignUp
+                    </button>
+                </a>
+            </div>
+        </nav>
     </header>
 
-
     <!-- END OF NAVBAR -->
-
     <main class="py-10">
-      {% block content %} {% endblock %}
+        {% block content %} 
+        {% endblock %}
     </main>
 
-    <!-- Search Modal -->
-
     <!-- END OF MAIN -->
-
-    <script src="{% static 'js/main.js' %}"></script>
-  </body>
+    <script>
+      function toggleDarkMode() {
+        const html = document.querySelector('html');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const searchIcon = document.querySelector('.search-icon path');
+    
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            moonIcon.classList.remove('hidden');
+            sunIcon.classList.add('hidden');
+            searchIcon.setAttribute('stroke', 'black');
+        } else {
+            html.classList.add('dark');
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
+            searchIcon.setAttribute('stroke', 'white');
+        }
+    }
+    </script>
+</body>
 </html>

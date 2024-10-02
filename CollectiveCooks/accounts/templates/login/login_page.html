@@ -1,49 +1,70 @@
-{% load static %}
+{% load static tailwind_tags %}
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CooksCollective - Login</title>
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% tailwind_css %}
 </head>
-<body class="register-body">
-  <main class="auth-body">
-    <div class="auth-container">
-    <div class="auth-background">
-      
+<body class="h-screen flex justify-center items-center bg-orange-200 dark:bg-dark-mode">
+
+  <main class="flex w-full max-w-4xl rounded-lg shadow-lg overflow-hidden">
+    <div class="w-[55%] bg-accent1 flex justify-center items-center">
     </div>
 
-    <div class="auth-form-container">
-
-      <h1> CooksCollective </h1>
-      <h1> Login </h1>
-      <p> Enter Your Account Information To Start Cooking!</p>
-      <form method="POST" action="{% url 'auth:login' %}" class="auth-form">
+    <div class="w-[45%] flex flex-col justify-center p-8 bg-white dark:bg-gray-800">
+      <h1 class="text-2xl font-bold mb-4">CooksCollective</h1>
+      <h1 class="text-2xl font-bold ">Login</h1>
+      <p class="mt-1 text-xs">Enter Your Account Information To Start Cooking!</p>
+      
+      <form method="POST" action="{% url 'auth:login' %}" class="space-y-10">
         {% csrf_token %}
-    
-          <div class="form-group">
-            <label for="id_username">Username: </label>
-            <br>
-            {{ login_form.username }} {% if login_form.username.errors %}
-            <div class="error">{{ login_form.username.errors }}</div>
+        
+        <div class="form-group">
+          <label for="id_username" class="block text-sm font-medium ml-1 mb-1 font-bold">Username:</label>
+          <div>
+              <input 
+                  type="text" 
+                  name="username" 
+                  id="id_username" 
+                  value="{{ login_form.username.value }}" 
+                  class="border border-gray-300 rounded-lg  mt-1 w-full focus:outline-none focus:ring focus:ring-blue-400" 
+                  placeholder="Enter your username"
+              >
+              {% if login_form.username.errors %}
+                  <div class="text-red-500 text-sm">{{ login_form.username.errors }}</div>
+              {% endif %}
+          </div>
+      </div>
+      
+
+        <div class="form-group">
+          <label for="id_password" class="block text-sm font-medium ml-1 mb-1">Password:</label>
+          <div>
+            <input
+              type="password"
+              name="password"
+              id="id_password"
+              value="{{ login_form.password.value }}"
+              class="border border-gray-300 rounded-lg mt-1 w-full focus:outline-none focus:ring focus:ring-blue-400"
+              placeholder="Enter your username"
+            >
+            {% if login_form.password.errors %}
+              <div class="text-red-500 text-sm">{{ login_form.password.errors }}</div>
             {% endif %}
           </div>
-    
-          <div class="form-group">
-            <label for="id_password">Password: </label>
-            <br>
-            {{ login_form.password }} {% if login_form.password.errors %}
-            <div class="error">{{ login_form.password.errors }}</div>
-            {% endif %}
-          </div>
-    
-        <button type="submit">Login</button>
-        <p>Don't have an account?<a href="{% url 'auth:register' %}">Register here.</a></p>
+        </div>
+
+        <div class="flex flex-col justify-center align-center">
+        <button type="submit" class="w-full bg-accent1 text-white py-2 rounded-lg hover:bg-accent2">Login</button>
+        
+          <p class="mt-4 text-sm">Don't have an account? <a href="{% url 'auth:register' %}" class="text-accent1 hover:underline">Register here.</a></p>
+        </div>
       </form>
     </div>
-    </div>
   </main>
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import LogInForm, RegistrationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 
@@ -44,3 +44,11 @@ def register_view(request):
         form = RegistrationForm()
 
     return render(request, 'register/register_page.html', {'form': form})
+
+def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect('homepage')
+    
+def profile_view(request):
+    return render(request, 'profile/profile.html')

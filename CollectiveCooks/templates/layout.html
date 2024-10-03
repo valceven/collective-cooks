@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% tailwind_css %}
     <title>Cooks Collective</title>
+<<<<<<< HEAD
 </head>
 <body class="h-screen bg-light-mode dark:bg-dark-mode w-[92%] mx-auto">
     <!-- Navbar -->
@@ -16,6 +17,57 @@
             <div>
                 <img class="w-32" src="{% static 'images/image-logo.png' %}" alt="CooksCollective">
             </div>
+=======
+  </head>
+  <body>
+    <div class="whole-page">
+      <nav class="navbar">
+        <div class="navbar-container">
+          <a href="/" class="navbar-brand">
+            <img
+              src="{% static 'images/image-logo-transparent.png' %}"
+              class="logo"
+              alt="Cooks Collective Logo"
+            />
+            <span class="brand-name">CooksCollective</span>
+          </a>
+          <ul class="navbar-menu">
+            <li><a href="#" class="navbar-item">Homepage</a></li>
+            <li><a href="#" class="navbar-item">Recipe</a></li>
+            <li><a href="#" class="navbar-item">About Us</a></li>
+          </ul>
+          <div class="navbar-search-container">
+            <button type="button" class="search-button">
+              <svg
+                class="w-6 h-6 text-gray-800 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+                />
+              </svg>
+              <span class="sr-only"></span>
+            </button>
+          </div>
+          {% if user.is_authenticated %}
+            <div class="navbar-user-icon">
+              <a> <img src="{% static 'images/image-logo' %}"> </a>
+            </div>
+          {% else %}
+              <a href="/auth/register" title="Registration">Register</a> |
+              <a href="/auth/login" title="Log in">Log In</a>
+          {% endif %}
+        </div>
+      </nav>
+>>>>>>> origin/omasas
 
             <div class="flex items-center bg-accent1 p-1 rounded-3xl shadow-md w-[32rem]">
                 <input
@@ -32,12 +84,20 @@
               </div>
             </div>
 
+<<<<<<< HEAD
         
             <div class="flex items-center justify-center">
                 <button id="theme-toggle" class="mr-10" onclick="toggleDarkMode()">
                     <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" width="2.5em" height="2.5em" class="hidden hover:bg-accent2 rounded-full transition-transform duration-300 hover:scale-150">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
                     </svg>
+=======
+      <main>
+        {% block content %}
+
+        {% endblock %}
+      </main>
+>>>>>>> origin/omasas
 
                     <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" width="2.5em" height="2.5em" class="hover:bg-accent2 rounded-full transition-transform duration-300 hover:scale-150">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />

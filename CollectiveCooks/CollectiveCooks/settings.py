@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'tailwind',
     'Foods',
     'django_browser_reload',
+    'recipe',
+    'reviews',
+    'favorites',
 ]
 
 TAILWIND_APP_NAME = 'Foods'

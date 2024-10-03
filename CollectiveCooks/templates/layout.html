@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% tailwind_css %}
     <title>Cooks Collective</title>
+<<<<<<< HEAD
 </head>
 <body class="h-screen bg-light-mode dark:bg-dark-mode w-[92%] mx-auto">
     <!-- Navbar -->
@@ -16,6 +17,58 @@
             <div>
                 <img class="w-32" src="{% static 'images/image-logo.png' %}" alt="CooksCollective">
             </div>
+=======
+  </head>
+  <body>
+    <div class="whole-page">
+      <nav class="navbar">
+        <div class="navbar-container">
+          <a href="/" class="navbar-brand">
+            <img
+              src="{% static 'images/image-logo-transparent.png' %}"
+              class="logo"
+              alt="Cooks Collective Logo"
+            />
+            <span class="brand-name">CooksCollective</span>
+          </a>
+          <ul class="navbar-menu">
+            <li><a href="#" class="navbar-item">Homepage</a></li>
+            <li><a href="#" class="navbar-item">Recipe</a></li>
+            <li><a href="#" class="navbar-item">About Us</a></li>
+          </ul>
+          <div class="navbar-search-container">
+            <button type="button" class="search-button">
+              <svg
+                class="w-6 h-6 text-gray-800 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+                />
+              </svg>
+              <span class="sr-only"></span>
+            </button>
+          </div>
+          <div class="navbar-user-icon">
+          {% if user.is_authenticated %}
+              <a> <img src="{% static 'images/image-logo' %}"> </a>
+              {% comment %} <a href="{% url 'logout' %}" title="Logout">📤</a> {% endcomment %}
+          {% else %}
+              <a href="/auth/register" title="Registration">Register</a> |
+              <a href="/auth/login" title="Log in">Log In</a>
+          {% endif %}
+          </div>
+        </div>
+      </nav>
+>>>>>>> origin/omasas
 
             <div class="flex items-center bg-accent1 p-1 rounded-3xl shadow-md w-[32rem]">
                 <input

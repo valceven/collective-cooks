@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .forms import LogInForm, RegistrationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -45,6 +46,7 @@ def register_view(request):
 
     return render(request, 'register/register_page.html', {'form': form})
 
+<<<<<<< HEAD
 def logout_view(request):
     if request.method == "POST":
         logout(request)
@@ -52,3 +54,9 @@ def logout_view(request):
     
 def profile_view(request):
     return render(request, 'profile/profile.html')
+=======
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('homepage')
+>>>>>>> origin/omasas

@@ -5,9 +5,24 @@
 {% endblock %} 
 
 {% block content %}
-  <h1>Home</h1>
-  <p>Check out my <a href="{% url 'auth:login' %}">login page.</a></p>
   
-  <p>Or even <a href="/recipe/add"> Add Recipe </a> </p>
+  <div class="flex justify-around pl-40 py-16 bg-accent1 h-[24rem] text-white">
+    <div class="w-1/2">
+      <h1 class="font-bold text-[2.5rem] mb-5">Share Flavors, Connect Through Food! </h1>
+      <p class="text-2xl">Join CooksCollective, the go-to platform for home cooks</p>
+      <p class="text-2xl">and chefs to explore, share, and organize recipes across</p>
+      <p class="text-2xl">all cuisines and dirtary preferences.</p>
+
+      <button class="mt-7 bg-accent2 hover:bg-accent1 hover:text-accent2 text-white text-3xl font-bold hover:border-4 hover:border-accent2 pb-1 rounded-xl w-56 h-14">
+        <a href="{% url 'auth:register' %}">SIGN-UP</a>
+      </button>
+    </div>
+    <div class="w-1/2">
+      <h1 class="font-bold text-[2.5rem] mb-5">Share Flavors, Connect Through Food! </h1>
+      <p class="text-2xl">Join CooksCollective, the go-to platform for home cooks</p>
+      <p class="text-2xl">and chefs to explore, share, and organize recipes across</p>
+      <p class="text-2xl">all cuisines and dirtary preferences.</p>
+    </div>
+  </div>
 
 {% endblock %}

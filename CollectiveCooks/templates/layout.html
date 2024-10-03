@@ -45,14 +45,15 @@
               <span class="sr-only"></span>
             </button>
           </div>
+          <div class="navbar-user-icon">
           {% if user.is_authenticated %}
-            <div class="navbar-user-icon">
               <a> <img src="{% static 'images/image-logo' %}"> </a>
-            </div>
+              {% comment %} <a href="{% url 'logout' %}" title="Logout">📤</a> {% endcomment %}
           {% else %}
               <a href="/auth/register" title="Registration">Register</a> |
               <a href="/auth/login" title="Log in">Log In</a>
           {% endif %}
+          </div>
         </div>
       </nav>
 

@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import LogInForm, RegistrationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -44,3 +45,8 @@ def register_view(request):
         form = RegistrationForm()
 
     return render(request, 'register/register_page.html', {'form': form})
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('homepage')

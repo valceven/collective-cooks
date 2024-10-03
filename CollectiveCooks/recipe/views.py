@@ -7,7 +7,7 @@ def add_recipe_view(request):
         form = AddRecipeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('homepage')
     else:
         form = AddRecipeForm()
     return render(request, 'add_recipe.html', {'form': form})

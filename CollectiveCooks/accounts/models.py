@@ -19,4 +19,4 @@ class User(AbstractUser):
     details = models.TextField(max_length=254, null=True, blank=True)   
 
     def __str__(self):
-        return f"{self.username} {self.email}"  
+        return self.username

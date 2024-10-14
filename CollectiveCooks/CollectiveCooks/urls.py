@@ -23,10 +23,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.homepage, name="homepage"),
     path('admin/', admin.site.urls),
-    path('auth/',include('accounts.urls')),
+    path('auth/', include('accounts.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
-    path('recipe/', include('recipe.urls')),
+    path('recipes/', include('recipe.urls')),  # Includes all recipe-related URLs
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

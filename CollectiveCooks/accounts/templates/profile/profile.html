@@ -1,1 +1,36 @@
-<h1>nice</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/profile.css' %}"> <!-- Link to your custom CSS file -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-orange-50">
+
+    <div class="max-w-3xl mx-auto p-6 bg-#F53803 rounded-lg shadow-lg">
+        <div class="flex items-center space-x-4">
+            <img src="{{ user.profile_image.url }}" alt="Profile Image" class="w-32 h-32 rounded-full border-4 border-yellow-500">
+            <div>
+                <h1 class="text-2xl font-bold">{{ user.first_name }} {{ user.last_name }}</h1>
+                <p class="text-gray-500">{{ user.email }}</p>
+                <p class="mt-2 text-lg font-semibold">Following | Followers</p>
+                <p class="mt-2 text-gray-600 italic">{{ user.details }}</p>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <a href="{% url 'auth:edit_profile' %}" class="inline-block bg-orange-500 text-black py-2 px-4 rounded-lg">Edit Profile</a>
+        </div>
+
+        <h2 class="mt-6 text-xl font-bold">❤ FAVORITES</h2>
+        <p> No favorites yet. </p>
+
+        <h2 class="mt-6 text-xl font-bold">📄 RECIPE SUBMITTED</h2>
+        <p> No recipe submitted yet. </p>
+    </div>
+
+</body>
+</html>

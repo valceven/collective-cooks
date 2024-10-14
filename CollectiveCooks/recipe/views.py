@@ -10,4 +10,4 @@ def add_recipe_view(request):
             return redirect('homepage')
     else:
         form = AddRecipeForm()
-    return render(request, 'add_recipe.html', {'form': form})
+    return render(request, 'recipe/add_recipe.html', {'form': form})

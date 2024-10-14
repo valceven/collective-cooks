@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import LogInForm, RegistrationForm
+from .forms import LogInForm, RegistrationForm, EditProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -50,6 +50,26 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
         return redirect('homepage')
-    
+
+@login_required
 def profile_view(request):
-    return render(request, 'profile/profile.html')
+    user = request.user
+    return render(request, 'profile/profile.html', {'user': user})
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated!')
+            return redirect('auth:profile')  # Correctly references the namespaced profile URL
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = EditProfileForm(instance=request.user)  # Pre-fill the form with the current user data
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'profile/edit_profile.html', context)

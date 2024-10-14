@@ -37,3 +37,8 @@ class RegistrationForm(UserCreationForm):
         if User.objects.filter(email = email).exists():
             raise forms.ValidationError('This email already exists in the database!')
         return email
+    
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['bio', 'profile_picture']  # Only include fields the user can edit

@@ -57,6 +57,10 @@
           </div>
         </div>
 
+        {% if request.GET.next %}
+          <input type="hidden" name="next" value="{{ request.GET.next }}" />
+        {% endif %}
+
         <div class="flex flex-col justify-center align-center">
         <button type="submit" class="w-full bg-accent1 text-white py-2 rounded-lg hover:bg-accent2">Login</button>
         

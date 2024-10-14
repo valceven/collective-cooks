@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{% static "css/styles.css" %}" rel="stylesheet">
     {% tailwind_css %}
     <title>Cooks Collective</title>
 </head>
@@ -51,7 +52,7 @@
                     {% if user.is_authenticated %}
                         <div class="relative group inline-block">
                             <button id="dropdownDefaultButton" class="text button">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" width="3.2" height="3.2em" class="user-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" width="3.2em" height="3.2em" class="user-icon">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                 </svg>
                             </button>
@@ -60,7 +61,7 @@
                             <div id="dropdown" class="absolute hidden group-hover:flex flex-col z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 border-2 border-current top-12 right-px">
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                                     <li>
-                                        <a href="{% url 'auth:profile' %}" class="block px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My Profile</a>
+                                        <a href="{% url 'auth:profile' user.id %}" class="block px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My Profile</a>
                                     </li>
                                     <li>
                                         <form action="{% url 'auth:logout' %}" method="post" class="block">
@@ -73,7 +74,7 @@
                         </div>
                     {% else %}
                         <a href="{% url 'auth:login' %}">
-                            <button class="ml-2 text-2xl font-bold h-16 w-32 bg-accent1 text-dark-mode dark:text-light-mode dark:bg-dark-accent2 px-5 py-2 rounded-full hover:bg-accent2 dark:hover:bg-dark-bg dark:text-white">
+                            <button class="ml-2 text-2xl font-bold h-16 w-32 bg-accent1 text-white dark:text-light-mode dark:bg-dark-accent2 px-5 py-2 rounded-full hover:bg-accent2 dark:hover:bg-dark-bg">
                                 Login
                             </button>
                         </a>

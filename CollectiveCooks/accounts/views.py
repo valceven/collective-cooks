@@ -1,13 +1,19 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .forms import LogInForm, RegistrationForm
+from .forms import LogInForm, RegistrationForm, EditProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from favorites.models import Favorite
+from recipe.models import Recipe
+from .models import User
 
 # Create your views here.
 def login_view(request):
+
+    if request.user.is_authenticated:
+        return redirect('homepage')
+
     if request.method == "POST":
         form = LogInForm(data=request.POST) 
 
@@ -21,6 +27,8 @@ def login_view(request):
             if user is not None:
                 print("User authenticated")
                 login(request, user)
+                if "next" in request.POST:
+                    return redirect(request.POST.get('next'))
                 return redirect('homepage')
             else:
                 messages.error(request, "Invalid username or password. Please try again.")
@@ -34,6 +42,10 @@ def login_view(request):
 
 
 def register_view(request):
+
+    if request.user.is_authenticated:
+        return redirect('homepage')
+    
     if request.method == "POST":
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -50,6 +62,35 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
         return redirect('homepage')
-    
-def profile_view(request):
-    return render(request, 'profile/profile.html')
+
+@login_required(login_url="/auth/login")
+def profile_view(request, user_id):
+    user = User.objects.get(id=user_id)
+
+    favorites = Favorite.objects.filter(user_id=user)
+    recipes = Recipe.objects.filter(username=user)
+
+    context = {
+        'user': user,
+        'favorites': favorites,
+        'recipes': recipes,
+    }
+
+    return render(request, 'profile/profile.html', context)
+
+@login_required(login_url="/auth/login")
+def edit_profile(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated!')
+            return redirect('auth:profile', user_id=user_id)
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = EditProfileForm(instance=user)
+
+    return render(request, 'profile/edit_profile.html', {'form': form})

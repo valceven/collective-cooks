@@ -10,6 +10,7 @@ class Recipe(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     description = models.CharField(max_length=255, null=False,default="No Input")
     procedure = models.CharField(max_length=255, null=False, default="No Input")
+    image = models.ImageField(default="default_food.png")
 
     def __str__(self):
         return self.description

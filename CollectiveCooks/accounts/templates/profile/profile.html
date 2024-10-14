@@ -1,1 +1,62 @@
-<h1>nice</h1>
+{% extends 'layout.html' %}
+
+{% block title %}
+  Profile - Collective Cooks
+{% endblock %}
+
+{% block content %}
+  <div class="w-[80%] mx-auto p-8 bg-orange-100 rounded-3xl shadow-lg dark:bg-slate-800">
+
+    <div class="flex flex-col items-top p-4">
+        <div class="flex items-center space-x-6">
+            <img src="{{ user.avatar.url }}" alt="Profile Image" class="w-40 h-40 rounded-full border-4 border-yellow-500">
+            <div>
+                <h1 class="text-4xl font-bold">{{ user.first_name }} {{ user.last_name }}</h1>
+                <p class="text-gray-600">{{ user.email }}</p>
+                <p class="mt-3 text-xl font-semibold">Following | Followers</p>
+                <p class="mt-3 text-gray-600 italic">{{ user.details }}</p>
+            </div>
+        </div>
+  
+        <div class="mr-8 mt-6">
+          <a href="{% url 'auth:edit_profile' user.id %}" class="inline-block bg-accent2 text-white py-2 px-4 rounded-lg">Edit Profile</a>
+        </div>
+    </div>
+      
+      <h2 class="mt-8 text-xl font-bold text-4xl ml-2"> ❤ FAVORITES</h2>
+        {% if favorites %}
+            <div class="flex overflow-x-auto space-x-8 mx-2 mt-4 ml-2 text-xl">
+                {% for favorite in favorites %}
+                    <div class="bg-accent1 shadow-md rounded-lg p-2 flex flex-col items-center w-64">
+                        <div class="bg-gray-200 h-48 w-full rounded-lg mb-2 flex items-center justify-center">
+                            <img src="{{ favorite.recipe_id.image.url }}" alt="Food Image" class="h-full w-full object-cover rounded-lg">
+                        </div>
+                        <h3 class="text-lg font-semibold">{{ favorite.recipe_id.title }}</h3>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No favorites yet.</p>
+        {% endif %}
+
+
+        <h2 class="mt-8 text-xl font-bold text-4xl ml-2">📄 RECIPE SUBMITTED</h2>
+        {% if recipes %}
+            <div class="flex overflow-x-auto space-x-8 mx-2 mt-4 ml-2 text-xl">
+                {% for recipe in recipes %}
+                    <div class="bg-accent1 shadow-md rounded-lg p-2 flex flex-col items-center w-64">
+                        <div class="bg-gray-200 h-48 w-full rounded-lg mb-2 flex items-center justify-center">
+                            <img src="{{ recipe.image.url }}" alt="Food Image" class="h-full w-full object-cover rounded-lg">
+                        </div>
+                        <h3 class="text-lg font-semibold">{{ recipe.title }}</h3>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No recipe submitted yet.</p>
+        {% endif %}
+        
+  </div>
+{% endblock %}
+
+ 

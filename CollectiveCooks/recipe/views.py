@@ -4,10 +4,10 @@ from .forms import AddRecipeForm
 # Create your views here.
 def add_recipe_view(request):
     if request.method == 'POST':
-        form = AddRecipeForm(request.POST)
+        form = AddRecipeForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
             return redirect('homepage')
     else:
-        form = AddRecipeForm()
+        form = AddRecipeForm(user=request.user)
     return render(request, 'add_recipe.html', {'form': form})

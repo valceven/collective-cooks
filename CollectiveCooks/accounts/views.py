@@ -10,33 +10,23 @@ from .models import User
 
 # Create your views here.
 def login_view(request):
-
     if request.user.is_authenticated:
         return redirect('homepage')
 
-    if request.method == "POST":
-        form = LogInForm(data=request.POST) 
+    form = LogInForm(data=request.POST or None)  # Simplified handling
 
-        if form.is_valid():
-            print("Form is valid")
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+    if request.method == "POST" and form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(request, username=username, password=password)
 
-            user = authenticate(request, username=username, password=password)
-
-            if user is not None:
-                print("User authenticated")
-                login(request, user)
-                if "next" in request.POST:
-                    return redirect(request.POST.get('next'))
-                return redirect('homepage')
-            else:
-                messages.error(request, "Invalid username or password. Please try again.")
+        if user is not None:
+            login(request, user)
+            return redirect(request.POST.get('next', 'homepage'))
         else:
-            print("Form errors:", form.errors) 
-            messages.error(request, 'Please fix your inputs. Errors: {}'.format(form.errors))
+            messages.error(request, "Invalid username or password. Please try again.")
     else:
-        form = LogInForm()
+        messages.error(request, 'Please fix your inputs. Errors: {}'.format(form.errors))
 
     return render(request, 'login/login_page.html', {'login_form': form})
 
@@ -58,14 +48,17 @@ def register_view(request):
 
     return render(request, 'register/register_page.html', {'form': form})
 
+@login_required
 def logout_view(request):
     if request.method == "POST":
         logout(request)
+        messages.success(request, "You have been logged out successfully.")
         return redirect('homepage')
+
 
 @login_required(login_url="/auth/login")
 def profile_view(request, user_id):
-    user = User.objects.get(id=user_id)
+    user = get_object_or_404(User, id=user_id) 
 
     favorites = Favorite.objects.filter(user_id=user)
     recipes = Recipe.objects.filter(username=user)
@@ -81,6 +74,10 @@ def profile_view(request, user_id):
 @login_required(login_url="/auth/login")
 def edit_profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
+
+    if request.user != user:
+        messages.error(request, "You are not allowed to edit this profile.")
+        return redirect('auth:profile', user_id=request.user.id)
 
     if request.method == 'POST':
         form = EditProfileForm(request.POST, request.FILES, instance=user)

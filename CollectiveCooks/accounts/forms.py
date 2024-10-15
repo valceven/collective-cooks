@@ -83,10 +83,18 @@ class EditProfileForm(forms.ModelForm):
             'class': 'form-control-file'
         })
     )
+    details = forms.CharField(
+        max_length=254,
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your bio here'
+        })
+    )
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'gender', 'birthdate', 'avatar']
+        fields = ['first_name', 'last_name', 'email', 'gender', 'birthdate', 'avatar','details']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

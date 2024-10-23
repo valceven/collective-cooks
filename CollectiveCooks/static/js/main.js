@@ -1,4 +1,3 @@
-    console.log("oten");
     // Dark Mode Toggle Logic
     const toggle = document.getElementById('theme-toggle');
     const html = document.querySelector('html');

@@ -6,23 +6,53 @@
 
 {% block content %}
   
-  <div class="flex justify-around pl-40 py-16 bg-accent1 h-[24rem] text-white">
-    <div class="w-1/2">
-      <h1 class="font-bold text-[2.5rem] mb-5">Share Flavors, Connect Through Food! </h1>
-      <p class="text-2xl">Join CooksCollective, the go-to platform for home cooks</p>
-      <p class="text-2xl">and chefs to explore, share, and organize recipes across</p>
-      <p class="text-2xl">all cuisines and dirtary preferences.</p>
+  <div class="flex flex-col lg:flex-row justify-between items-stretch lg:pl-40 py-16 bg-accent1 h-auto lg:h-[26rem] text-white">
+    <div class="w-full lg:w-1/2 px-4 lg:px-0 text-center lg:text-left">
+      <h1 class="font-bold text-[2.0rem] mb-5 lg:text-[2.5rem]">Share Flavors, Connect Through Food! </h1>
+      <p class="text-lg lg:text-2xl">Join CooksCollective, the go-to platform for home cooks</p>
+      <p class="text-lg lg:text-2xl">and chefs to explore, share, and organize recipes across</p>
+      <p class="text-lg lg:text-2xl">all cuisines and dirtary preferences.</p>
 
-      <button class="mt-8 bg-accent2 hover:bg-accent1 hover:text-accent2 text-white text-3xl font-bold hover:border-4 hover:border-accent2 pb-1 rounded-xl w-56 h-14">
-        <a href="{% url 'auth:register' %}">SIGN-UP</a>
+      <button class="mt-8 bg-accent2 hover:bg-accent1 hover:text-accent2 text-white text-2xl lg:text-3xl font-bold hover:border-4 hover:border-accent2 pb-1 rounded-xl w-48 lg:w-56 h-12 lg:h-14">
+        {% if not user.is_authenticated %}
+          <a href="{% url 'auth:register' %}">SIGN-UP</a>
+        {% else %}
+          <a href="{% url 'auth:register' %}">SHARE-RECIPE</a>
+        {% endif %}
       </button>
     </div>
-    <div class="w-1/2">
-      <h1 class="font-bold text-[2.5rem] mb-5">Share Flavors, Connect Through Food! </h1>
-      <p class="text-2xl">Join CooksCollective, the go-to platform for home cooks</p>
-      <p class="text-2xl">and chefs to explore, share, and organize recipes across</p>
-      <p class="text-2xl">all cuisines and dirtary preferences.</p>
+    <div class="w-full lg:w-1/2 mt-10 lg:mt-0 px-4 lg:px-0 text-center lg:text-left">
+      <h1 class="font-bold text-[2rem] lg:text-[2.5rem] mb-5">Share Flavors, Connect Through Food!</h1>
+      <p class="text-lg lg:text-2xl">Join CooksCollective, the go-to platform for home cooks</p>
+      <p class="text-lg lg:text-2xl">and chefs to explore, share, and organize recipes across</p>
+      <p class="text-lg lg:text-2xl">all cuisines and dietary preferences.</p>
     </div>
+  </div>
+
+  <div class="lg:mt-5 h-auto lg:h-[48rem]">
+    <div class="flex items-center">
+      <div class="flex-grow border-t-4 border-accent1"></div>
+      <h1 class="text-center text-5xl font-bold text-accent2 p-4">
+        Most Popular Contributor
+      </h1>
+      <div class="flex-grow border-t-4 border-accent1"></div>
+    </div>
+    <div class="flex items-center justify-center bg-gradient-accent w-[45%] mx-auto rounded-3xl h-[55%] mt-8">
+      <div class="w-[45%] h-full">
+        <img src="{{ user.avatar.url }}" alt="user image was here" class="h-full w-full object-fit rounded-l-xl  border-white shadow-lg">
+      </div>
+      <div class="flex flex-col items-start w-[55%] text-white px-8">
+        <h2 class="text-4xl font-bold text-align-top"> {{ user.first_name }} {{ user.last_name }} </h2>
+        <div class="w-full border-t-2 border-white my-2 text-lg"></div>
+        <p class="mb-2 text-sm">1.5 B Followers</p>
+        <p class="text-lg my-6"> {{ user.details }}</p>
+      </div>
+    </div>
+    </div>
+
+    <div>
+    </div>
+
   </div>
 
 {% endblock %}

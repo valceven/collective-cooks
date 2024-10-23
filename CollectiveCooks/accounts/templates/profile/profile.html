@@ -5,25 +5,25 @@
 {% endblock %}
 
 {% block content %}
-  <div class="w-[80%] mx-auto p-8 bg-orange-100 rounded-3xl shadow-lg dark:bg-slate-800">
+  <div class="w-[90%] lg:w-[80%] mx-auto p-8 bg-orange-100 rounded-3xl shadow-lg dark:bg-slate-800 mt-5 lg:mt-0 ">
 
-    <div class="flex flex-col items-top p-4">
-        <div class="flex items-center space-x-6">
-            <img src="{{ user.avatar.url }}" alt="Profile Image" class="w-40 h-40 rounded-full border-4 border-yellow-500">
-            <div>
-                <h1 class="text-4xl font-bold">{{ user.first_name }} {{ user.last_name }}</h1>
-                <p class="text-gray-600">{{ user.email }}</p>
-                <p class="mt-3 text-xl font-semibold">Following | Followers</p>
+    <div class="flex flex-col items-top p-4 min-h-56">
+        <div class="block lg:flex items-center lg:space-x-6 space-y-4 lg:space-y-0">
+            <img src="{{ user.avatar.url }}" alt="Profile Image" class="w-32 h-32 lg:w-40 lg:h-40 rounded-full border-4 border-yellow-500 mx-auto lg:mx-0">
+            <div class="text-center lg:text-left">
+                <h1 class="text-2xl lg:text-4xl font-bold">{{ user.first_name }} {{ user.last_name }}</h1>
+                <p class="mt-3 text-gray-600">{{ user.email }}</p>
+                <p class="mt-3 text-lg lg:text-xl font-semibold">Following | Followers</p>
                 <p class="mt-3 text-gray-600 italic">{{ user.details }}</p>
             </div>
         </div>
   
-        <div class="mr-8 mt-6">
-          <a href="{% url 'auth:edit_profile' user.id %}" class="inline-block bg-accent2 text-white py-2 px-4 rounded-lg">Edit Profile</a>
+        <div class="flex items-center justify-center lg:block mt-4 lg:mt-5 lg:ml-5">
+          <a href="{% url 'auth:edit_profile' user.id %}" class="inline-block bg-accent2 text-white py-2 px-4 rounded-lg hover:bg-accent1 hover:border-2 hover:border-accent2">Edit Profile</a>
         </div>
     </div>
       
-      <h2 class="mt-8 text-xl font-bold text-4xl ml-2"> ❤ FAVORITES</h2>
+      <h2 class="flex items-center justify-center lg:block mt-4 lg:mt-8 text-xl font-bold lg:text-4xl ml-2">FAVORITES</h2>
         {% if favorites %}
             <div class="flex overflow-x-auto space-x-8 mx-2 mt-4 ml-2 text-xl">
                 {% for favorite in favorites %}
@@ -36,11 +36,11 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p>No favorites yet.</p>
+            <p class="flex items-center justify-center lg:ml-2 lg:block">No favorites yet.</p>
         {% endif %}
 
 
-        <h2 class="mt-8 text-xl font-bold text-4xl ml-2">📄 RECIPE SUBMITTED</h2>
+        <h2 class="flex items-center justify-center lg:block mt-4 lg:mt-8 text-xl font-bold lg:text-4xl ml-2">RECIPES SUBMITTED</h2>
         {% if recipes %}
             <div class="flex overflow-x-auto space-x-8 mx-2 mt-4 ml-2 text-xl">
                 {% for recipe in recipes %}
@@ -53,7 +53,7 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p>No recipe submitted yet.</p>
+        <p class="flex items-center justify-center lg:ml-2 lg:block">No recipes available.</p>
         {% endif %}
         
   </div>

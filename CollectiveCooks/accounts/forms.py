@@ -65,7 +65,7 @@ class EditProfileForm(forms.ModelForm):
     )
     gender = forms.ChoiceField(
         choices=User.Gender.choices,
-        required=True,
+        required=False,
         widget=forms.Select(attrs={
             'class': 'form-control'
         })

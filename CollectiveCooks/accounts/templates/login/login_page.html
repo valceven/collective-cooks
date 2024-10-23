@@ -10,11 +10,11 @@
 </head>
 <body class="h-screen flex justify-center items-center bg-orange-200 dark:bg-dark-mode">
 
-  <main class="flex w-full max-w-4xl rounded-lg shadow-lg overflow-hidden">
-    <div class="w-[55%] bg-accent1 flex justify-center items-center">
+  <main class="flex w-full lg:w-x-2xl rounded-lg xl:mx-84 lg:mx-72 mx-12 shadow-lg overflow-hidden">
+    <div class="w-0 lg:w-[55%] bg-accent1 flex justify-center items-center">
     </div>
 
-    <div class="w-[45%] flex flex-col justify-center p-8 bg-white dark:bg-gray-800">
+    <div class="w-full lg:w-[45%] flex flex-col justify-center p-8 bg-white dark:bg-gray-800">
       <h1 class="text-2xl font-bold mb-4">CooksCollective</h1>
       <h1 class="text-2xl font-bold ">Login</h1>
       <p class="mt-1 text-xs">Enter Your Account Information To Start Cooking!</p>
@@ -29,7 +29,6 @@
                   type="text" 
                   name="username" 
                   id="id_username" 
-                  value="{{ login_form.username.value }}" 
                   class="border border-gray-300 rounded-lg  mt-1 w-full focus:outline-none focus:ring focus:ring-blue-400" 
                   placeholder="Enter your username"
               >
@@ -47,7 +46,6 @@
               type="password"
               name="password"
               id="id_password"
-              value="{{ login_form.password.value }}"
               class="border border-gray-300 rounded-lg mt-1 w-full focus:outline-none focus:ring focus:ring-blue-400"
               placeholder="Enter Your Password"
             >

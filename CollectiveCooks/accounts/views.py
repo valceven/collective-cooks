@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from favorites.models import Favorite
 from recipe.models import Recipe
-from .models import User
+from .models import User, Follow
 
 # Create your views here.
 def login_view(request):
@@ -63,13 +63,23 @@ def profile_view(request, user_id):
     favorites = Favorite.objects.filter(user_id=user)
     recipes = Recipe.objects.filter(username=user)
 
+    following = user.following.all()
+    followers = user.followers.all()
+    self_following = Follow.objects.filter(follower=request.user, following=user)
+
     context = {
         'user': user,
         'favorites': favorites,
         'recipes': recipes,
+        'following': following,
+        'followers': followers,
+        'self_following': self_following,
+        'followers_count': followers.count(),
+        'following_count': following.count(),
     }
 
     return render(request, 'profile/profile.html', context)
+
 
 @login_required(login_url="/auth/login")
 def edit_profile(request, user_id):
@@ -91,3 +101,16 @@ def edit_profile(request, user_id):
         form = EditProfileForm(instance=user)
 
     return render(request, 'profile/edit_profile.html', {'form': form})
+
+@login_required(login_url="auth/login")
+def follow_user(request, user_id ):
+    if request.method == "POST":
+        user_to_follow = get_object_or_404(User, id=user_id)
+
+        if user_to_follow != request.user:
+            follow, created = Follow.objects.get_or_create(follower = request.user, following=user_to_follow)
+
+            if not created:
+                follow.delete()
+    
+    return redirect('auth:profile', user_id=user_id)

@@ -54,7 +54,7 @@
                         <div class="relative group inline-block">
                             <button id="dropdownDefaultButton" class="text button">
                                 <div class="h-16 w-16 rounded-full flex items-center justify-center">
-                                    <img src="{{ user.avatar.url }}" alt="User Image" class="h-12 w-12 object-cover rounded-full">
+                                    <img src="{{ request.user.avatar.url }}" alt="User Image" class="h-12 w-12 object-cover rounded-full">
                                 </div>
                             </button>
     
@@ -62,7 +62,7 @@
                             <div id="dropdown" class="absolute hidden group-hover:flex flex-col z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 border-2 border-current top-12 right-px">
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                                     <li>
-                                        <a href="{% url 'auth:profile' user.id %}" class="block px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My Profile</a>
+                                        <a href="{% url 'auth:profile' request.user.id %}" class="block px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My Profile</a>
                                     </li>
                                     <li>
                                         <form action="{% url 'auth:logout' %}" method="post" class="block">

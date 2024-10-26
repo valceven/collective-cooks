@@ -1,4 +1,5 @@
 {% load static tailwind_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +9,11 @@
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   {% tailwind_css %}
 </head>
-<body class="h-screen flex justify-center items-center bg-orange-200 dark:bg-dark-mode">
+<body class="h-screen flex justify-center items-center bg-orange-300 dark:bg-dark-mode">
 
   <main class="flex w-full lg:w-x-2xl rounded-lg xl:mx-84 lg:mx-72 mx-12 shadow-lg overflow-hidden">
-    <div class="w-0 lg:w-[55%] bg-accent1 flex justify-center items-center">
+    <div class="w-0 lg:w-[55%] flex justify-center items-center">
+      <img src="{% static 'images/login-bg.jpg' %}" alt="An orange was here" class="object-cover w-full h-full">
     </div>
 
     <div class="w-full lg:w-[45%] flex flex-col justify-center p-8 bg-white dark:bg-gray-800">

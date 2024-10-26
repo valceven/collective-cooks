@@ -20,8 +20,21 @@ module.exports = {
     },
     darkMode: "class",  // Automatically applies dark mode based on user's system preferences
     plugins: [
-        require('@tailwindcss/forms'),        // Tailwind Forms plugin
-        require('@tailwindcss/typography'),   // Tailwind Typography plugin
-        require('@tailwindcss/aspect-ratio'), // Tailwind Aspect Ratio plugin
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),  
+        require('@tailwindcss/aspect-ratio'),
+        function ({addUtilities}) {
+            const newUtilities = {
+                ".no-scrollbar::-webkit-scrollbar" : {
+                    display: "none",
+                },
+                ".no-scrollbar":{
+                    'ms-overflow-style':'none',
+                    'scrollbar-width':'none',
+                }
+            };
+
+            addUtilities(newUtilities)
+        }
     ],
 };

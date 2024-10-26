@@ -34,15 +34,15 @@
         </div>
     </div>
       
-      <h2 class="flex items-center justify-center lg:block mt-4 lg:mt-8 text-xl font-bold lg:text-4xl ml-2">FAVORITES</h2>
+      <h2 class="lg:block mt-4 lg:mt-8 text-2xl font-bold lg:text-4xl ml-2">❤️FAVORITES</h2>
         {% if favorites %}
-            <div class="flex overflow-x-auto space-x-8 mx-2 mt-4 ml-2 text-xl">
-                {% for favorite in favorites %}
-                    <div class="bg-accent1 shadow-md rounded-lg p-2 flex flex-col items-center w-64">
-                        <div class="bg-gray-200 h-48 w-full rounded-lg mb-2 flex items-center justify-center">
+            <div class="flex overflow-x-scroll no-scrollbar space-x-8 mx-2 mt-4 ml-2 text-xl">
+                {% for favorite in favorites|slice:":5" %}
+                    <div class="flex flex-col items-center bg-accent1 shadow-md rounded-lg p-2 min-w-24 lg:min-w-48">
+                        <div class="bg-gray-200 h-24 lg:h-48 w-full rounded-lg mb-2 flex items-center justify-center">
                             <img src="{{ favorite.recipe_id.image.url }}" alt="Food Image" class="h-full w-full object-cover rounded-lg">
                         </div>
-                        <h3 class="text-lg font-semibold">{{ favorite.recipe_id.title }}</h3>
+                        <h3 class="text-white text-sm lg:text-lg font-semibold">{{ favorite.recipe_id.title }}</h3>
                     </div>
                 {% endfor %}
             </div>
@@ -51,15 +51,15 @@
         {% endif %}
 
 
-        <h2 class="flex items-center justify-center lg:block mt-4 lg:mt-8 text-xl font-bold lg:text-4xl ml-2">RECIPES SUBMITTED</h2>
+        <h2 class="lg:block mt-8 lg:mt-8 text-2xl font-bold lg:text-4xl ml-2">👩‍🍳RECIPES SUBMITTED</h2>
         {% if recipes %}
-            <div class="flex overflow-x-auto space-x-8 mx-2 mt-4 ml-2 text-xl">
-                {% for recipe in recipes %}
-                    <div class="bg-accent1 shadow-md rounded-lg p-2 flex flex-col items-center w-64">
-                        <div class="bg-gray-200 h-48 w-full rounded-lg mb-2 flex items-center justify-center">
+            <div class="flex overflow-x-scroll no-scrollbar space-x-8 mx-2 mt-4 ml-2 text-xl">
+                {% for recipe in recipes|slice:":5" %}
+                <div class="flex flex-col items-center bg-accent1 shadow-md rounded-lg p-2 min-w-24 lg:min-w-48">
+                    <div class="bg-gray-200 h-24 lg:h-48 w-full rounded-lg mb-2 flex items-center justify-center">
                             <img src="{{ recipe.image.url }}" alt="Food Image" class="h-full w-full object-cover rounded-lg">
                         </div>
-                        <h3 class="text-lg font-semibold">{{ recipe.title }}</h3>
+                        <h3 class="text-white text-sm lg:text-lg font-semibold">{{ recipe.title }}</h3>
                     </div>
                 {% endfor %}
             </div>

@@ -26,6 +26,7 @@ urlpatterns = [
     path('auth/',include('accounts.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
     path('recipe/', include('recipe.urls')),
+    path('about/', views.about, name="about"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

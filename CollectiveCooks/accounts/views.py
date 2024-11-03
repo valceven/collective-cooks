@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from favorites.models import Favorite
 from recipe.models import Recipe
 from .models import User, Follow
+from django.db.models import Q
 
 # Create your views here.
 def login_view(request):
@@ -114,3 +115,23 @@ def follow_user(request, user_id ):
                 follow.delete()
     
     return redirect('auth:profile', user_id=user_id)
+
+@login_required(login_url="auth/login")
+def search_user(request):
+    query = request.GET.get('q', '')
+    users = []
+
+    if query:
+        users = User.objects.filter(
+            Q(username__icontains=query) | 
+            Q(email__icontains=query)
+        )
+
+    context = {
+        'users': users,
+        'query': query,
+    }
+    return render(request, 'search/search_results.html', context)
+
+def about(request):
+    return render(request, 'about.html')

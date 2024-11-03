@@ -26,7 +26,8 @@ urlpatterns = [
     path('auth/',include('accounts.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
     path('recipe/', include('recipe.urls')),
+    path('about/', views.about, name="about"),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

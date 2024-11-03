@@ -8,16 +8,48 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% tailwind_css %}
 </head>
-<body class="h-screen flex justify-center items-center bg-orange-200 dark:bg-dark-mode">
+<body class="my-5 lg:h-full flex justify-center items-center bg-orange-200 dark:bg-dark-mode">
 
-    <main class="flex w-full max-w-6xl rounded-lg shadow-lg overflow-hidden">
-        <div class="w-[55%] flex flex-col justify-center p-12 bg-white dark:bg-gray-800">
+    <main class="flex w-full max-w-full lg:mx-24 mx-8 rounded-lg shadow-lg overflow-hidden">
+        <div class="w-full lg:w-[55%] flex flex-col justify-center p-8 lg:p-12 bg-white dark:bg-gray-800">
             <h1 class="text-2xl font-bold mb-4">CooksCollective</h1>
             <h1 class="text-2xl font-bold">Register</h1>
             <p class="mt-1 text-xs">Create an account to start cooking!</p>
 
             <form method="POST" action="{% url 'auth:register' %}" class="space-y-3">
                 {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="id_first_name" class="block text-sm font-medium ml-1 mb-1">First Name:</label>
+                    <div>
+                        <input 
+                            type="text" 
+                            name="first_name" 
+                            id="id_first_name" 
+                            class="border border-gray-300 rounded-lg mt-1 w-full focus:outline-none focus:ring focus:ring-blue-400" 
+                            placeholder="Enter your first name"
+                        >
+                        {% if form.first_name.errors %}
+                            <div class="text-red-500 text-sm">{{ form.first_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_last_name" class="block text-sm font-medium ml-1 mb-1">Last Name:</label>
+                    <div>
+                        <input 
+                            type="text" 
+                            name="last_name" 
+                            id="id_last_name" 
+                            class="border border-gray-300 rounded-lg mt-1 w-full focus:outline-none focus:ring focus:ring-blue-400" 
+                            placeholder="Enter your last name"
+                        >
+                        {% if form.last_name.errors %}
+                            <div class="text-red-500 text-sm">{{ form.last_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
 
                 <div class=>
                     <label for="id_username" class="block text-sm font-medium ml-1 mb-1">Username:</label>
@@ -26,7 +58,6 @@
                             type="text" 
                             name="username" 
                             id="id_username" 
-                            value="{{ form.username.value }}" 
                             class="border border-gray-300 rounded-lg mt-1 w-full focus:outline-none focus:ring focus:ring-blue-400" 
                             placeholder="Enter your username"
                         >
@@ -43,7 +74,6 @@
                             type="email" 
                             name="email" 
                             id="id_email" 
-                            value="{{ form.email.value }}" 
                             class="border border-gray-300 rounded-lg mt-1 w-full focus:outline-none focus:ring focus:ring-blue-400" 
                             placeholder="Enter your email"
                         >
@@ -60,7 +90,6 @@
                             type="password" 
                             name="password1" 
                             id="id_password1" 
-                            value="{{ form.password1.value }}" 
                             class="border border-gray-300 rounded-lg mt-1 w-full focus:outline-none focus:ring focus:ring-blue-400" 
                             placeholder="Enter your password"
                         >
@@ -77,7 +106,6 @@
                             type="password" 
                             name="password2" 
                             id="id_password2" 
-                            value="{{ form.password2.value }}" 
                             class="border border-gray-300 rounded-lg mt-1 w-full focus:outline-none focus:ring focus:ring-blue-400" 
                             placeholder="Confirm your password"
                         >
@@ -112,8 +140,7 @@
                             <input 
                                 type="date" 
                                 name="birthdate" 
-                                id="id_birthdate" 
-                                value="{{ form.birthdate.value }}" 
+                                id="id_birthdate"  
                                 class="border border-gray-300 rounded-lg mt-1 w-full focus:outline-none focus:ring focus:ring-blue-400" 
                             >
                             {% if form.birthdate.errors %}
@@ -130,12 +157,9 @@
                 <p class="mt-4 text-sm">Already have an account? <a href="{% url 'auth:login' %}" class="text-accent1 hover:underline">Login here.</a></p>
             </form>
 
-            {% for message in messages %}
-                <div class="text-red-500">{{ message }}</div>
-            {% endfor %}
         </div>
 
-        <div class="w-[45%] bg-accent1 flex justify-center items-center">
+        <div class="w-0 lg:w-[45%] bg-accent1 flex justify-center items-center">
             <!-- Background content can be added here -->
             <div class="text-white text-center">
                 <h2 class="text-3xl font-bold">Welcome to CooksCollective!</h2>

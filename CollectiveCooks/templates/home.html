@@ -5,9 +5,59 @@
 {% endblock %} 
 
 {% block content %}
-  <h1>Home</h1>
-  <p>Check out my <a href="{% url 'auth:login' %}">login page.</a></p>
   
-  <p>Or even <a href="/recipe/add"> Add Recipe </a> </p>
+  <div class="flex flex-col lg:flex-row justify-between  lg:pl-40 py-16 bg-accent1 h-auto lg:h-[28rem] text-white">
+    <div class="w-full lg:w-1/2 px-4 lg:px-0 text-center lg:text-left">
+      <h1 class="font-bold text-[2.0rem] mb-5 lg:text-[2.5rem]">Share Flavors, Connect Through Food! </h1>
+      <p class="text-lg lg:text-2xl">Join CooksCollective, the go-to platform for home cooks</p>
+      <p class="text-lg lg:text-2xl">and chefs to explore, share, and organize recipes across</p>
+      <p class="text-lg lg:text-2xl">all cuisines and dirtary preferences.</p>
+
+      <button class="mt-8 bg-accent2 hover:bg-accent1 hover:text-accent2 text-white text-2xl lg:text-3xl font-bold hover:border-4 hover:border-accent2 pb-1 rounded-xl w-48 lg:w-56 h-12 lg:h-14">
+        {% if not user.is_authenticated %}
+          <a href="{% url 'auth:register' %}">SIGN-UP</a>
+        {% else %}
+          <a href="{% url 'auth:register' %}">SHARE-RECIPE</a>
+        {% endif %}
+      </button>
+    </div>
+    <div class="w-full lg:w-1/2 mt-10 lg:mt-0 px-4 lg:px-0 text-center lg:text-left">
+      <h1 class="font-bold text-[2rem] lg:text-[2.5rem] mb-5">Share Flavors, Connect Through Food!</h1>
+      <p class="text-lg lg:text-2xl">Join CooksCollective, the go-to platform for home cooks</p>
+      <p class="text-lg lg:text-2xl">and chefs to explore, share, and organize recipes across</p>
+      <p class="text-lg lg:text-2xl">all cuisines and dietary preferences.</p>
+    </div>
+  </div>
+
+  <div class="mt-4 lg:mt-5 h-auto lg:h-[48rem]">
+    <div class="flex items-center">
+      <div class="flex-grow border-t-4 border-accent1"></div>
+      <h1 class="text-center text-3xl lg:text-5xl font-bold text-accent2 p-4">
+        Most Popular Contributor
+      </h1>
+      <div class="flex-grow border-t-4 border-accent1"></div>
+    </div>
+    <div class="shadow-lg shadow-2xl shadow-accent2 flex flex-col lg:flex-row lg:items-center lg:justify-center
+      bg-gradient-accent w-[90%] lg:w-[50%] mx-auto rounded-xl lg:rounded-3xl h-auto lg:h-[55%] mt-4 lg:mt-8">
+
+      <div class="w-full lg:w-[45%] h-48 lg:h-full">
+        <img src="{{ user.avatar.url }}" alt="user image was here"
+          class="h-full w-full object-cover rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none border-white shadow-lg">
+      </div>
+
+      <div class="flex flex-col items-start w-full lg:w-[55%] text-white px-4 lg:px-8 py-4">
+        <h2 class="text-3xl lg:text-4xl font-bold">{{ user.first_name }} {{ user.last_name }}</h2>
+        <div class="w-full border-t-2 border-white my-2"></div>
+        <p class="mb-2 text-sm">1.5 B Followers</p>
+        <p class="text-base lg:text-lg my-4">{{ user.details }}</p>
+      </div>
+
+    </div>
+  </div>
+
+    <div>
+    </div>
+
+  </div>
 
 {% endblock %}

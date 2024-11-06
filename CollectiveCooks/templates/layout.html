@@ -98,38 +98,37 @@
     </main>
 
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="logo-container">
-                    <a href="{% url 'homepage' %}"> <img src="{% static 'images/image-logo.png' %}" alt="Cooks Collective Logo" class="logo" width='100px'></a>
+    <footer class="bg-[#fcf9f8] dark:bg-slate-800 border-t-2 border-[#f6f2f2] py-12 px-5 lg:mt-0 mt-12 dark:text-white">
+        <div class="w-full mx-auto px-7">
+            <div class="lg:grid lg:grid-cols-4 gap-5">
+
+                <div class="flex justify-center">
+                    <a href="{% url 'homepage' %}"> <img src="{% static 'images/image-logo.png' %}" alt="Cooks Collective Logo" class="w-24 h-24 lg:w-full lg:h-full mb-2 gap-2"></a>
                 </div>
-                <div class="links">
+
+                <div class="text-left mb-8 lg:mb-0">
                     <h3 class="footer-title">Learn More</h3>
-                    <br>
-                    <ul>
+                    <ul class="list-none space-y-2 lg:mt-7">
+                        <li><a href="#">Environment</a></li>
                         <li><a href="{% url 'about' %}">About Cooks Collective</a></li>
                         <li><a href="#">Press Releases</a></li>
-                        <li><a href="#">Environment</a></li>
                         <li><a href="#">Jobs</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Contact Us</a></li>
                     </ul>
                 </div>
     
-                <div class="contact">
+                <div class="text-left mb-8 lg:mb-0">
                     <h3 class="footer-title">Contact Us</h3>
-                    <br>
-                    <ul>
+                    <ul class="list-none space-y-2 lg:mt-7">
                         <li>Email: cookscollective@email.com</li>
                         <li>Ticket Office: 123-456-7890</li>
                     </ul>
                 </div>
 
-                <div class="social">
+                <div class="mb-8 lg:mb-0">
                     <h3 class="footer-title">Social</h3>
-                    <br>
-                    <ul class="social-links">
+                    <ul class="flex gap-3 lg:mt-7">
                         <li>
                             <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -168,10 +167,8 @@
                     </ul>
                 </div>
                 
-                <div class="footer-rights">
-                    <hr>
-                    <br><br>
-                    <p>© 2024 CooksCollective. All Rights Reserved.</p>
+                <div class="col-span-4 border-t-2 text-center mt-5 pt-6">
+                    <p class="dark:text-white">© 2024 CooksCollective. All Rights Reserved.</p>
                 </div>
             </div>
         </div>

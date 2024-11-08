@@ -1,4 +1,5 @@
 {% extends 'layout.html' %} 
+{% load static %}
 
 {% block title %} 
   Collective Cooks
@@ -21,13 +22,20 @@
         {% endif %}
       </button>
     </div>
-    <div class="w-full lg:w-1/2 mt-10 lg:mt-0 px-4 lg:px-0 text-center lg:text-left">
-      <h1 class="font-bold text-[2rem] lg:text-[2.5rem] mb-5">Share Flavors, Connect Through Food!</h1>
-      <p class="text-lg lg:text-2xl">Join CooksCollective, the go-to platform for home cooks</p>
-      <p class="text-lg lg:text-2xl">and chefs to explore, share, and organize recipes across</p>
-      <p class="text-lg lg:text-2xl">all cuisines and dietary preferences.</p>
+
+    <div class="hidden lg:flex w-full lg:w-1/2 mt-10 lg:mt-0 p-6 flex flex-col lg:flex-row items-center justify-center space-y-4 lg:space-y-0 lg:space-x-4">
+      <div class="w-1/3">
+          <img src="{% static 'images/dech.jpg' %}" alt="Dish 1" class="rounded-lg w-full h-auto" />
+      </div>
+      <div class="w-1/3">
+          <img src="{% static 'images/fiel.jpg' %}" alt="Dish 2" class="rounded-lg w-full h-auto" />
+      </div>
+      <div class="w-1/3">
+          <img src="{% static 'images/vmc.png' %}" alt="Dish 3" class="rounded-lg w-full h-auto" />
+      </div>
     </div>
   </div>
+
 
   <div class="mt-4 lg:mt-5 h-auto lg:h-[48rem]">
     <div class="flex items-center">

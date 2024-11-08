@@ -13,7 +13,19 @@ class User(AbstractUser):
     birthdate = models.DateField(default=timezone.now)
     gender = models.CharField(max_length=1, choices=Gender.choices, default=Gender.OTHER)
     details = models.TextField(max_length=254, null=True, blank=True)
-    avatar = models.ImageField(default="default_avatar.png", null=True)   
+    avatar = models.ImageField(null=True)
+
+    def save(self, *args, **kwargs):
+
+        if not self.avatar:
+            if self.gender == self.Gender.MALE:
+                self.avatar = 'mchef.png'
+            elif self.gender == self.Gender.FEMALE:
+                self.avatar = 'fchef.png'
+            else:
+                self.avatar = 'default_avatar'
+        
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.username

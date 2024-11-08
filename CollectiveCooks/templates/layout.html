@@ -98,7 +98,7 @@
     </main>
 
 
-    <footer class="bg-[#fcf9f8] dark:bg-slate-800 border-t-2 border-[#f6f2f2] py-12 px-5 lg:mt-0 mt-12 dark:text-white">
+    <footer class="bg-[#fcf9f8] dark:bg-slate-800 border-t-2 border-[#f6f2f2] py-12 px-5 mt-12 dark:text-white">
         <div class="w-full mx-auto px-7">
             <div class="lg:grid lg:grid-cols-4 gap-5">
 
@@ -178,28 +178,40 @@
 
     <!-- END OF MAIN -->
     <script>
-      function toggleDarkMode() {
-        const html = document.querySelector('html');
-        const sunIcon = document.getElementById('sun-icon');
-        const moonIcon = document.getElementById('moon-icon');
-        const userIcon = document.querySelector('.user-icon path')
-
-        if (html.classList.contains('dark')) {
-            html.classList.remove('dark');
-            moonIcon.classList.remove('hidden');
-            sunIcon.classList.add('hidden');
-            userIcon.setAttribute('stroke', 'black');
-        } else {
-            html.classList.add('dark');
-            moonIcon.classList.add('hidden');
-            sunIcon.classList.remove('hidden');
-            userIcon.setAttribute('stroke', 'white');
-        }
-    }
-     function handleUserIconClick() {
-        const userDropDown = document.getElementById('dropdown');
-        userDropDown.classList.toggle('hidden');
-     }
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            const themeToggle = document.getElementById("theme-toggle");
+            const sunIcon = document.getElementById("sun-icon");
+            const moonIcon = document.getElementById("moon-icon");
+    
+            const userPrefersDark = localStorage.getItem("theme") === "dark" || 
+                                    (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+            
+            if (userPrefersDark) {
+                document.documentElement.classList.add("dark");
+                sunIcon.classList.remove("hidden");
+                moonIcon.classList.add("hidden");
+            } else {
+                document.documentElement.classList.remove("dark");
+                sunIcon.classList.add("hidden");
+                moonIcon.classList.remove("hidden");
+            }
+    
+            themeToggle.addEventListener("click", () => {
+                document.documentElement.classList.toggle("dark");
+    
+                sunIcon.classList.toggle("hidden");
+                moonIcon.classList.toggle("hidden");
+    
+                if (document.documentElement.classList.contains("dark")) {
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    localStorage.setItem("theme", "light");
+                }
+            });
+        });
+    
+        
     </script>
 </body>
 </html>

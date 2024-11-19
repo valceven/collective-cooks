@@ -90,8 +90,8 @@
             </div>
             
             <!-- Hidden input to store concatenated ingredients and amount -->
-            <input type="text" name="ingredients" id="concatenated_ingredients" value="">
-            <input type="text" name="ingredients_count" id="concatenated_ingredients_counts" value="">
+            <input type="hidden" name="ingredients" id="concatenated_ingredients" value="">
+            <input type="hidden" name="ingredients_count" id="concatenated_ingredients_counts" value="">
         
             <!-- Procedure (Use JavaScript to dynamically add/remove steps) -->
             <div class="mb-4" id="procedure-container">
@@ -121,5 +121,6 @@
     </div>
 
     <script src="/static/js/add_recipe.js"></script>
+    <script src="/static/js/concat_input.js"></script>
 </body>
 </html>

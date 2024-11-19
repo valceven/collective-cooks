@@ -14,11 +14,11 @@ class Recipe(models.Model):
     title = models.CharField(max_length=50, null=False, default="Food")
     rating = models.FloatField(default=0.0)
     created_date = models.DateTimeField(default=timezone.now)
-    description = models.CharField(max_length=255, null=False, default="No Input")
+    description = models.TextField(null=False, default="No Input")
     procedures = models.CharField(max_length=1000, null=False, default="No Input")
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Breakfast')
     ingredients = models.CharField(max_length=255, default="No Input")
-    ingredients_count = models.CharField(max_length=255, default="1")
+    ingredients_count = models.TextField(default="1")
     image = models.ImageField(default="default_food.png", null=True)
 
     def __str__(self):

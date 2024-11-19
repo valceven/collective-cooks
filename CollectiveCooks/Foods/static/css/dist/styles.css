@@ -1313,6 +1313,16 @@ select {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
+.bg-accent2 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 208 32 / var(--tw-bg-opacity));
+}
+
+.bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -1702,6 +1712,16 @@ select {
 .dark\:bg-dark-mode:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(26 26 26 / var(--tw-bg-opacity));
+}
+
+.dark\:bg-gray-100:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
+.dark\:bg-gray-300:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .dark\:bg-gray-100:is(.dark *) {

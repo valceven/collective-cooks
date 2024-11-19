@@ -16,4 +16,4 @@ class Recipe(models.Model):
         return self.description
 
 class Ingredient(models.Model):
-    name = models.CharField(max_length=254)
+    name = models.CharField(max_length=254) 

@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import AddRecipeForm
 from .models import Recipe
+from accounts.models import User
 
 @login_required
 def add_recipe_view(request):
@@ -25,7 +26,7 @@ def add_recipe_view(request):
 
     return render(request, 'add_recipe.html', {'form': form})
 
-def recipe_detail(request, recipe_id):
-    recipe = get_object_or_404(Recipe, id=recipe_id)
-    return render(request, 'recipe_detail.html', {'recipe': recipe})
-
+def recipe_detail(request, username, recipe_id):
+    user = get_object_or_404(User, username=username)
+    recipe = get_object_or_404(Recipe, id=recipe_id, username=user)
+    return render(request, 'view_recipe.html', {'recipe': recipe, 'user': user})

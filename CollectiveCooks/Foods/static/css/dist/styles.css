@@ -919,6 +919,10 @@ select {
   margin-top: 2rem;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .block {
   display: block;
 }
@@ -1839,6 +1843,10 @@ select {
 
   .lg\:w-16 {
     width: 4rem;
+  }
+
+  .lg\:w-3\/4 {
+    width: 75%;
   }
 
   .lg\:w-32 {

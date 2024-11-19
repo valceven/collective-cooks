@@ -5,19 +5,17 @@
 {% endblock %}
 
 {% block content %}
-<div class="recipe-detail container mx-auto p-8">
-    <h1 class="text-4xl font-bold">{{ recipe.title }}</h1>
-    <img src="{{ recipe.image.url }}" alt="Food Image" class="w-full h-auto rounded-lg mt-4">
-    <h2 class="text-2xl font-semibold mt-6">Description</h2>
-    <p>{{ recipe.description }}</p>
+  <div class="w-[90%] lg:w-[80%] mx-auto p-8 bg-orange-100 rounded-3xl shadow-lg dark:bg-slate-800 mt-5 lg:mt-0 mb-4">
+    <h1 class="text-3xl lg:text-5xl font-bold">{{ recipe.title }}</h1>
+    <p><strong>By:</strong> {{ recipe.username.username }}</p>
+    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="w-full lg:w-3/4 mx-auto mt-6 rounded-lg shadow-lg">
     
-    <h2 class="text-2xl font-semibold mt-6">Ingredients</h2>
-    <p>{{ recipe.ingredients }}</p>
-    
-    <h2 class="text-2xl font-semibold mt-6">Procedure</h2>
-    <p>{{ recipe.procedure }}</p>
-
-    <p class="mt-4">Rating: {{ recipe.rating }}</p>
-    <p class="mt-4">Category: {{ recipe.category }}</p>
-</div>
+    <div class="mt-4">
+        <p><strong>Category:</strong> {{ recipe.category }}</p>
+        <p><strong>Rating:</strong> {{ recipe.rating }}</p>
+        <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+        <p><strong>Procedures:</strong> {{ recipe.procedures }}</p>
+        <p><strong>Description:</strong> {{ recipe.description }}</p>
+    </div>
+  </div>
 {% endblock %}

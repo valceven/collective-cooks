@@ -62,19 +62,19 @@
         <h2 class="lg:block mt-8 lg:mt-8 text-2xl font-bold lg:text-4xl ml-2">👩‍🍳RECIPES SUBMITTED</h2>
         {% if recipes %}
             <div class="flex overflow-x-scroll no-scrollbar space-x-8 mx-2 mt-4 ml-2 text-xl">
-                {% for recipe in recipes|slice:":5" %}
-                <div class="flex flex-col items-center bg-accent1 shadow-md rounded-lg p-2 min-w-24 lg:min-w-48">
-                    <div class="bg-gray-200 h-24 lg:h-48 w-full rounded-lg mb-2 flex items-center justify-center">
+                {% for recipe in recipes %}
+                    <a href="{% url 'recipe:recipe_detail' recipe.username.username recipe.id %}" class="flex flex-col items-center bg-accent1 shadow-md rounded-lg p-2 min-w-24 lg:min-w-48">
+                        <div class="bg-gray-200 h-24 lg:h-48 w-full rounded-lg mb-2 flex items-center justify-center">
                             <img src="{{ recipe.image.url }}" alt="Food Image" class="h-full w-full object-cover rounded-lg">
                         </div>
                         <h3 class="text-white text-sm lg:text-lg font-semibold">{{ recipe.title }}</h3>
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
         {% else %}
         <p class="flex items-center justify-center lg:ml-2 lg:block">No recipes available.</p>
         {% endif %}
-        
+
   </div>
 {% endblock %}
 

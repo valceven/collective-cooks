@@ -959,11 +959,6 @@ select {
   display: none;
 }
 
-.size-6 {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
 .size-8 {
   width: 2rem;
   height: 2rem;
@@ -1650,34 +1645,14 @@ select {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-stone-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(245 245 244 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-dark-mode:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(26 26 26 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-slate-800:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-slate-200:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-slate-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-slate-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(100 116 139 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-stone-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 245 244 / var(--tw-bg-opacity));
 }
 
 .hover\:text-accent1:hover {
@@ -1870,16 +1845,8 @@ select {
     margin-top: 2rem;
   }
 
-  .lg\:mt-10 {
-    margin-top: 2.5rem;
-  }
-
   .lg\:block {
     display: block;
-  }
-
-  .lg\:inline-block {
-    display: inline-block;
   }
 
   .lg\:inline {

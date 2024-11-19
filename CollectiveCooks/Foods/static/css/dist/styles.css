@@ -948,10 +948,6 @@ select {
   margin-top: 2rem;
 }
 
-.mb-10 {
-  margin-bottom: 2.5rem;
-}
-
 .block {
   display: block;
 }
@@ -1113,7 +1109,6 @@ select {
   flex-grow: 1;
 }
 
-<<<<<<< HEAD
 .-translate-y-1\/2 {
   --tw-translate-y: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1125,10 +1120,10 @@ select {
 
 .list-none {
   list-style-type: none;
-=======
+}
+
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
->>>>>>> omasas
 }
 
 .flex-col {
@@ -1151,7 +1146,6 @@ select {
   justify-content: space-between;
 }
 
-<<<<<<< HEAD
 .gap-2 {
   gap: 0.5rem;
 }
@@ -1160,21 +1154,18 @@ select {
   gap: 0.75rem;
 }
 
-=======
->>>>>>> omasas
 .gap-4 {
   gap: 1rem;
 }
 
-<<<<<<< HEAD
 .gap-5 {
   gap: 1.25rem;
-=======
+}
+
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
->>>>>>> omasas
 }
 
 .space-x-4 > :not([hidden]) ~ :not([hidden]) {
@@ -1358,16 +1349,6 @@ select {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
-.bg-accent2 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(245 208 32 / var(--tw-bg-opacity));
-}
-
-.bg-gray-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -1448,13 +1429,10 @@ select {
   padding: 1.5rem;
 }
 
-<<<<<<< HEAD
 .p-7 {
   padding: 1.75rem;
 }
 
-=======
->>>>>>> omasas
 .p-8 {
   padding: 2rem;
 }
@@ -1469,15 +1447,14 @@ select {
   padding-right: 1.25rem;
 }
 
-<<<<<<< HEAD
-.px-7 {
-  padding-left: 1.75rem;
-  padding-right: 1.75rem;
-=======
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
->>>>>>> omasas
+}
+
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
 }
 
 .py-1 {
@@ -1758,15 +1735,14 @@ select {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
-<<<<<<< HEAD
-.hover\:bg-slate-500:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
-=======
 .hover\:bg-orange-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(249 115 22 / var(--tw-bg-opacity));
->>>>>>> omasas
+}
+
+.hover\:bg-slate-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-stone-100:hover {
@@ -1821,16 +1797,6 @@ select {
 .dark\:bg-dark-mode:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(26 26 26 / var(--tw-bg-opacity));
-}
-
-.dark\:bg-gray-100:is(.dark *) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
-.dark\:bg-gray-300:is(.dark *) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .dark\:bg-gray-100:is(.dark *) {

@@ -9,8 +9,8 @@ module.exports = {
         extend: {  // Use 'extend' to add custom styles
             colors: {
                 'light-mode': '#FFFFFF',
-                'dark-mode': '#121212',
-                'accent1': '#f53803',  // Custom accent1 color for text and background
+                'dark-mode': '#1a1a1a',
+                'accent1': '#db461d',  // Custom accent1 color for text and background
                 'accent2': '#f5D020',
             },
             backgroundImage: theme => ({

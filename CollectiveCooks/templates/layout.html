@@ -10,59 +10,51 @@
     {% tailwind_css %}
     <title>Cooks Collective</title>
 </head>
-    <!-- Navbar -->
-    <header class="flex items-center lg:mx-16 px-4 lg:px-12">
+    <header class="flex items-center lg:mx-16 px-4 lg:px-12 mx-4">
         <nav id="navbar" class="w-full mx-auto bg-light-mode dark:bg-dark-mode sm:h-32 lg:h-48">
-            <!-- Wrapper div to contain all navbar items -->
             <div class="flex items-center justify-between w-full h-full">
-                <!-- Logo -->
                 <div class="mb-4 sm:mb-0">
                     <a href="{% url 'homepage' %}">
                         <img class="w-32 sm:w-40" src="{% static 'images/image-logo.png' %}" alt="CooksCollective">
                     </a>
                 </div>
     
-               <!-- Search Bar -->
-<div class="flex items-center bg-accent1 p-1 rounded-full mt-2 mr-2 lg:mr-0 lg:mt-4 shadow-md lg:w-[48rem] sm:w-[4rem] lg:h-12 sm:h-12 lg:mb-4 mb-5">
-    <form method="GET" action="{% url 'auth:search_user' %}" class="flex w-full">
-        <input
-            type="text"
-            name="q" 
-            placeholder="Search...."
-            class="flex-grow px-4 py-1 lg:h-10 sm:h-14 rounded-l-full focus:outline-none border-none bg-white dark:bg-[#151515] dark:text-light-mode"
-        >
-        <div class="flex p-1 lg:p-0 lg:w-[9%] lg:bg-accent1 flex items-center justify-center rounded-r-3xl">
-            <button type="submit" id="search-button">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="w-8 h-8 search-icon">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                </svg>
-            </button>
-        </div>
-    </form>
-</div>
+            <div class="flex items-center bg-accent1 p-1 rounded-full mt-2 mr-2 lg:mr-0 lg:mt-4 shadow-md lg:w-[48rem] sm:w-[4rem] lg:h-12 sm:h-12 lg:mb-4 mb-5">
+                <form method="GET" action="{% url 'auth:search_user' %}" class="flex w-full">
+                    <input
+                        type="text"
+                        name="q" 
+                        placeholder="Search...."
+                        class="flex-grow px-4 py-1 lg:h-10 sm:h-14 rounded-l-full focus:outline-none border-none bg-white dark:bg-[#151515] dark:text-light-mode"
+                    >
+                    <div class="flex p-1 lg:p-0 lg:w-[9%] lg:bg-accent1 flex items-center justify-center rounded-r-3xl">
+                        <button type="submit" id="search-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="w-8 h-8 search-icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-                <!-- Theme toggle and user buttons -->
                 <div class="flex items-center justify-center lg:mr-0 mr-4 lg:space-x-4">
-                    <!-- Theme Toggle Button -->
                     <button id="theme-toggle" class="" onclick="toggleDarkMode()">
                         <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" width="2em" height="2em" class="hidden hover:bg-accent2 rounded-full transition-transform duration-300 mr-2 mb-2 lg:mb-0">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
                         </svg>
-                        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" width="2em" height="2em" class="hover:bg-accent2 rounded-full transition-transform duration-300 mr-2 mb-2 lg:mb-0">
+                        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" width="2em" height="2em" class="hover:bg-slate-500 rounded-full transition-transform duration-300 mr-2 mb-2 lg:mb-0">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
                         </svg>
                     </button>
     
-                    <!-- User Dropdown or Login/Sign Up -->
                     {% if user.is_authenticated %}
                         <div class="relative group inline-block">
                             <button id="dropdownDefaultButton" class="text button">
                                 <div class="h-12 w-12 lg:h-16 lg:w-16 rounded-full flex items-center justify-center mb-3 lg:mb-0">
-                                    <img src="{{ request.user.avatar.url }}" alt="User Image" class="h-12 w-12 object-cover rounded-full">
+                                    <img src="{{ request.user.avatar.url }}" alt="User Image" class="h-12 w-12 object-fit rounded-full border-2 border-black dark:border-white">
                                 </div>
                             </button>
     
-                            <!-- Dropdown menu -->
                             <div id="dropdown" class="absolute hidden group-hover:flex flex-col z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 border-2 border-current top-12 right-px">
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                                     <li>
@@ -98,38 +90,37 @@
     </main>
 
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="logo-container">
-                    <a href="{% url 'homepage' %}"> <img src="{% static 'images/image-logo.png' %}" alt="Cooks Collective Logo" class="logo" width='100px'></a>
+    <footer class="bg-[#fcf9f8] dark:bg-dark-mode border-t-2 border-[#f6f2f2] py-12 px-5 mt-12 dark:text-white">
+        <div class="w-full mx-auto px-7">
+            <div class="lg:grid lg:grid-cols-4 gap-5">
+
+                <div class="flex justify-center">
+                    <a href="{% url 'homepage' %}"> <img src="{% static 'images/image-logo.png' %}" alt="Cooks Collective Logo" class="w-24 h-24 lg:w-full lg:h-full mb-2 gap-2"></a>
                 </div>
-                <div class="links">
+
+                <div class="text-left mb-8 lg:mb-0">
                     <h3 class="footer-title">Learn More</h3>
-                    <br>
-                    <ul>
+                    <ul class="list-none space-y-2 lg:mt-7">
+                        <li><a href="#">Environment</a></li>
                         <li><a href="{% url 'about' %}">About Cooks Collective</a></li>
                         <li><a href="#">Press Releases</a></li>
-                        <li><a href="#">Environment</a></li>
                         <li><a href="#">Jobs</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Contact Us</a></li>
                     </ul>
                 </div>
     
-                <div class="contact">
+                <div class="text-left mb-8 lg:mb-0">
                     <h3 class="footer-title">Contact Us</h3>
-                    <br>
-                    <ul>
+                    <ul class="list-none space-y-2 lg:mt-7">
                         <li>Email: cookscollective@email.com</li>
                         <li>Ticket Office: 123-456-7890</li>
                     </ul>
                 </div>
 
-                <div class="social">
+                <div class="mb-8 lg:mb-0">
                     <h3 class="footer-title">Social</h3>
-                    <br>
-                    <ul class="social-links">
+                    <ul class="flex gap-3 lg:mt-7">
                         <li>
                             <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -168,10 +159,8 @@
                     </ul>
                 </div>
                 
-                <div class="footer-rights">
-                    <hr>
-                    <br><br>
-                    <p>© 2024 CooksCollective. All Rights Reserved.</p>
+                <div class="col-span-4 border-t-2 text-center mt-5 pt-6">
+                    <p class="dark:text-white">© 2024 CooksCollective. All Rights Reserved.</p>
                 </div>
             </div>
         </div>
@@ -181,28 +170,40 @@
 
     <!-- END OF MAIN -->
     <script>
-      function toggleDarkMode() {
-        const html = document.querySelector('html');
-        const sunIcon = document.getElementById('sun-icon');
-        const moonIcon = document.getElementById('moon-icon');
-        const userIcon = document.querySelector('.user-icon path')
-
-        if (html.classList.contains('dark')) {
-            html.classList.remove('dark');
-            moonIcon.classList.remove('hidden');
-            sunIcon.classList.add('hidden');
-            userIcon.setAttribute('stroke', 'black');
-        } else {
-            html.classList.add('dark');
-            moonIcon.classList.add('hidden');
-            sunIcon.classList.remove('hidden');
-            userIcon.setAttribute('stroke', 'white');
-        }
-    }
-     function handleUserIconClick() {
-        const userDropDown = document.getElementById('dropdown');
-        userDropDown.classList.toggle('hidden');
-     }
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            const themeToggle = document.getElementById("theme-toggle");
+            const sunIcon = document.getElementById("sun-icon");
+            const moonIcon = document.getElementById("moon-icon");
+    
+            const userPrefersDark = localStorage.getItem("theme") === "dark" || 
+                                    (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+            
+            if (userPrefersDark) {
+                document.documentElement.classList.add("dark");
+                sunIcon.classList.remove("hidden");
+                moonIcon.classList.add("hidden");
+            } else {
+                document.documentElement.classList.remove("dark");
+                sunIcon.classList.add("hidden");
+                moonIcon.classList.remove("hidden");
+            }
+    
+            themeToggle.addEventListener("click", () => {
+                document.documentElement.classList.toggle("dark");
+    
+                sunIcon.classList.toggle("hidden");
+                moonIcon.classList.toggle("hidden");
+    
+                if (document.documentElement.classList.contains("dark")) {
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    localStorage.setItem("theme", "light");
+                }
+            });
+        });
+    
+        
     </script>
 </body>
 </html>

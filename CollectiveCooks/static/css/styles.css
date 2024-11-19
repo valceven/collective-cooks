@@ -11,6 +11,15 @@
     padding: 40px 20px;
 }
 
+.gradient-text {
+  display: inline-block;
+  width: max-content;
+  background: linear-gradient(to right,#f53803, #f5D020);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
 hr{
   height: 2px; /* Set the height of the line */
   color: #888;
@@ -773,5 +782,3 @@ hr{
     margin-top: 20px;
   }
 
-
-  

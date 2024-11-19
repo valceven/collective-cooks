@@ -21,7 +21,7 @@ class LogInForm(AuthenticationForm):
         fields = ['username','password']
 
 class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(max_length=255,required=True)
+    email = forms.EmailField(max_length=500,required=True)
     gender = forms.ChoiceField(choices=User.Gender.choices, required=True)
     birthdate = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date'}),
@@ -38,7 +38,7 @@ class RegistrationForm(UserCreationForm):
             raise forms.ValidationError('This email already exists in the database!')
         return email
     
-class EditProfileForm(forms.ModelForm):
+class EditProfileForm(forms.ModelForm,):
     first_name = forms.CharField(
         max_length=50,
         required=False,

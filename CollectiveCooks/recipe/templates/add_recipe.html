@@ -1,14 +1,125 @@
-{% extends 'layout.html' %} 
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Recipe</title>
+    <!-- Link to Tailwind CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% tailwind_css %}
+    <style>
+        /* Custom styles for file upload button */
+        .file-upload {
+            position: relative;
+        }
+        .file-upload input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-orange-500 font-sans">
 
-{% block title %} 
-  Collective Cooks
-{% endblock %} 
+    <div class="container mx-auto my-8 p-6 bg-white rounded-lg shadow-lg w-full max-w-5xl">
+        <!-- Display messages here -->
+        {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                    {% if 'recipe_message' in message.tags %}
+                        <div class="p-4 mb-4 text-sm {% if message.tags == 'success' %}text-green-700 bg-green-100{% else %}text-red-700 bg-red-100{% endif %} rounded-lg">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
 
-{% block content %}
-  <h1>Add Recipe</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
-{% endblock %}
+        <a href="{% url 'auth:profile' request.user.id %}">&lt-</a>
+
+        <h1 class="text-3xl accent1 font-bold">Add a Recipe</h1>
+        <p class="text-gray-700">Share your recipe with the world!</p>
+        <form method="POST" enctype="multipart/form-data" onsubmit="return onFormSubmit()">
+            {% csrf_token %}
+            
+            <!-- Recipe Name (Title) -->
+            <div class="mb-4">
+                <label for="recipe_name" class="block text-sm font-bold mb-2">Recipe Name</label>
+                <input type="text" class="border border-gray-300 p-2 w-full rounded" id="recipe_name" placeholder="Enter title" name="title">
+            </div>
+        
+            <!-- Description -->
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-bold mb-2">Description</label>
+                <textarea class="border border-gray-300 p-2 w-full rounded" id="description" rows="3" placeholder="Short Description of the Recipe..." name="description"></textarea>
+            </div>
+        
+            <!-- Category -->
+            <div class="mb-4">
+                <label for="category" class="block text-sm font-bold mb-2">Category</label>
+                <div class="flex space-x-2" id="category">
+                    <button type="button" class="btn-category selected bg-orange-600 text-white rounded-full px-4 py-2" onclick="selectCategory(this)">Breakfast</button>
+                    <button type="button" class="btn-category bg-white border-orange-600 text-orange-600 rounded-full px-4 py-2" onclick="selectCategory(this)">Lunch</button>
+                    <button type="button" class="btn-category bg-white border-orange-600 text-orange-600 rounded-full px-4 py-2" onclick="selectCategory(this)">Dinner</button>
+                    <button type="button" class="btn-category bg-white border-orange-600 text-orange-600 rounded-full px-4 py-2" onclick="selectCategory(this)">Dessert</button>
+                    <button type="button" class="btn-category bg-white border-orange-600 text-orange-600 rounded-full px-4 py-2" onclick="selectCategory(this)">Snack</button>
+                </div>
+            </div>
+        
+            <!-- Hidden input to store selected category -->
+            <input type="hidden" name="category" id="selected_category" value="Breakfast">
+        
+            <!-- Ingredients (Use JavaScript to dynamically add/remove) -->
+            <div class="mb-4" id="ingredients-container">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ingredient-row mb-2">
+                    <div>
+                        <label for="ingredient" class="block text-sm font-bold mb-2">Ingredients</label>
+                        <input type="text" class="border border-gray-300 p-2 w-full rounded" placeholder="Ingredient 1..." name="ingredient" id="ingredient">
+                    </div>
+                    <div>
+                        <label for="amount" class="block text-sm font-bold mb-2">Amount</label>
+                        <div class="flex items-center">
+                            <input type="text" class="border border-gray-300 p-2 w-2/3 rounded" placeholder="Amount" name="amount" id="amount">
+                            <button type="button" class="ml-2 bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center" onclick="addIngredientRow(this)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hidden input to store concatenated ingredients and amount -->
+            <input type="text" name="ingredients" id="concatenated_ingredients" value="">
+            <input type="text" name="ingredients_count" id="concatenated_ingredients_counts" value="">
+        
+            <!-- Procedure (Use JavaScript to dynamically add/remove steps) -->
+            <div class="mb-4" id="procedure-container">
+                <label for="procedure" class="block text-sm font-bold mb-2">Procedure</label>
+                <div class="procedure-step flex mb-2">
+                    <input type="text" class="border border-gray-300 p-2 w-full rounded" rows="3" placeholder="Step 1..." name="procedure" id="procedure">
+                    <button type="button" class="ml-2 bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center" onclick="addProcedureStep(this)">+</button>
+                </div>
+            </div>
+
+            <!-- Hidden input for concatenated procedures -->
+            <input type="hidden" name="procedures" id="concatenated_procedures" value="">
+
+        
+            <!-- Image Upload -->
+            <div class="file-upload mb-4 flex items-center justify-center">
+                <div class="flex items-center justify-center h-32 w-32 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
+                    <input type="file" name="image">
+                    <span class="text-4xl text-gray-500">+</span>
+                </div>
+            </div>
+        
+            <!-- Submit Button -->
+            <button type="submit" class="bg-orange-600 text-white rounded-full px-6 py-2 hover:bg-orange-500">Add</button>
+        </form>
+        
+    </div>
+
+    <script src="/static/js/add_recipe.js"></script>
+</body>
+</html>

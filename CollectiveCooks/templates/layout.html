@@ -69,6 +69,9 @@
                                         <a href="{% url 'auth:profile' request.user.id %}" class="block px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My Profile</a>
                                     </li>
                                     <li>
+                                        <a href="/recipe/add" class="block px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add Recipe</a>
+                                    </li>
+                                    <li>
                                         <form action="{% url 'auth:logout' %}" method="post" class="block">
                                             {% csrf_token %}
                                             <button type="submit" class="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</button>

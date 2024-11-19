@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ recipe.title }} - Recipe Details
+{% endblock %}
+
+{% block content %}
+<div class="recipe-detail container mx-auto p-8">
+    <h1 class="text-4xl font-bold">{{ recipe.title }}</h1>
+    <img src="{{ recipe.image.url }}" alt="Food Image" class="w-full h-auto rounded-lg mt-4">
+    <h2 class="text-2xl font-semibold mt-6">Description</h2>
+    <p>{{ recipe.description }}</p>
+    
+    <h2 class="text-2xl font-semibold mt-6">Ingredients</h2>
+    <p>{{ recipe.ingredients }}</p>
+    
+    <h2 class="text-2xl font-semibold mt-6">Procedure</h2>
+    <p>{{ recipe.procedure }}</p>
+
+    <p class="mt-4">Rating: {{ recipe.rating }}</p>
+    <p class="mt-4">Category: {{ recipe.category }}</p>
+</div>
+{% endblock %}

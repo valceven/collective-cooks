@@ -20,23 +20,22 @@
             <form method="POST" action="{% url 'auth:register' %}" class="space-y-3">
                 {% csrf_token %}
 
+                <label for="id_username" class="block text-sm font-medium ml-1 mb-1">Username:</label>
+                <div>
+                    <input 
+                        type="text" 
+                        name="username" 
+                        id="id_username"
+                        value="{{ request.POST.username|default:"" }}"
+                        class="border border-gray-300 rounded-lg w-full focus:outline-none focus:ring focus:ring-blue-400 h-[70%]" 
+                        placeholder="Enter username"
+                    >
+                    {% if form.username.errors %}
+                        <div class="text-red-500 text-sm">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+
                 <div class="flex items-center justify-between">
-                    <div class="w-[48%]">
-                        <label for="id_username" class="block text-sm font-medium ml-1 mb-1">Username:</label>
-                        <div>
-                            <input 
-                                type="text" 
-                                name="username" 
-                                id="id_username" 
-                                class="border border-gray-300 rounded-lg w-full focus:outline-none focus:ring focus:ring-blue-400 h-[70%]" 
-                                placeholder="Enter username"
-                            >
-                            {% if form.username.errors %}
-                                <div class="text-red-500 text-sm">{{ form.username.errors }}</div>
-                            {% endif %}
-                        </div>
-                    </div>
-    
                     <div class="w-[48%]">
                         <label for="id_password1" class="block text-sm font-medium ml-1 mb-1">Password:</label>
                         <div>
@@ -52,6 +51,22 @@
                             {% endif %}
                         </div>
                     </div>
+    
+                    <div class="w-[48%]">
+                        <label for="id_password2" class="block text-sm font-medium ml-1 mb-1">Confirm Password:</label>
+                        <div>
+                            <input 
+                                type="password" 
+                                name="password2" 
+                                id="id_password2" 
+                                class="border border-gray-300 rounded-lg w-full focus:outline-none focus:ring focus:ring-blue-400 h-[70%]" 
+                                placeholder="Confirm password"
+                            >
+                            {% if form.password2.errors %}
+                                <div class="text-red-500 text-sm">{{ form.password2.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -61,6 +76,7 @@
                             type="text" 
                             name="first_name" 
                             id="id_first_name"
+                            value="{{ request.POST.first_name|default:"" }}"
                             class="border border-gray-300 rounded-lg w-full focus:outline-none focus:ring focus:ring-blue-400 h-[70%]" 
                             placeholder="Enter first name"
                         >
@@ -76,7 +92,8 @@
                         <input 
                             type="text" 
                             name="last_name" 
-                            id="id_last_name" 
+                            id="id_last_name"
+                            value="{{ request.POST.last_name|default:"" }}"
                             class="border border-gray-300 rounded-lg w-full focus:outline-none focus:ring focus:ring-blue-400 h-[70%]" 
                             placeholder="Enter last name"
                         >
@@ -93,28 +110,12 @@
                             type="email" 
                             name="email" 
                             id="id_email" 
+                            value="{{ request.POST.email|default:"" }}"
                             class="border border-gray-300 rounded-lg w-full focus:outline-none focus:ring focus:ring-blue-400 h-[70%]" 
                             placeholder="Enter email"
                         >
                         {% if form.email.errors %}
                             <div class="text-red-500 text-sm">{{ form.email.errors }}</div>
-                        {% endif %}
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="id_password2" class="block text-sm font-medium ml-1 mb-1">Confirm Password:</label>
-                    <div>
-                        <input 
-                            type="password" 
-                            name="password2" 
-                            id="id_password2" 
-                            class="border border-gray-300 rounded-lg w-full focus:outline-none focus:ring focus:ring-blue-400 h-[70%]" 
-                            placeholder="Confirm password"
-                        >
-                        {% if form.password2.errors %}
-                            <div class="text-red-500 text-sm">{{ form.password2.errors }}</div>
                         {% endif %}
                     </div>
                 </div>

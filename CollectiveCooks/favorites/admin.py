@@ -3,3 +3,6 @@ from .models import Favorite
 # Register your models here.
 
 admin.site.register(Favorite)
+
+#include <stdio.h>
+

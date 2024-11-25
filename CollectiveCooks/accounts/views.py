@@ -41,9 +41,10 @@ def register_view(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            login(request,user)
             return redirect('homepage')
         else :
-            messages.error(request, 'Please fix your inputs.')
+            return render(request, 'register/register_page.html', {'form': form})
     else:
         form = RegistrationForm()
 
@@ -64,9 +65,13 @@ def profile_view(request, user_id):
     favorites = Favorite.objects.filter(user_id=user)
     recipes = Recipe.objects.filter(username=user)
 
-    following = user.following.all()
-    followers = user.followers.all()
+    followers = Follow.objects.filter(following=user)
+    following = Follow.objects.filter(follower=user)
     self_following = Follow.objects.filter(follower=request.user, following=user)
+    
+    for follow in followers:
+        follow.is_self_following = Follow.objects.filter(follower=request.user, following = follow.follower).exists()
+
 
     context = {
         'user': user,
@@ -115,6 +120,7 @@ def follow_user(request, user_id ):
                 follow.delete()
     
     return redirect('auth:profile', user_id=user_id)
+
 
 @login_required(login_url="auth/login")
 def search_user(request):

@@ -41,7 +41,7 @@
                         <div class="mt-2 flex items-center justify-between p-2 rounded-lg border-slate-700 dark:border-gray-200 border">
                             <div class="block flex items-center space-x-2">
                                 <img src="{{ follow.follower.avatar.url }}" alt="follower-avatar" class="w-8 h-8">
-                                <p class="display-inline dark:text-white">{{ follow.follower.username }}</p>
+                                <a href="{% url 'auth:profile' follow.follower.id %} "class="display-inline dark:text-white hover:text-blue-500 ">{{ follow.follower.username }}</a>
                             </div>
                             {% if follow.follower.id != request.user.id %}
                                 <form method="POST" action="{% url 'auth:follow_user' follow.follower.id %}">
@@ -75,7 +75,7 @@
                     <div class="mt-2 flex items-center justify-between p-2 rounded-lg border-slate-700 dark:border-gray-200 border">
                         <div class="block flex items-center space-x-2">
                             <img src="{{ follow.following.avatar.url }}" alt="following-avatar" class="w-8 h-8">
-                            <p class="display-inline dark:text-white">{{ follow.following.username }}</p>
+                             <a href="{% url 'auth:profile' follow.follower.id %}" class="display-inline dark:text-white hover:text-blue-500">{{ follow.following.username }}</a>
                         </div>
                         {% if follow.following.id != request.user.id %}
                             <form method="POST" action="{% url 'auth:follow_user' follow.following.id %}">
@@ -99,7 +99,7 @@
                 {% if self_following %}
                     <button type="submit" class="inline-block border-transparent border-2 bg-accent1 py-2 ml-1 px-4 rounded-lg hover:text-accent1 text-white hover:bg-accent2 hover:border-2 hover:border-accent1">Unfollow</button>
                 {% else %}
-                    <button type="submit" class="inline-block bg-accent2 border-transparent border-2 lg:ml-5 py-2 px-4 rounded-lg hover:text-accent1 text-white hover:bg-accent1 hover:border-2 hover:border-accent2">Follow</button>
+                    <button type="submit" class="inline-block bg-accent2 border-transparent border-2 lg:ml-5 py-2 px-4 rounded-lg hover:text-accent2 text-white hover:bg-accent1 hover:border-2 hover:border-accent2">Follow</button>
                 {% endif %}
             </form>            
             {% endif %}

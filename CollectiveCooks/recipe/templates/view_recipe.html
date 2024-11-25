@@ -8,12 +8,12 @@
   <div class="w-[90%] lg:w-[80%] mx-auto p-8 bg-orange-100 rounded-3xl shadow-lg dark:bg-slate-800 mt-5 lg:mt-0 mb-4">
     <h1 class="text-3xl lg:text-5xl font-bold">{{ recipe.title }}</h1>
     <p><strong>By:</strong> {{ recipe.username.username }}</p>
+    <p><strong>Category:</strong> {{ recipe.category }}</p>
     <p><strong>Description:</strong></p>
     <p>{{ recipe.description }}</p>
     <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="w-full lg:w-3/4 mx-auto mt-6 rounded-lg shadow-lg">
     
     <div class="mt-4">
-        <p><strong>Category:</strong> {{ recipe.category }}</p>
         <p><strong>Rating:</strong> {{ recipe.rating }}</p>
         <p><strong>Ingredients:</strong></p>
         <ul>

@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from .forms import LogInForm, RegistrationForm, EditProfileForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from favorites.models import Favorite
 from recipe.models import Recipe
 from .models import User, Follow
-from django.db.models import Q
+from django.contrib.auth.forms import PasswordChangeForm
+
 
 # Create your views here.
 def login_view(request):
@@ -95,18 +97,35 @@ def edit_profile(request, user_id):
         messages.error(request, "You are not allowed to edit this profile.")
         return redirect('auth:profile', user_id=request.user.id)
 
-    if request.method == 'POST':
-        form = EditProfileForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Your profile has been updated!')
-            return redirect('auth:profile', user_id=user_id)
-        else:
-            messages.error(request, 'Please correct the error below.')
-    else:
-        form = EditProfileForm(instance=user)
+    form = EditProfileForm(instance=user)
+    password_form = PasswordChangeForm(user)
 
-    return render(request, 'profile/edit_profile.html', {'form': form})
+    if request.method == 'POST':
+        if 'edit_profile' in request.POST:
+            form = EditProfileForm(request.POST, request.FILES, instance=user)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Your profile has been updated!')
+                return redirect('auth:profile', user_id=user_id)
+            else:
+                messages.error(request, 'Please correct the errors in your profile.')
+                password_form = PasswordChangeForm(user)  # Reset password form
+        
+        elif 'change_password' in request.POST:
+            password_form = PasswordChangeForm(user, request.POST)
+            if password_form.is_valid():
+                password_form.save()
+                update_session_auth_hash(request, password_form.user)
+                messages.success(request, 'Your password has been updated!')
+                return redirect('auth:profile', user_id=user_id)
+            else:
+                messages.error(request, 'Please correct the errors in your password.')
+                form = EditProfileForm(instance=user) 
+
+    return render(request, 'profile/edit_profile.html', {
+        'form': form,
+        'password_form': password_form
+    })
 
 @login_required(login_url="auth/login")
 def follow_user(request, user_id ):
@@ -119,7 +138,7 @@ def follow_user(request, user_id ):
             if not created:
                 follow.delete()
     
-    return redirect('auth:profile', user_id=user_id)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 @login_required(login_url="auth/login")

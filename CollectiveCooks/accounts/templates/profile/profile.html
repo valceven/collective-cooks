@@ -41,27 +41,28 @@
                         <div class="mt-2 flex items-center justify-between p-2 rounded-lg border-slate-700 dark:border-gray-200 border">
                             <div class="block flex items-center space-x-2">
                                 <img src="{{ follow.follower.avatar.url }}" alt="follower-avatar" class="w-8 h-8">
-                                <a href="{% url 'auth:profile' follow.follower.id %} "class="display-inline dark:text-white hover:text-blue-500 ">{{ follow.follower.username }}</a>
+                                <a href="{% url 'auth:profile' follow.follower.id %}" class="display-inline dark:text-white hover:text-blue-500 dark:hover:text-blue-500">{{ follow.follower.username }}</a>
                             </div>
                             {% if follow.follower.id != request.user.id %}
-                                <form method="POST" action="{% url 'auth:follow_user' follow.follower.id %}">
-                                    {% csrf_token %}
-                                    {% if follow.is_self_following %}                                        
-                                        <button type="submit" class="bg-orange-300 px-3 mx-1 py-1 rounded-xl hover:bg-opacity-70">Unfollow</button>
-                                    {% else %}
-                                        <button type="submit" class="bg-orange-300 px-3 mx-1 py-1 rounded-xl hover:bg-opacity-70">Follow</button>
-                                    {% endif %}
+                                <form method="POST" action="{% url 'auth:follow_user' follow.follower.id %}">                        
+                                    {% csrf_token %}               
+                                    <button type="submit" class="bg-orange-300 px-3 mx-1 py-1 rounded-xl border border-transparent hover:border-accent2 hover:bg-red-500">
+                                        {% if follow.is_self_following %}
+                                            Unfollow
+                                        {% else %}
+                                            Follow
+                                        {% endif %}
+                                    </button>
                                 </form>
                             {% endif %}
                         </div>
-                        
                     {% endfor %}
                 </div>
             </div>
         </div>
 
         <!-- Following Modal -->
-        <div id="followingModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-start backdrop-blur-sm px-2 lg:px-5">
+        <div id="followingModal" class="flex hidden fixed inset-0 bg-gray-800 bg-opacity-50 justify-center items-start backdrop-blur-sm px-2 lg:px-5">
             <div class="bg-orange-100 w-2/3 lg:w-1/3 rounded-xl shadow-lg mt-20 px-7 py-5 dark:bg-slate-700 h-1/2 lg:h-1/2">
                 <div class="flex justify-between items-center mb-4">
                     <p></p>
@@ -75,12 +76,12 @@
                     <div class="mt-2 flex items-center justify-between p-2 rounded-lg border-slate-700 dark:border-gray-200 border">
                         <div class="block flex items-center space-x-2">
                             <img src="{{ follow.following.avatar.url }}" alt="following-avatar" class="w-8 h-8">
-                             <a href="{% url 'auth:profile' follow.follower.id %}" class="display-inline dark:text-white hover:text-blue-500">{{ follow.following.username }}</a>
+                             <a href="{% url 'auth:profile' follow.following.id %}" class="display-inline hover:text-blue-500 dark:text-white  dark:hover:text-blue-500" >{{ follow.following.username }}</a>
                         </div>
                         {% if follow.following.id != request.user.id %}
                             <form method="POST" action="{% url 'auth:follow_user' follow.following.id %}">
                                 {% csrf_token %}
-                                <button type="submit" class="bg-orange-300 px-3 mx-1 py-1 rounded-xl hover:bg-opacity-70">Unfollow</button>
+                                <button type="submit" class="bg-orange-300 px-3 mx-1 py-1 rounded-xl border border-transparent hover:border-accent2 hover:bg-red-500">Unfollow</button>
                             </form>
                         {% endif %}
                     </div>
@@ -92,7 +93,7 @@
   
         <div class="flex items-center justify-center lg:block mt-4 lg:mt-5 lg:ml-5">
             {% if user == request.user %}
-                <a href="{% url 'auth:edit_profile' user.id %}" class="inline-block bg-accent2 text-white py-2 px-4 rounded-lg hover:bg-accent1 hover:border-2 hover:border-accent2">Edit Profile</a>
+                <a href="{% url 'auth:edit_profile' user.id %}" class="inline-block border-transparent border-2 bg-accent2 text-white py-2 px-4 rounded-lg hover:bg-accent1 hover:border-2 hover:border-accent2">Edit Profile</a>
             {% else %}
             <form action="{% url 'auth:follow_user' user.id %}" method="post">
                 {% csrf_token %}
@@ -161,16 +162,33 @@
 
     const openModal = (modal) => {
         modal.classList.remove("hidden");
+        if (modal === followerModal) {
+            localStorage.setItem('followerModalOpen', 'true');
+        } else if (modal === followingModal) {
+            localStorage.setItem('followingModalOpen', 'true');
+        }
     };
 
     const closeModal = (modal) => {
         modal.classList.add("hidden");
+        if (modal === followerModal) {
+            localStorage.removeItem('followerModalOpen');
+        } else if (modal === followingModal) {
+            localStorage.removeItem('followingModalOpen');
+        }
     };
 
     followerBtn.addEventListener("click", () => openModal(followerModal));
     followingBtn.addEventListener("click", () => openModal(followingModal));
     closeFollowerBtn.addEventListener("click", () => closeModal(followerModal));
     closeFollowingBtn.addEventListener("click", () => closeModal(followingModal));
+
+    if (localStorage.getItem('followerModalOpen') === 'true') {
+        openModal(followerModal);
+    }
+    if (localStorage.getItem('followingModalOpen') === 'true') {
+        openModal(followingModal);
+    }
 
     window.addEventListener("click", (e) => {
         if (e.target === followerModal) closeModal(followerModal);

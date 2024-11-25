@@ -1,2 +1,68 @@
 .venv/
 .sqlite3
+# Byte-compiled files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# Django secret key and settings (if using a .env file)
+.env
+
+# Database files
+db.sqlite3
+db.sqlite3-journal
+
+# Migrations
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Static files
+/staticfiles/
+/media/
+
+# Local settings
+local_settings.py
+
+# IDE-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+logs/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# Testing files
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Build files
+*.egg-info/
+dist/
+build/
+
+# Compiled static files
+*.css.map
+*.js.map
+node_modules/
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
+*.tmp

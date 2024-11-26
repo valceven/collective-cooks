@@ -9,6 +9,7 @@ from favorites.models import Favorite
 from recipe.models import Recipe
 from .models import User, Follow
 from django.contrib.auth.forms import PasswordChangeForm
+from django.db.models import Q
 
 
 # Create your views here.

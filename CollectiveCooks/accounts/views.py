@@ -142,7 +142,7 @@ def follow_user(request, user_id ):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
-@login_required(login_url="auth/login")
+
 def search_user(request):
     query = request.GET.get('q', '')
     users = []

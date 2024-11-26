@@ -13,11 +13,11 @@
             <div class="text-center lg:text-left">
                 <h1 class="text-2xl lg:text-4xl font-bold">{{ user.first_name }} {{ user.last_name }}</h1>
                 <p class="mt-3 text-gray-600">{{ user.email }}</p>
-                <button id="followingButton" class="underline underline-offset-1 hover:text-blue-500 mt-3 text-lg lg:text-xl font-semibold">
+                <button id="followingButton" class=" hover:text-blue-500 mt-3 text-lg lg:text-xl font-semibold">
                     Following {{ following_count }} 
                 </button>
                 
-                <button id="followersButton" class="underline underline-offset-1 mt-3 hover:text-blue-500 text-lg lg:text-xl font-semibold ml-3"> 
+                <button id="followersButton" class=" mt-3 hover:text-blue-500 text-lg lg:text-xl font-semibold ml-3"> 
                     Followers {{ followers_count }} 
                 </button>
                 <p class="mt-3 text-gray-600 italic">{{ user.details }}</p>
@@ -76,7 +76,11 @@
                     <div class="mt-2 flex items-center justify-between p-2 rounded-lg border-slate-700 dark:border-gray-200 border">
                         <div class="block flex items-center space-x-2">
                             <img src="{{ follow.following.avatar.url }}" alt="following-avatar" class="w-8 h-8">
+<<<<<<< HEAD
                              <a href="{% url 'auth:profile' follow.following.id %}" class="display-inline hover:text-blue-500 dark:text-white  dark:hover:text-blue-500" >{{ follow.following.username }}</a>
+=======
+                            <a href="{% url 'auth:profile' follow.following.id %}" class="display-inline hover:text-blue-500 dark:text-white  dark:hover:text-blue-500">{{ follow.following.username }}</a>
+>>>>>>> valceven
                         </div>
                         {% if follow.following.id != request.user.id %}
                             <form method="POST" action="{% url 'auth:follow_user' follow.following.id %}">

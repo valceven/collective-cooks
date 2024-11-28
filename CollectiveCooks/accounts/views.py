@@ -89,6 +89,30 @@ def profile_view(request, user_id):
 
     return render(request, 'profile/profile.html', context)
 
+@login_required(login_url="auth/login")
+def favorite_view(request, user_id):
+    
+    user = get_object_or_404(User, id = user_id) 
+
+    favorites = Favorite.objects.filter(user_id = user)  
+
+    return render(request, 'components/favorites_section.html', {
+        'favorites': favorites,
+        'userz':user,
+    })
+
+@login_required(login_url="auth/login")
+def recipe_view(request, user_id):
+    
+    user = get_object_or_404(User, id=user_id)
+    recipes = Recipe.objects.filter(username = user)
+    
+
+    return render(request, 'components/recipes_section.html', {
+        'recipes': recipes,
+        'userz':user,
+    })
+
 
 @login_required(login_url="/auth/login")
 def edit_profile(request, user_id):
@@ -140,8 +164,6 @@ def follow_user(request, user_id ):
                 follow.delete()
     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
-
 
 def search_user(request):
     query = request.GET.get('q', '')

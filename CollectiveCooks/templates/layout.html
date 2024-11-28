@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMgM2bqr7W4ZP+F7eA0+bdqTqE0HfEn5Zj5klP" crossorigin="anonymous">
     <link href="{% static "css/styles.css" %}" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/image-logo.png' %}" type="image/x-icon">
     {% tailwind_css %}
     <title>Cooks Collective</title>
 </head>
-    <header class="flex items-center mx-7 lg:mx-16 px-4 lg:px-12  sm:mb-4 lg:mb-0 ">
+    <header class="flex items-center mx-6 lg:mx-16 px-2 lg:px-4 lg:px-12  sm:mb-4 lg:mb-0 ">
         <nav id="navbar" class="w-full mx-auto bg-light-mode dark:bg-dark-mode sm:h-48 lg:h-48">
-            
+    
             <div class="flex items-center justify-between w-full h-full">
                 <div class="flex items-center justify-center relative mt-1">
                     <a href="{% url 'homepage' %}" class="flex items-center">
@@ -22,7 +23,7 @@
                 </div>
                 
     
-            <div class="flex items-center bg-accent1 p-1 rounded-full mt-2 mr-4 lg:mr-0 lg:mt-4 shadow-md lg:w-[40rem] sm:w1/2 sm:h-4 lg:h-12 sm:mt-4 lg:mb-3">
+            <div class="flex items-center bg-accent1 p-1 rounded-full mt-2 mr-5 lg:mr-0 lg:mt-4 shadow-md lg:w-[40rem] sm:w1/2 sm:h-4 lg:h-12 sm:mt-4 lg:mb-3">
                 <form method="GET" action="{% url 'auth:search_user' %}" class="flex w-1/3 lg:w-full">
                     <input
                         type="text"
@@ -54,7 +55,7 @@
                     
     
                     {% if user.is_authenticated %}
-                        <div class="relative group inline-block mt-1 lg:mb-2">
+                        <div class="relative group inline-block mt-2 lg:mt-1 lg:mb-2">
                             <button id="dropdownDefaultButton" class="text button">
                                 <div class="h-12 w-12 lg:h-16 lg:w-16 rounded-full flex items-center justify-center mt-2 mr-2 lg:mt-0 lg:mr-0">
                                     <img src="{{ request.user.avatar.url }}" alt="User Image" class="h-12 w-12 object-fit rounded-full border-2 border-black dark:border-white">

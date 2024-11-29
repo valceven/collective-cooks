@@ -90,6 +90,21 @@
             </div>
         </div>
 
+        <div class="flex items-center justify-center lg:block mt-4 lg:mt-5 lg:ml-5">
+            {% if user == request.user %}
+                <a href="{% url 'auth:edit_profile' user.id %}" class="inline-block border-transparent border-2 bg-accent2 text-white py-2 px-4 rounded-lg hover:bg-accent1 hover:border-2 hover:border-accent2">Edit Profile</a>
+            {% else %}
+            <form action="{% url 'auth:follow_user' user.id %}" method="post">
+                {% csrf_token %}
+                {% if self_following %}
+                    <button type="submit" class="inline-block border-transparent border-2 bg-accent1 py-2 ml-1 px-4 rounded-lg hover:text-accent1 text-white hover:bg-accent2 hover:border-2 hover:border-accent1">Unfollow</button>
+                {% else %}
+                    <button type="submit" class="inline-block bg-accent2 border-transparent border-2 lg:ml-5 py-2 px-4 rounded-lg hover:text-accent2 text-white hover:bg-accent1 hover:border-2 hover:border-accent2">Follow</button>
+                {% endif %}
+            </form>            
+            {% endif %}
+        </div>
+
         
         {% if '/favorites/' in request.path %}
             {% include 'components/favorites_section.html' %}

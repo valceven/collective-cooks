@@ -21,7 +21,7 @@
                 {% for favorite in favorites|slice:":5" %}
                     <a href="{% url 'recipe:recipe_detail' favorite.recipe_id.username.username favorite.recipe_id.id %}" 
                        class="flex flex-col items-center bg-accent1 shadow-md rounded-lg p-2 min-w-32 lg:min-w-48 transition-transform transform hover:scale-105 hover:shadow-lg">
-                        <div class="bg-gray-200 h-24 lg:h-40 w-24 lg:w-40 rounded-lg mb-2 flex items-center justify-center overflow-hidden">
+                        <div class="bg-gray-200 h-28 lg:h-40 w-28 lg:w-40 rounded-lg mb-2 flex items-center justify-center overflow-hidden">
                             <img src="{{ favorite.recipe_id.image.url }}" alt="Food Image" class="h-full w-full object-cover rounded-lg">
                         </div>
                         <h3 class="text-white text-sm lg:text-md font-semibold text-center truncate w-full hover:text-blue-400">
@@ -47,11 +47,11 @@
         </div>
 
         {% if recipes %}
-            <div class="flex overflow-x-scroll no-scrollbar space-x-4 p-4">
+            <div class="flex overflow-x-scroll no-scrollbar space-x-6 lg:space-x-8 p-4">
                 {% for recipe in recipes|slice:":5" %}
                     <a href="{% url 'recipe:recipe_detail' recipe.username.username recipe.id %}" 
-                       class="flex flex-col items-center bg-accent1 shadow-md rounded-lg p-2 min-w-32 lg:min-w-40 transition-transform transform hover:scale-105 hover:shadow-lg">
-                        <div class="bg-gray-200 h-32 lg:h-40 w-32 lg:w-40 rounded-lg mb-2 flex items-center justify-center overflow-hidden">
+                       class="flex flex-col items-center bg-accent1 shadow-md rounded-lg p-2 min-w-32 lg:min-w-48 transition-transform transform hover:scale-105 hover:shadow-lg">
+                        <div class="bg-gray-200 h-28 lg:h-40 w-28 lg:w-40 rounded-lg mb-2 flex items-center justify-center overflow-hidden">
                             <img src="{{ recipe.image.url }}" alt="Food Image" class="h-full w-full object-cover rounded-lg">
                         </div>
                         <h3 class="text-white text-sm lg:text-md font-semibold text-center truncate w-full hover:text-blue-400">

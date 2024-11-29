@@ -1,5 +1,5 @@
 .venv/
-.sqlite3
+
 # Byte-compiled files
 *.pyc
 *.pyo
@@ -14,8 +14,7 @@ venv/
 .env
 
 # Database files
-db.sqlite3
-db.sqlite3-journal
+
 
 # Migrations
 */migrations/*.py

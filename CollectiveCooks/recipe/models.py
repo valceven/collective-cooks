@@ -13,6 +13,7 @@ class Recipe(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50, null=False, default="Food")
     rating = models.FloatField(default=0.0)
+    total_reviews = models.IntegerField(default=0)
     created_date = models.DateTimeField(default=timezone.now)
     description = models.TextField(null=False, default="No Input")
     procedures = models.TextField(null=False, default="No Input")
@@ -31,5 +32,3 @@ class Recipe(models.Model):
     
     def get_procedures(self):
         return self.procedures.split('\n')
-    
-

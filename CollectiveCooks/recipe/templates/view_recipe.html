@@ -5,36 +5,115 @@
 {% endblock %}
 
 {% block content %}
-  <div class="w-[90%] lg:w-[80%] mx-auto p-8 bg-orange-100 rounded-3xl shadow-lg dark:bg-slate-800 mt-5 lg:mt-0 mb-4">
-    <h1 class="text-3xl lg:text-5xl font-bold">{{ recipe.title }}</h1>
-    <a href="{% url 'auth:profile' recipe.username.id %}"><img src="{{ user.avatar.url }}" alt="Profile Image" class="w-32 h-32 lg:w-40 lg:h-40 rounded-full border-4 border-yellow-500 mx-auto lg:mx-0"></a>
-    <p><strong>By:</strong> {{ recipe.username.username }}</p>
-    <p><strong>Category:</strong> {{ recipe.category }}</p>
+  <div class="lg:pl-40 lg:pr-40 py-16 bg-accent1 h-auto text-white">
 
-    {% if request.user.username == recipe.username.username %}
-      <p>YIPEE</p>
-    {% else %}
-      <p>{{ request.user.username }}</p>
-    {% endif %}
+    <!-- Title Section -->
+    <div class="mx-auto p-8">
+      <h1 class="text-3xl lg:text-5xl font-bold mb-4">{{ recipe.title }}</h1>
 
-    <p><strong>Description:</strong></p>
-    <p>{{ recipe.description }}</p>
-    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="w-full lg:w-3/4 mx-auto mt-6 rounded-lg shadow-lg">
+      <!-- Add to Favorites Button -->
+      <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg ml-auto mb-4">
+        Add to Favorites
+      </button>
     
-    <div class="mt-4">
-        <p><strong>Rating:</strong> {{ recipe.rating }}</p>
+      <!-- Flex container for the profile image and username -->
+      <div class="flex items-center space-x-4">
+        <p class="flex items-center space-x-2">
+          By:
+          
+          <!-- Profile image with smaller size -->
+          <a href="{% url 'auth:profile' recipe.username.id %}">
+            <img src="{{ user.avatar.url }}" alt="Profile Image" class="w-16 h-16 lg:w-20 lg:h-20 rounded-full border-4 border-yellow-500 ml-2">
+          </a>
+
+          <!-- Username displayed next to the image -->
+          <a href="{% url 'auth:profile' recipe.username.id %}" class="font-semibold hover:underline">
+            {{ recipe.username.username }}
+          </a>
+        </p>
+      </div>
+
+      <!-- Dynamic Star Rating with Total Reviews -->
+      <div class="flex items-center space-x-1">
+        {% for star in "12345" %}
+          {% if recipe.rating >= forloop.counter %}
+            <!-- Filled Star -->
+            <i class="fas fa-star text-yellow-400"></i>
+          {% else %}
+            <!-- Hollow Star -->
+            <i class="far fa-star text-yellow-400"></i>
+          {% endif %}
+        {% endfor %}
+        
+        <!-- Display the actual rating with more spacing -->
+        <span class="ml-4 text-lg">{{ recipe.rating }}</span>
+
+        <!-- Add more space between the rating and the total reviews -->
+        <span class="ml-6 text-lg">({{ recipe.total_reviews }} reviews)</span>
+        <span class="ml-6 text-lg"> | {{ recipe.category }}</span>
+      </div>
+
+      <!-- Add description below the rating and reviews with spacing -->
+      <p class="mt-4 text-lg">{{ recipe.description }}</p>
+    </div>
+    
+    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="h-[500px] w-auto mx-auto mt-6 rounded-lg shadow-lg">
+
+  </div>
+  
+  <!-- Ingredients and Procedures Sections -->
+  <div class="lg:pl-40 lg:pr-40 py-16 h-auto mx-auto p-8 dark:bg-slate-800 mt-5 lg:mt-0 mb-4">
+    <div class="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Ingredients Section -->
+      <div>
         <p><strong>Ingredients:</strong></p>
         <ul class="list-disc pl-5">
           {% for amount, ingredient in recipe.get_amounts_and_ingredients %}
             <li>{{ amount }} - {{ ingredient }}</li>
           {% endfor %}
         </ul>
+      </div>
+  
+      <!-- Procedures Section -->
+      <div>
         <p><strong>Procedures:</strong></p>
         <ol class="list-decimal pl-5">
           {% for procedure in recipe.get_procedures %}
             <li>{{ procedure }}</li>
           {% endfor %}
         </ol>
+      </div>
+  
     </div>
   </div>
+
+  <!-- Rating Section (Form) -->
+  {% if request.user.username != recipe.username.username %}
+    <div class="mt-8 flex flex-col items-center">
+      <div class="flex items-center justify-center mb-4 text-gray-400 text-2xl">
+        <p>Rate This Recipe!</p>
+      </div>
+        
+        <!-- Rating Stars -->
+        <div class="flex space-x-6">
+          <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="1" onclick="setRating(1)"></i>
+          <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="2" onclick="setRating(2)"></i>
+          <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="3" onclick="setRating(3)"></i>
+          <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="4" onclick="setRating(4)"></i>
+          <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="5" onclick="setRating(5)"></i>
+        </div>
+      
+        <!-- Hidden Input to Store Rating -->
+        <input type="hidden" name="rating" id="rating-input" value="0">
+      
+        <button type="button" id="submit-rating-btn" class="mt-4 bg-accent1 text-white px-4 py-2 rounded-lg" onclick="submitRating()">
+          Submit Rating
+        </button>
+      
+    </div>
+  {% endif %}
+
+  <script src="/static/js/rating.js"></script>
+
 {% endblock %}

@@ -12,6 +12,8 @@ module.exports = {
                 'dark-mode': '#1a1a1a',
                 'accent1': '#db461d',  // Custom accent1 color for text and background
                 'accent2': '#f5D020',
+                'confirm': '#15803d',
+                'cancel': '#dc2626',
             },
             backgroundImage: theme => ({
                 'gradient-accent': 'linear-gradient(to right, #faf118, #c21806)', // Custom gradient

@@ -36,17 +36,20 @@
       <!-- Dynamic Star Rating with Total Reviews -->
       <div class="flex items-center space-x-1">
         {% for star in "12345" %}
-          {% if recipe.rating >= forloop.counter %}
-            <!-- Filled Star -->
-            <i class="fas fa-star text-yellow-400"></i>
-          {% else %}
-            <!-- Hollow Star -->
-            <i class="far fa-star text-yellow-400"></i>
-          {% endif %}
+            {% if recipe.get_rating >= forloop.counter %}
+                <!-- Filled Star -->
+                <i class="fas fa-star text-yellow-400"></i>
+            {% elif recipe.get_rating > forloop.counter|add:"-1" %}
+                <!-- Half Star -->
+                <i class="fas fa-star-half-alt text-yellow-400"></i>
+            {% else %}
+                <!-- Hollow Star -->
+                <i class="far fa-star text-yellow-400"></i>
+            {% endif %}
         {% endfor %}
         
         <!-- Display the actual rating with more spacing -->
-        <span class="ml-4 text-lg">{{ recipe.rating }}</span>
+        <span class="ml-4 text-lg">{{ recipe.get_rating }}</span>
 
         <!-- Add more space between the rating and the total reviews -->
         <span class="ml-6 text-lg">({{ recipe.total_reviews }} reviews)</span>
@@ -88,32 +91,119 @@
     </div>
   </div>
 
-  <!-- Rating Section (Form) -->
+  <!-- Rating Section -->
   {% if request.user.username != recipe.username.username %}
-    <div class="mt-8 flex flex-col items-center">
-      <div class="flex items-center justify-center mb-4 text-gray-400 text-2xl">
-        <p>Rate This Recipe!</p>
-      </div>
-        
-        <!-- Rating Stars -->
-        <div class="flex space-x-6">
-          <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="1" onclick="setRating(1)"></i>
-          <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="2" onclick="setRating(2)"></i>
-          <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="3" onclick="setRating(3)"></i>
-          <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="4" onclick="setRating(4)"></i>
-          <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="5" onclick="setRating(5)"></i>
-        </div>
-      
-        <!-- Hidden Input to Store Rating -->
-        <input type="hidden" name="rating" id="rating-input" value="0">
-      
-        <button type="button" id="submit-rating-btn" class="mt-4 bg-accent1 text-white px-4 py-2 rounded-lg" onclick="submitRating()">
-          Submit Rating
-        </button>
-      
+  <div class="mt-8 flex flex-col items-center">
+    <div class="flex items-center justify-center text-gray-400 text-2xl">
+      <p>Rate This Recipe!</p>
     </div>
+
+    <form method="post" id="rating-form" class="flex flex-col justify-center items-center h-auto mt-2 mb-2">
+      {% csrf_token %}
+      <!-- Rating Stars -->
+      <div class="flex space-x-6">
+        <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="1" onclick="setRating(1)"></i>
+        <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="2" onclick="setRating(2)"></i>
+        <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="3" onclick="setRating(3)"></i>
+        <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="4" onclick="setRating(4)"></i>
+        <i class="fas fa-star text-gray-400 cursor-pointer text-4xl rating-star" data-index="5" onclick="setRating(5)"></i>
+      </div>
+
+      <!-- Hidden Input to Store Rating -->
+      <input type="hidden" name="rating" id="rating-input" value="0">
+
+      <!-- Submit Button -->
+      <button type="button" id="submit-rating-btn" class="mt-4 bg-accent1 text-white px-4 py-2 rounded-lg">
+        Submit Rating
+      </button>
+    </form>
+
+  </div>
   {% endif %}
 
-  <script src="/static/js/rating.js"></script>
 
+  <!-- Modal Structure -->
+  <div id="ratingModal" class="fixed z-10 inset-0 hidden bg-gray-800 bg-opacity-70 flex items-center justify-center">
+    <div class="bg-white w-96 h-auto rounded-lg shadow-lg transform opacity-0 transition-all duration-500 ease-in-out">
+        <div class="p-6">
+            <h3 class="text-lg font-semibold mb-4">Confirm Your Rating</h3>
+            <p>You have selected 
+                <span id="selected-rating" class="font-bold text-accent1 text-2xl"></span> <!-- Larger font size for the rating -->
+                stars. Are you sure you want to submit?
+            </p>
+            <div class="mt-6 flex justify-end space-x-4">
+                <!-- Cancel Button -->
+                <button id="cancel-modal-btn" class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-lg">
+                    Cancel
+                </button>
+                <!-- Confirm Button -->
+                <button id="confirm-modal-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+  <!-- Script Section -->
+  <script>
+    let currentRating = 0;
+
+    // Function to set the rating when a star is clicked
+    function setRating(rating) {
+        currentRating = rating;
+        document.getElementById('rating-input').value = rating;
+
+        const stars = document.querySelectorAll('.rating-star');
+        stars.forEach(star => {
+            const index = parseInt(star.getAttribute('data-index'));
+            if (index <= rating) {
+                star.classList.add('text-yellow-400');
+                star.classList.remove('text-gray-400');
+            } else {
+                star.classList.add('text-gray-400');
+                star.classList.remove('text-yellow-400');
+            }
+        });
+    }
+
+    // Show the modal when the submit button is clicked
+    document.getElementById('submit-rating-btn').addEventListener('click', function() {
+        if (currentRating > 0) {
+            // Set the rating in the modal
+            document.getElementById('selected-rating').textContent = currentRating;
+            
+            // Show the modal with animation
+            const modal = document.getElementById('ratingModal');
+            modal.classList.remove('hidden');
+            modal.querySelector('div').classList.remove('scale-0', 'opacity-0');
+            modal.querySelector('div').classList.add('scale-100', 'opacity-100');
+        } else {
+            alert('Please select a rating before submitting.');
+        }
+    });
+
+    // Handle the "Cancel" button in the modal
+    document.getElementById('cancel-modal-btn').addEventListener('click', function() {
+        hideModal();
+    });
+
+    // Handle the "Confirm" button in the modal
+    document.getElementById('confirm-modal-btn').addEventListener('click', function() {
+        // Submit the form
+        document.getElementById('rating-form').submit();
+    });
+
+    // Function to hide the modal
+    function hideModal() {
+        const modal = document.getElementById('ratingModal');
+        modal.querySelector('div').classList.add('scale-0', 'opacity-0');
+        
+        // Wait for the transition to finish before hiding the modal
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);  // Matches the transition duration
+    }
+  </script>
 {% endblock %}

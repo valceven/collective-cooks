@@ -2,13 +2,13 @@ function selectCategory(button) {
     // Removing 'selected' class from all buttons
     const buttons = document.querySelectorAll('.btn-category');
     buttons.forEach(btn => {
-        btn.classList.remove('bg-orange-600', 'text-white');
-        btn.classList.add('bg-white', 'border-orange-600', 'text-orange-600');
+        btn.classList.remove('bg-accent1', 'text-white');
+        btn.classList.add('bg-white', 'border-accent', 'text-accent1');
     });
     
     // Adding 'selected' class to the clicked button
-    button.classList.add('bg-orange-600', 'text-white');
-    button.classList.remove('bg-white', 'border-orange-600', 'text-orange-600');
+    button.classList.add('bg-accent1', 'text-white');
+    button.classList.remove('bg-white', 'border-accent1', 'text-accent1');
 
     // Set the hidden input value to the selected category
     document.getElementById('selected_category').value = button.innerText;
@@ -33,14 +33,14 @@ function addProcedureStep(button) {
     // Create new + button
     const newButton = document.createElement('button');
     newButton.type = 'button';
-    newButton.classList.add('ml-2', 'bg-green-600', 'text-white', 'rounded-full', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center');
+    newButton.classList.add('ml-2', 'bg-confirm', 'text-white', 'rounded-full', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center');
     newButton.innerText = '+';
     newButton.setAttribute('onclick', 'addProcedureStep(this)');
 
     // Create new - button (only for subsequent rows)
     const removeButton = document.createElement('button');
     removeButton.type = 'button';
-    removeButton.classList.add('ml-2', 'bg-red-600', 'text-white', 'rounded-full', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center');
+    removeButton.classList.add('ml-2', 'bg-cancel', 'text-white', 'rounded-full', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center');
     removeButton.innerText = '-';
     removeButton.setAttribute('onclick', 'removeProcedureStep(this)');
 

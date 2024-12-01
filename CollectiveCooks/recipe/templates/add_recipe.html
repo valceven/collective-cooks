@@ -30,97 +30,160 @@
             <div class="mb-4">
                 {% for message in messages %}
                     {% if 'recipe_message' in message.tags %}
-                        <div class="p-4 mb-4 text-sm {% if message.tags == 'success' %}text-green-700 bg-green-100{% else %}text-red-700 bg-red-100{% endif %} rounded-lg">
+                        <div class="p-4 mb-4 text-base {% if message.tags == 'success' %}text-green-700 bg-green-100{% else %}text-red-700 bg-red-100{% endif %} rounded-lg">
                             {{ message }}
                         </div>
                     {% endif %}
                 {% endfor %}
             </div>
         {% endif %}
-
+    
         <a href="{% url 'auth:profile' request.user.id %}">&lt-</a>
 
-        <h1 class="text-3xl text-accent1 font-bold">Add a Recipe</h1>
-        <p class="text-gray-700">Share your recipe with the world!</p>
         <form method="POST" enctype="multipart/form-data" onsubmit="return onFormSubmit()">
             {% csrf_token %}
-            
-            <!-- Recipe Name (Title) -->
-            <div class="mb-4">
-                <label for="recipe_name" class="block text-sm font-bold mb-2">Recipe Name</label>
-                <input type="text" class="border border-gray-300 p-2 w-full rounded" id="recipe_name" placeholder="Enter title" name="title">
-            </div>
-        
-            <!-- Description -->
-            <div class="mb-4">
-                <label for="description" class="block text-sm font-bold mb-2">Description</label>
-                <textarea class="border border-gray-300 p-2 w-full rounded" id="description" rows="3" placeholder="Short Description of the Recipe..." name="description"></textarea>
-            </div>
-        
-            <!-- Category -->
-            <div class="mb-4">
-                <label for="category" class="block text-sm font-bold mb-2">Category</label>
-                <div class="flex space-x-2" id="category">
-                    <button type="button" class="btn-category selected bg-accent1 text-white rounded-full px-4 py-2" onclick="selectCategory(this)">Breakfast</button>
-                    <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Lunch</button>
-                    <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Dinner</button>
-                    <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Dessert</button>
-                    <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Snack</button>
+    
+            <!-- Main title and introduction -->
+            <h1 class="text-7xl text-accent1 font-bold">Add a Recipe</h1>
+            <p class="text-2xl text-gray-700 mt-2 mb-4">Share your recipe with the world!</p>
+    
+            <!-- Grid layout for Recipe Name, Description, Image Upload, and Category -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    
+                <!-- Left Side: Recipe Name and Description -->
+                <div>
+                    <!-- Recipe Name (Title) -->
+                    <div class="mb-4">
+                        <label for="recipe_name" class="block text-base font-bold mb-2">Recipe Name</label>
+                        <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-full rounded" id="recipe_name" placeholder="Enter title" name="title">
+                    </div>
+    
+                    <!-- Description -->
+                    <div class="mb-4">
+                        <label for="description" class="block text-base font-bold mb-2">Description</label>
+                        <textarea class="bg-gray-200 border border-gray-400 p-2 w-full rounded resize-none min-h-[160px] overflow-hidden" id="description" rows="3" placeholder="Short Description of the Recipe..." name="description" oninput="adjustHeight(this)"></textarea>
+                    </div>
                 </div>
+    
+                <!-- Right Side: Image Upload and Category -->
+                <div>
+                     <!-- Image Upload -->
+                    <div class="file-upload mb-4 flex items-center justify-center">
+                        <div class="flex items-center justify-center h-32 w-32 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
+                            <input type="file" name="image">
+                            <span class="text-4xl text-gray-500">+</span>
+                        </div>
+                    </div>
+
+                    {% comment %} <div class="file-upload-container relative mb-4 flex items-center justify-center">
+                        <!-- Image upload area (this will be replaced with the uploaded image) -->
+                        <div class="relative h-40 w-60 border-2 border-gray-400 rounded-lg bg-gray-50 flex items-center justify-center" id="file-upload-area">
+                            <!-- This image will change once a user selects a new image -->
+                            <img id="image-preview" src="{% static 'images/img-upload-icon.png' %}" alt="Upload Icon" class="w-auto h-16 object-cover">
+                            <input type="file" id="image-upload" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="previewImage(event)">
+                        </div>
+                    </div> {% endcomment %}
+
+
+                    
+                    <!-- Category -->
+                    <div class="mb-4">
+                        <label for="category" class="block text-base font-bold mb-2">Category</label>
+                        <div class="flex space-x-2" id="category">
+                            <button type="button" class="btn-category selected bg-accent1 text-white rounded-full px-4 py-2" onclick="selectCategory(this)">Breakfast</button>
+                            <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Lunch</button>
+                            <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Dinner</button>
+                            <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Dessert</button>
+                            <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Snack</button>
+                        </div>
+                    </div>
+    
+                    <!-- Hidden input to store selected category -->
+                    <input type="hidden" name="category" id="selected_category" value="Breakfast">
+                </div>
+    
             </div>
-        
-            <!-- Hidden input to store selected category -->
-            <input type="hidden" name="category" id="selected_category" value="Breakfast">
-        
+
+            <hr class="my-6 border-t-2 border-accent1">
+    
             <!-- Ingredients (Use JavaScript to dynamically add/remove) -->
             <div class="mb-4" id="ingredients-container">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ingredient-row mb-2">
                     <div>
-                        <label for="ingredient" class="block text-sm font-bold mb-2">Ingredients</label>
-                        <input type="text" class="border border-gray-300 p-2 w-full rounded" placeholder="Ingredient 1..." name="ingredient" id="ingredient">
+                        <label for="ingredient" class="block text-base font-bold mb-2">Ingredients</label>
+                        <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-full rounded" placeholder="Ingredient 1..." name="ingredient" id="ingredient">
                     </div>
                     <div>
-                        <label for="amount" class="block text-sm font-bold mb-2">Amount</label>
+                        <label for="amount" class="block text-base font-bold mb-2">Amount</label>
                         <div class="flex items-center">
-                            <input type="text" class="border border-gray-300 p-2 w-2/3 rounded" placeholder="Amount" name="amount" id="amount">
-                            <button type="button" class="ml-2 bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center" onclick="addIngredientRow(this)">+</button>
+                            <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-2/3 rounded" placeholder="Amount" name="amount" id="amount">
+                            <button type="button" class="ml-2 bg-confirm text-white rounded-full w-8 h-8 flex items-center justify-center" onclick="addIngredientRow(this)">+</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
+    
             <!-- Hidden input to store concatenated ingredients and amount -->
             <input type="hidden" name="ingredients" id="concatenated_ingredients" value="">
             <input type="hidden" name="ingredients_count" id="concatenated_ingredients_counts" value="">
-        
+
+            <hr class="my-6 border-t-2 border-accent1">
+    
             <!-- Procedure (Use JavaScript to dynamically add/remove steps) -->
             <div class="mb-4" id="procedure-container">
-                <label for="procedure" class="block text-sm font-bold mb-2">Procedure</label>
+                <label for="procedure" class="block text-base font-bold mb-2">Procedure</label>
                 <div class="procedure-step flex mb-2">
-                    <input type="text" class="border border-gray-300 p-2 w-full rounded" rows="3" placeholder="Step 1..." name="procedure" id="procedure">
-                    <button type="button" class="ml-2 bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center" onclick="addProcedureStep(this)">+</button>
+                    <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-full rounded" rows="3" placeholder="Step 1..." name="procedure" id="procedure">
+                    <button type="button" class="ml-2 bg-confirm text-white rounded-full w-8 h-8 flex items-center justify-center" onclick="addProcedureStep(this)">+</button>
                 </div>
             </div>
-
+    
             <!-- Hidden input for concatenated procedures -->
             <input type="hidden" name="procedures" id="concatenated_procedures" value="">
-
-        
-            <!-- Image Upload -->
-            <div class="file-upload mb-4 flex items-center justify-center">
-                <div class="flex items-center justify-center h-32 w-32 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
-                    <input type="file" name="image">
-                    <span class="text-4xl text-gray-500">+</span>
-                </div>
-            </div>
-        
+    
             <!-- Submit Button -->
-            <button type="submit" class="bg-orange-600 text-white rounded-full px-6 py-2 hover:bg-orange-500">Add</button>
+            <button type="submit" class="bg-accent1 text-white rounded-full px-6 py-2 hover:bg-orange-500">Add</button>
         </form>
-        
     </div>
 
     <script src="/static/js/add_recipe.js"></script>
     <script src="/static/js/concat_input.js"></script>
+
+    <!-- Auto-resize Textarea and Procedure Input JavaScript -->
+    <script>
+        function adjustHeight(input) {
+            // Reset the height to auto, to recalculate
+            input.style.height = 'auto';
+            // Set the new height based on the scrollHeight (content height)
+            input.style.height = `${input.scrollHeight}px`;
+        }
+
+        {% comment %} function previewImage(event) {
+            const file = event.target.files[0]; // Get the selected file
+            const fileUploadArea = document.getElementById('file-upload-area'); // Get the container for the file upload
+            const imagePreview = document.getElementById('image-preview'); // Get the image element
+            const fileInput = document.getElementById('image-upload'); // Get the file input element
+        
+            if (file) {
+                const reader = new FileReader(); // Create a FileReader instance
+        
+                reader.onload = function(e) {
+                    // Set the source of the image preview to the uploaded image
+                    imagePreview.src = e.target.result; 
+                    imagePreview.classList.add('w-full', 'h-full', 'object-cover', 'rounded-lg'); // Add classes to make the image fill the area
+                }
+        
+                reader.readAsDataURL(file); // Read the file as a data URL
+        
+                // Optionally: Show a "Change Image" button if needed, or give feedback to user
+                fileInput.value = ''; // Clear the file input after change (to allow re-upload)
+            } else {
+                // If no file is selected, reset to the default upload icon
+                imagePreview.src = '{% static "images/img-upload-icon.png" %}';
+            }
+        } {% endcomment %}
+        
+    </script>
+
 </body>
 </html>

@@ -165,9 +165,10 @@ def follow_user(request, user_id ):
     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-def search_user(request):
+def search_entities(request):
     query = request.GET.get('q', '')
     users = []
+    recipes = []
 
     if query:
         users = User.objects.filter(
@@ -175,8 +176,14 @@ def search_user(request):
             Q(email__icontains=query)
         )
 
+        recipes = Recipe.objects.filter(
+            Q(title__icontains=query) | 
+            Q(username__username__icontains=query)
+        )
+
     context = {
         'users': users,
+        'recipes': recipes,
         'query': query,
     }
     return render(request, 'search/search_results.html', context)

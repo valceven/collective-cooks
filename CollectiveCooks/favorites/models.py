@@ -23,7 +23,7 @@ class UserReport(models.Model):
         unique_together = ('reporter', 'user_id')
 
     def __str__(self):
-        return f"Report for User {self.user_id.username} by {self.reporter.username}"
+        return f"Report for User {self.user_id.username} by {self.reporter.username} ID: {self.user_id.id}"
 
 
 class RecipeReport(models.Model):

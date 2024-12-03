@@ -10,9 +10,9 @@ function setRating(rating) {
         const index = parseInt(star.getAttribute('data-index'));
         if (index <= rating) {
             star.classList.add('text-yellow-400');
-            star.classList.remove('text-gray-400');
+            star.classList.remove('text-gray-300');
         } else {
-            star.classList.add('text-gray-400');
+            star.classList.add('text-gray-300');
             star.classList.remove('text-yellow-400');
         }
     });

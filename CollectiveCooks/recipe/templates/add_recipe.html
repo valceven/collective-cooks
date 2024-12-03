@@ -1,14 +1,22 @@
-{% load static tailwind_tags %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add a Recipe</title>
-    <!-- Link to Tailwind CSS -->
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    {% tailwind_css %}
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ recipe.title }} - Recipe Details
+{% endblock %}
+
+{% block content %}
     <style>
+        /* Set the background image for the body */
+        .bg-container {
+            background-image: url('/static/images/add-bg1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
         /* Custom styles for file upload button */
         .file-upload {
             position: relative;
@@ -21,169 +29,145 @@
             cursor: pointer;
         }
     </style>
-</head>
-<body class="bg-accent1 font-sans">
 
-    <div class="container mx-auto my-8 p-6 bg-white rounded-lg shadow-lg w-full max-w-5xl">
-        <!-- Display messages here -->
-        {% if messages %}
-            <div class="mb-4">
-                {% for message in messages %}
-                    {% if 'recipe_message' in message.tags %}
-                        <div class="p-4 mb-4 text-base {% if message.tags == 'success' %}text-green-700 bg-green-100{% else %}text-red-700 bg-red-100{% endif %} rounded-lg">
-                            {{ message }}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        {% endif %}
-    
-        <a href="{% url 'auth:profile' request.user.id %}">&lt-</a>
-
-        <form method="POST" enctype="multipart/form-data" onsubmit="return onFormSubmit()">
-            {% csrf_token %}
-    
-            <!-- Main title and introduction -->
-            <h1 class="text-7xl text-accent1 font-bold">Add a Recipe</h1>
-            <p class="text-2xl text-gray-700 mt-2 mb-4">Share your recipe with the world!</p>
-    
-            <!-- Grid layout for Recipe Name, Description, Image Upload, and Category -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-    
-                <!-- Left Side: Recipe Name and Description -->
-                <div>
-                    <!-- Recipe Name (Title) -->
-                    <div class="mb-4">
-                        <label for="recipe_name" class="block text-base font-bold mb-2">Recipe Name</label>
-                        <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-full rounded" id="recipe_name" placeholder="Enter title" name="title">
-                    </div>
-    
-                    <!-- Description -->
-                    <div class="mb-4">
-                        <label for="description" class="block text-base font-bold mb-2">Description</label>
-                        <textarea class="bg-gray-200 border border-gray-400 p-2 w-full rounded resize-none min-h-[160px] overflow-hidden" id="description" rows="3" placeholder="Short Description of the Recipe..." name="description" oninput="adjustHeight(this)"></textarea>
-                    </div>
+    <div class="bg-container">
+        <div class="container mx-auto my-8 p-6 bg-white rounded-lg shadow-lg w-full max-w-5xl dark:bg-slate-800">
+            {% if messages %}
+                <div class="mb-4">
+                    {% for message in messages %}
+                        {% if 'recipe_message' in message.tags %}
+                            <div class="p-4 mb-4 text-base 
+                                {% if 'success' in message.tags %}
+                                    text-green-700 bg-green-100
+                                {% elif 'error' in message.tags %}
+                                    text-red-700 bg-red-100
+                                {% else %}
+                                    text-gray-700 bg-gray-100
+                                {% endif %}
+                                rounded-lg">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-    
-                <!-- Right Side: Image Upload and Category -->
-                <div>
-                     <!-- Image Upload -->
-                    <div class="file-upload mb-4 flex items-center justify-center">
-                        <div class="flex items-center justify-center h-32 w-32 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
-                            <input type="file" name="image">
-                            <span class="text-4xl text-gray-500">+</span>
+            {% endif %}
+
+            <div class="flex justify-between items-start mb-6">
+                <h1 class="text-7xl text-accent1 font-bold">Add a Recipe</h1>
+                <a href="{% url 'auth:profile' request.user.id %}" class="bg-accent1 text-white rounded-full px-6 py-2 hover:bg-accent2">← Back</a>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" onsubmit="return onFormSubmit()">
+                {% csrf_token %}
+                <p class="text-2xl text-gray-700 mt-2 mb-4 dark:text-gray-300">Share your recipe with the world!</p>
+
+                <!-- Recipe Name and Description -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <!-- Recipe Name -->
+                        <div class="mb-4">
+                            <label for="recipe_name" class="block text-base font-bold mb-2">Recipe Name</label>
+                            <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-full rounded dark:bg-slate-400 dark:placeholder-white" id="recipe_name" placeholder="Enter title" name="title">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <label for="description" class="block text-base font-bold mb-2">Description</label>
+                            <textarea class="bg-gray-200 border border-gray-400 p-2 w-full rounded resize-none min-h-[240px] dark:bg-slate-400 dark:placeholder-white" id="description" rows="3" placeholder="Short Description of the Recipe..." name="description"></textarea>
                         </div>
                     </div>
-
-                    {% comment %} <div class="file-upload-container relative mb-4 flex items-center justify-center">
-                        <!-- Image upload area (this will be replaced with the uploaded image) -->
-                        <div class="relative h-40 w-60 border-2 border-gray-400 rounded-lg bg-gray-50 flex items-center justify-center" id="file-upload-area">
-                            <!-- This image will change once a user selects a new image -->
-                            <img id="image-preview" src="{% static 'images/img-upload-icon.png' %}" alt="Upload Icon" class="w-auto h-16 object-cover">
-                            <input type="file" id="image-upload" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="previewImage(event)">
-                        </div>
-                    </div> {% endcomment %}
-
-
                     
-                    <!-- Category -->
-                    <div class="mb-4">
-                        <label for="category" class="block text-base font-bold mb-2">Category</label>
-                        <div class="flex space-x-2" id="category">
-                            <button type="button" class="btn-category selected bg-accent1 text-white rounded-full px-4 py-2" onclick="selectCategory(this)">Breakfast</button>
-                            <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Lunch</button>
-                            <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Dinner</button>
-                            <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Dessert</button>
-                            <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2" onclick="selectCategory(this)">Snack</button>
+                    <div>
+                        <!-- Image Upload -->
+                        <div class="file-upload mb-4 flex items-center justify-center">
+                            <div class="flex items-center justify-center h-60 w-80 border-2 border-dashed border-accent1 rounded-lg bg-gray-50 dark:bg-slate-400 dark:placeholder-white">
+                                <input type="file" name="image" id="image-upload" onchange="previewImage(event)">
+                                <img id="image-preview" alt="Upload Icon" class="hidden w-full h-full object-cover rounded-lg"/>
+                                <span id="image-placeholder" class="text-6xl text-accent1">+</span>
+                            </div>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="mb-4">
+                            <label for="category" class="block text-base font-bold mb-2">Category</label>
+                            <div class="flex space-x-2" id="category">
+                                <button type="button" class="btn-category selected bg-accent1 text-white rounded-full px-4 py-2" onclick="selectCategory(this)">Breakfast</button>
+                                <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2 dark:bg-slate-800" onclick="selectCategory(this)">Lunch</button>
+                                <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2 dark:bg-slate-800" onclick="selectCategory(this)">Dinner</button>
+                                <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2 dark:bg-slate-800" onclick="selectCategory(this)">Dessert</button>
+                                <button type="button" class="btn-category bg-white border-accent1 text-accent1 rounded-full px-4 py-2 dark:bg-slate-800" onclick="selectCategory(this)">Snack</button>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="category" id="selected_category" value="{{ request.POST.category|default:'Breakfast' }}">
+                    </div>
+                </div>
+
+                <hr class="my-6 border-t-2 border-accent1">
+
+                <!-- Ingredients -->
+                <div class="mb-4" id="ingredients-container">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ingredient-row mb-2">
+                        <div>
+                            <label for="ingredient" class="block text-base font-bold mb-2">Ingredients</label>
+                            <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-full rounded dark:bg-slate-400 dark:placeholder-white" placeholder="Ingredient 1..." name="ingredient" id="ingredient">
+                        </div>
+                        <div>
+                            <label for="amount" class="block text-base font-bold mb-2">Amount</label>
+                            <div class="flex items-center">
+                                <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-2/3 rounded dark:bg-slate-400 dark:placeholder-white" placeholder="Amount" name="amount" id="amount">
+                                <button type="button" class="ml-2 bg-confirm text-white rounded-full w-8 h-8 flex items-center justify-center text-xl" onclick="addIngredientRow(this)">+</button>
+                            </div>
                         </div>
                     </div>
-    
-                    <!-- Hidden input to store selected category -->
-                    <input type="hidden" name="category" id="selected_category" value="Breakfast">
                 </div>
-    
-            </div>
 
-            <hr class="my-6 border-t-2 border-accent1">
-    
-            <!-- Ingredients (Use JavaScript to dynamically add/remove) -->
-            <div class="mb-4" id="ingredients-container">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ingredient-row mb-2">
-                    <div>
-                        <label for="ingredient" class="block text-base font-bold mb-2">Ingredients</label>
-                        <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-full rounded" placeholder="Ingredient 1..." name="ingredient" id="ingredient">
-                    </div>
-                    <div>
-                        <label for="amount" class="block text-base font-bold mb-2">Amount</label>
-                        <div class="flex items-center">
-                            <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-2/3 rounded" placeholder="Amount" name="amount" id="amount">
-                            <button type="button" class="ml-2 bg-confirm text-white rounded-full w-8 h-8 flex items-center justify-center" onclick="addIngredientRow(this)">+</button>
-                        </div>
+                <input type="hidden" name="ingredients" id="concatenated_ingredients" value="{{ request.POST.ingredients }}">
+                <input type="hidden" name="ingredients_count" id="concatenated_ingredients_counts" value="{{ request.POST.ingredients_count }}">
+
+                <hr class="my-6 border-t-2 border-accent1">
+
+                <!-- Procedure -->
+                <div class="mb-4" id="procedure-container">
+                    <label for="procedure" class="block text-base font-bold mb-2">Procedure</label>
+                    <div class="procedure-step flex mb-2">
+                        <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-5/6 rounded dark:bg-slate-400 dark:placeholder-white" rows="3" placeholder="Step 1..." name="procedure" id="procedure">
+                        <button type="button" class="ml-2 bg-confirm text-white rounded-full w-8 h-8 flex items-center justify-center" onclick="addProcedureStep(this)">+</button>
                     </div>
                 </div>
-            </div>
-    
-            <!-- Hidden input to store concatenated ingredients and amount -->
-            <input type="hidden" name="ingredients" id="concatenated_ingredients" value="">
-            <input type="hidden" name="ingredients_count" id="concatenated_ingredients_counts" value="">
 
-            <hr class="my-6 border-t-2 border-accent1">
-    
-            <!-- Procedure (Use JavaScript to dynamically add/remove steps) -->
-            <div class="mb-4" id="procedure-container">
-                <label for="procedure" class="block text-base font-bold mb-2">Procedure</label>
-                <div class="procedure-step flex mb-2">
-                    <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-full rounded" rows="3" placeholder="Step 1..." name="procedure" id="procedure">
-                    <button type="button" class="ml-2 bg-confirm text-white rounded-full w-8 h-8 flex items-center justify-center" onclick="addProcedureStep(this)">+</button>
+                <input type="hidden" name="procedures" id="concatenated_procedures" value="{{ request.POST.procedures }}">
+
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-accent1 text-white rounded-full px-6 py-2 hover:bg-accent2">Add</button>
                 </div>
-            </div>
-    
-            <!-- Hidden input for concatenated procedures -->
-            <input type="hidden" name="procedures" id="concatenated_procedures" value="">
-    
-            <!-- Submit Button -->
-            <button type="submit" class="bg-accent1 text-white rounded-full px-6 py-2 hover:bg-orange-500">Add</button>
-        </form>
+            </form>
+        </div>
     </div>
 
     <script src="/static/js/add_recipe.js"></script>
     <script src="/static/js/concat_input.js"></script>
-
-    <!-- Auto-resize Textarea and Procedure Input JavaScript -->
     <script>
-        function adjustHeight(input) {
-            // Reset the height to auto, to recalculate
-            input.style.height = 'auto';
-            // Set the new height based on the scrollHeight (content height)
-            input.style.height = `${input.scrollHeight}px`;
-        }
-
-        {% comment %} function previewImage(event) {
-            const file = event.target.files[0]; // Get the selected file
-            const fileUploadArea = document.getElementById('file-upload-area'); // Get the container for the file upload
-            const imagePreview = document.getElementById('image-preview'); // Get the image element
-            const fileInput = document.getElementById('image-upload'); // Get the file input element
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const imagePreview = document.getElementById('image-preview');
+            const imagePlaceholder = document.getElementById('image-placeholder');
         
             if (file) {
-                const reader = new FileReader(); // Create a FileReader instance
-        
+                const reader = new FileReader();
+                
                 reader.onload = function(e) {
-                    // Set the source of the image preview to the uploaded image
-                    imagePreview.src = e.target.result; 
-                    imagePreview.classList.add('w-full', 'h-full', 'object-cover', 'rounded-lg'); // Add classes to make the image fill the area
+                    imagePreview.src = e.target.result;
+                    imagePreview.classList.remove('hidden');
+                    imagePlaceholder.classList.add('hidden');
                 }
-        
-                reader.readAsDataURL(file); // Read the file as a data URL
-        
-                // Optionally: Show a "Change Image" button if needed, or give feedback to user
-                fileInput.value = ''; // Clear the file input after change (to allow re-upload)
+                
+                reader.readAsDataURL(file);
             } else {
-                // If no file is selected, reset to the default upload icon
-                imagePreview.src = '{% static "images/img-upload-icon.png" %}';
+                imagePreview.src = '';
+                imagePreview.classList.add('hidden');
+                imagePlaceholder.classList.remove('hidden');
             }
-        } {% endcomment %}
-        
+        }
     </script>
-
-</body>
-</html>
+{% endblock %}

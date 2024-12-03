@@ -13,23 +13,6 @@ class AddRecipeForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        # Get ingredients and procedures as a list from the POST data
-        # ingredients_list = self.data.getlist('ingredient')
-        # ingredients_count_list = self.data.getlist('amount')
-        # procedures_list = self.data.getlist('procedure')
-
-        # print(f"ingredient: {ingredients_list}")
-        # print(f"count: {ingredients_count_list}")
-        # print(f"procedure: {procedures_list}")
-        
-        # Combine ingredients into a string for saving
-        # cleaned_data['ingredients'] = ', '.join(ingredients_list)
-        # cleaned_data['ingredients_count'] = ', '.join(ingredients_count_list)
-        # cleaned_data['procedures'] = '\n'.join(procedures_list)
-        
-        # print(f"ingredient: {cleaned_data['ingredients']}")
-        # print(f"ingredient: {cleaned_data['ingredients_count']}")
-        # print(f"ingredient: {cleaned_data['procedures']}")
 
         return cleaned_data
 

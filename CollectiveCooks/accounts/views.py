@@ -10,6 +10,7 @@ from recipe.models import Recipe
 from .models import User, Follow
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import Q
+import random
 
 
 # Create your views here.
@@ -169,6 +170,7 @@ def search_entities(request):
     query = request.GET.get('q', '')
     users = []
     recipes = []
+    flag = False
 
     if query:
         users = User.objects.filter(
@@ -181,10 +183,19 @@ def search_entities(request):
             Q(username__username__icontains=query)
         )
 
+    if not users and not recipes:
+        flag = True
+        users = User.objects.all()
+        users = random.sample(list(users), min(len(users), 6)) 
+
+        recipes = Recipe.objects.all()
+        recipes = random.sample(list(recipes), min(len(recipes), 19))
+
     context = {
         'users': users,
         'recipes': recipes,
         'query': query,
+        'flag': flag,
     }
     return render(request, 'search/search_results.html', context)
 

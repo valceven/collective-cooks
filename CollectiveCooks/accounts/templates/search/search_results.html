@@ -1,78 +1,53 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+
     <div class="container mx-auto px-4 lg:px-40 py-6">
-        {% if users or recipes %}
-            {% if users %}
-                <div class="mb-8">
-                    <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 mb-4 dark:text-white">Users</h2>
-                    <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-5 gap-6">
-                        {% for user in users %}
-                        <a href="{% url 'auth:profile' user.id %}">
-                            <div class="flex flex-col items-center p-5">
-                                <div class="w-32 h-32 bg-accent2 border border-accent1 rounded-full flex items-center justify-center shadow-lg transition-transform transform hover:-translate-y-2">
-                                    <img src="{{ user.avatar.url }}" alt="{{ user.username }}" 
-                                        class="w-16 h-16 rounded-full object-cover border-2 border-yellow-500">
-                                </div>
-                                <p class="mt-4 text-center text-gray-800 font-semibold hover:text-gray-900 dark:text-gray-50">
-                                    {{ user.username }}
-                                </p>
-                            </div>
-                        </a>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endif %}
-
-            {% if recipes %}
-                <div>
-                    <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 mb-4 dark:text-white">Recipes</h2>
-                    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-                        {% for recipe in recipes %}
-                            <div class="bg-accent1 border border-accent2 rounded-lg p-4 shadow-lg transition-transform transform hover:-translate-y-2">
-                                <a href="{% url 'auth:recipe_view' recipe.id %}" class="block">
-                                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" 
-                                        class="w-full h-32 object-cover rounded-md mb-4 border-2 border-accent2">
-                                    <h3 class="text-lg font-semibold text-gray-800 hover:text-gray-900">{{ recipe.title }}</h3>
-                                    <p class="text-gray-50 text-sm">by {{ recipe.username.username }}</p>
-                                </a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endif %}
-        {% else %}
-            <p class="text-center text-gray-500">No users or recipes found.</p>
-        {% endif %}
-    </div>
-
-
-
-
-    {% comment %} search-results {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        width: 80%; /* Increased width for larger cards */
-        margin: 0 auto; /* Center the container horizontally */
-      }
-      
-      /* Individual User Card */
-      .user-card {
-        width: 250px; /* Increased width for larger cards */
-        text-align: center;
-        background-color: #F5D020;
-        border: 1px solid #e7bd16;
-        border-radius: 8px;
-        padding: 20px;
-        transition: transform 0.2s;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      }
-      
-      .user-card:hover {
-        transform: translateY(-5px);
+    {% if flag %}
+        <p class="text-center font-semibold text:lg lg:text-xl mb-6 text-gray-50 p-5 bg-accent1 rounded-full">
+            We're Sorry but we couldn't find what you were looking for, Here is something instead:
+        </p>
+    {% endif %}
     
-      } {% endcomment %}
+    {% if users or recipes %}   
+        {% if users %}
+            <div class="mb-8">
+                <h2 class="text-2xl lg:text-3xl font-semibold text-gray-800 mb-4 dark:text-white">Users</h2>
+                <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-5 gap-6">
+                    {% for user in users %}
+                    <a href="{% url 'auth:profile' user.id %}">
+                        <div class="flex flex-col items-center p-5">
+                            <div class="w-32 h-32 bg-accent2 border border-accent1 rounded-full flex items-center justify-center shadow-lg transition-transform transform hover:-translate-y-2">
+                                <img src="{{ user.avatar.url }}" alt="{{ user.username }}" 
+                                    class="w-16 h-16 rounded-full object-cover border-2 border-yellow-500">
+                            </div>
+                            <p class="mt-4 text-center text-gray-800 font-semibold hover:text-gray-900 dark:text-gray-50">
+                                {{ user.username }}
+                            </p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
 
+        {% if recipes %}
+            <div>
+                <h2 class="text-2xl lg:text-3xl font-semibold text-gray-800 mb-4 dark:text-white">Recipes</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+                    {% for recipe in recipes %}
+                        <div class="bg-accent1 border border-accent2 rounded-lg p-4 shadow-lg transition-transform transform hover:-translate-y-2">
+                            <a href="{% url 'recipe:recipe_detail' recipe.username.username recipe.id %}" class="block">
+                                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" 
+                                    class="w-full h-32 object-cover rounded-md mb-4 border-2 border-accent2">
+                                <h3 class="text-lg font-semibold text-gray-800 hover:text-gray-900">{{ recipe.title }}</h3>
+                                <p class="text-gray-50 text-sm">by {{ recipe.username.username }}</p>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
 {% endblock %}

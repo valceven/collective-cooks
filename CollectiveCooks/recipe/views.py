@@ -7,7 +7,7 @@ from .models import Recipe, Comment
 from accounts.models import User
 from django.utils import timezone
 
-@login_required
+@login_required(login_url="auth/login")
 def add_recipe_view(request):
     if request.method == 'POST':
         form = AddRecipeForm(request.POST, request.FILES, user=request.user)
@@ -26,7 +26,7 @@ def add_recipe_view(request):
 
     return render(request, 'add_recipe.html', {'form': form})
 
-@login_required
+@login_required(login_url="auth/login")
 def recipe_detail(request, username, recipe_id):
     user = get_object_or_404(User, username=username)
     recipe = get_object_or_404(Recipe, id=recipe_id, username=user)

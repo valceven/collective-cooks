@@ -11,10 +11,22 @@
     <div class="mx-auto p-8">
       <h1 class="text-3xl lg:text-5xl font-bold mb-4">{{ recipe.title }}</h1>
 
-      <!-- Add to Favorites Button -->
-      <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg ml-auto mb-4">
-        Add to Favorites
-      </button>
+      <div class="flex items-center justify-center lg:block my-4 lg:my-5">
+        <form action="{% url 'recipe:add_to_favorites' request.user.id recipe.id %}" method="post">
+            {% csrf_token %}
+            
+            {% if not is_favorite %}
+                <button type="submit" class="bg-accent2 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-105">
+                    Add to Favorites
+                </button>    
+            {% else %}
+                <button type="submit" class="bg-accent2 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-105">
+                    Remove from Favorites
+                </button>
+            {% endif %}
+        </form>
+    </div>
+
     
       <!-- Flex container for the profile image and username -->
       <div class="flex items-center space-x-4">

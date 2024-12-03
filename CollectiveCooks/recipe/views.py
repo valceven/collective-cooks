@@ -1,11 +1,13 @@
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import AddRecipeForm
 from .models import Recipe, Comment
 from accounts.models import User
+from favorites.models import Favorite
 
-@login_required(login_url="auth/login")
+@login_required(login_url="/auth/login")
 def add_recipe_view(request):
     if request.method == 'POST':
         form = AddRecipeForm(request.POST, request.FILES, user=request.user)
@@ -24,7 +26,7 @@ def add_recipe_view(request):
 
     return render(request, 'add_recipe.html', {'form': form})
 
-@login_required(login_url="auth/login")
+@login_required(login_url="/auth/login")
 def recipe_detail(request, username, recipe_id):
     user = get_object_or_404(User, username=username)
     recipe = get_object_or_404(Recipe, id=recipe_id, username=user)
@@ -60,3 +62,23 @@ def recipe_detail(request, username, recipe_id):
         return redirect('recipe:recipe_detail', username=username, recipe_id=recipe_id)
 
     return render(request, 'view_recipe.html', {'recipe': recipe, 'user': user})
+
+@login_required(login_url="/auth/login")
+def add_to_favorites(request, user_id, recipe_id):
+    user = get_object_or_404(User, id=user_id)
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+
+    favorite, created = Favorite.objects.get_or_create(user_id=user, recipe_id=recipe)
+
+    if not created:
+        favorite.delete()
+
+    is_favorite = created
+
+    return render(request, 'view_recipe.html', {
+        'user': recipe.username ,
+        'recipe': recipe,
+        'is_favorite': is_favorite,
+    })
+
+

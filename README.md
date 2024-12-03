@@ -1,6 +1,4 @@
-<span style="color: orange;">🍳 Cooks Collective</span>
-**An Online Recipe Sharing Platform**
-
+# 🍳 **Cooks Collective**  
 *Cooks Collective* is an online recipe-sharing platform designed to connect cooking enthusiasts, from novice home cooks to seasoned chefs.
 
 ---
@@ -105,10 +103,10 @@ Before you start, ensure you have the following installed:
 ---
 
 ## ✨ **Contributors**
-Our amazing contributors are:
-
-Bolante, Val Mykel Ceven C.	Omas-as, Fiel Louis L.	Sullano, Dechie A.
-  
+Our amazing contributors are:  
+- **Bolante, Val Mykel Ceven C.**  
+- **Omas-as, Fiel Louis L.**  
+- **Sullano, Dechie A.**  
 
 ---
 

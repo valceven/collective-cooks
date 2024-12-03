@@ -79,7 +79,7 @@
 <!-- ABOUT THE PROJECT -->
 ## ABOUT THE PROJECT
 
-[![Home Page][product-screenshot-0]](Home Page)
+![Home Page][product-screenshot-0]
 
 [![Popular Recipes in Home Page][product-screenshot-1]](Popular Recipes in Home Page)
 

@@ -60,6 +60,7 @@
     <li><a href="#functional-requirements">Functional Requirements</a></li>
     <li><a href="#additional-features">Additional Features</a></li>
     <li><a href="#built-with">Built With</a></li>
+    <li><a href="#tech-stack">Tech Stack</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -143,7 +144,17 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Tech Stack
+| Technology | Version |
+|---|---|
+| Django | 5.1.1 |
+| Python | 3.12.5 |
+| HTML5 | 5 |
+| CSS3 | 3 |
+| JavaScript |  (ES6) |
+| Tailwind CSS | 3.4.13 |
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ##  **Getting Started**  

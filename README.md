@@ -79,17 +79,17 @@
 <!-- ABOUT THE PROJECT -->
 ## ABOUT THE PROJECT
 
-[![Product Name Screen Shot][product-screenshot-0]](Home Page)
+[![Home Page][product-screenshot-0]](Home Page)
 
-[![Product Name Screen Shot][product-screenshot-1]](Popular Recipes in Home Page)
+[![Popular Recipes in Home Page][product-screenshot-1]](Popular Recipes in Home Page)
 
-[![Product Name Screen Shot][product-screenshot-2]](View User Profile)
+[![View User Profile][product-screenshot-2]](View User Profile)
 
-[![Product Name Screen Shot][product-screenshot-3]](Adding Recipe)
+[![Adding Recipe][product-screenshot-3]](Adding Recipe)
 
-[![Product Name Screen Shot][product-screenshot-4]](Viewing Recipe 1)
+[![Viewing Recipe 1][product-screenshot-4]](Viewing Recipe 1)
 
-[![Product Name Screen Shot][product-screenshot-5]](Viewing Recipe 2)
+[![Viewing Recipe 2][product-screenshot-5]](Viewing Recipe 2)
 
 *Cooks Collective* is an online recipe-sharing platform designed to connect cooking enthusiasts, from novice home cooks to seasoned chefs.
 
@@ -256,8 +256,12 @@ Project Link: [https://github.com/valceven/collective-cooks](https://github.com/
 [license-url]: https://github.com/markyleangela/VehicleRentalSystem/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/kyle-angela-mar-405aa3159/
-[product-screenshot]: images/product-screenshot-2.png
-[product-screenshot-1]: images/product-screenshot-3.png
+[product-screenshot-0]: images/product-screenshot-0.png
+[product-screenshot-1]: images/product-screenshot-1.png
+[product-screenshot-2]: images/product-screenshot-2.png
+[product-screenshot-3]: images/product-screenshot-3.png
+[product-screenshot-4]: images/product-screenshot-4.png
+[product-screenshot-5]: images/product-screenshot-5.png
 [Django]: https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white
 [Django-url]: https://www.djangoproject.com/
 

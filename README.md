@@ -128,11 +128,11 @@ Vehicle Rental System designed to streamline the rental process for both custome
 ## Built With
 
 
+[![HTML][HTML]][HTML-url]
+[![CSS][CSS]][CSS-url]
 [![Python][Python]][Python-url]
 [![Django][Django]][Django-url]
 [![SQLite][SQLite]][SQLite-url]
-[![HTML][HTML]][HTML-url]
-[![CSS][CSS]][CSS-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -205,29 +205,13 @@ Before you start, ensure you have the following installed:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
 ### Top contributors:
 
-<a href="https://github.com/markyleangela/VehicleRentalSystem/graphs/contributors">
+<a href="https://github.com/valceven/collective-cooks/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=markyleangela/VehicleRentalSystem" alt="contrib.rocks image" />
 </a>
 
@@ -237,13 +221,13 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 <!-- CONTACT -->
 ## Contact
 
-Kyle Angela Mar - [@kyleangelamar](https://facebook.com/kyleangelamar) - markyleangela@gmail.com
+Val Mykel Ceven Bolante - [@valceven](https://www.facebook.com/valmykelceven.bolante) - VAL GMAIL
 
-Chaz Zyl Llaguno - [@username](https://facebook.com/username) - example@gmail.com
+Dechie Sullano - [@dechie](https://facebook.com/username) - DECHIE GMAIL
 
-Raphael Espelita - [@username](https://facebook.com/username) - example@gmail.com
+Fiel Louis Omas-as - [@fiellouis](https://www.facebook.com/fiellouis.omasas) - fiellouisomasas@gmail.com
 
-Project Link: [https://github.com/markyleangela/VehicleRentalSystem](https://github.com/markyleangela/VehicleRentalSystem)
+Project Link: [https://github.com/valceven/collective-cooks](https://github.com/valceven/collective-cooks)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

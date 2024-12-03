@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="/static/images/image-logo.png" alt="Logo" width="200" height="200">
+    <img src="CollectiveCooks/static/images/image-logo.png" alt="Logo" width="200" height="200">
   </a>
 
   <h3 align="center">Cooks Collective</h3>

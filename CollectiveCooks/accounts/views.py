@@ -198,19 +198,8 @@ def report_user(request, user_id):
     has_reported = UserReport.objects.filter(reporter=request.user, user_id=reported_user).exists()
 
 
-    context = {
-        'user': reported_user,
-        'favorites': favorites,
-        'recipes': recipes,
-        'following': following,
-        'followers': followers,
-        'self_following': self_following,
-        'followers_count': followers.count(),
-        'following_count': following.count(),
-        'has_reported': has_reported,
-    }
+    return redirect('auth:profile', user_id=reported_user.id)
 
-    return render(request, 'profile/profile.html', context)
 
 
 def search_entities(request):

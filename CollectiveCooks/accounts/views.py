@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from favorites.models import Favorite
+from favorites.models import Favorite, UserReport
 from recipe.models import Recipe
 from .models import User, Follow
 from django.contrib.auth.forms import PasswordChangeForm
@@ -72,6 +72,8 @@ def profile_view(request, user_id):
     followers = Follow.objects.filter(following=user)
     following = Follow.objects.filter(follower=user)
     self_following = Follow.objects.filter(follower=request.user, following=user)
+    has_reported = UserReport.objects.filter(reporter=request.user, user_id=user).exists()
+
     
     for follow in followers:
         follow.is_self_following = Follow.objects.filter(follower=request.user, following = follow.follower).exists()
@@ -86,6 +88,7 @@ def profile_view(request, user_id):
         'self_following': self_following,
         'followers_count': followers.count(),
         'following_count': following.count(),
+        'has_reported': has_reported,
     }
 
     return render(request, 'profile/profile.html', context)
@@ -165,6 +168,50 @@ def follow_user(request, user_id ):
                 follow.delete()
     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required(login_url="auth/login")
+def report_user(request, user_id):
+    reported_user = get_object_or_404(User, id=user_id)
+    
+    if reported_user == request.user:
+        messages.error(request, "You cannot report yourself.")
+        return redirect('auth:profile', user_id=reported_user.id)
+
+    if UserReport.objects.filter(reporter=request.user, user_id=reported_user).exists():
+        messages.error(request, "You have already reported this user.")
+        return redirect('auth:profile', user_id=reported_user.id)
+
+    if request.method == "POST":
+        report_detail = request.POST.get("report_detail", "").strip()
+        
+        if report_detail:
+            UserReport.objects.create(reporter=request.user, user_id=reported_user, report_detail=report_detail)
+            messages.success(request, "User reported successfully.")
+        else:
+            messages.error(request, "Please provide details for the report.")
+
+    favorites = Favorite.objects.filter(user_id=reported_user)
+    recipes = Recipe.objects.filter(username=reported_user)
+    followers = Follow.objects.filter(following=reported_user)
+    following = Follow.objects.filter(follower=reported_user)
+    self_following = Follow.objects.filter(follower=request.user, following=reported_user)
+    has_reported = UserReport.objects.filter(reporter=request.user, user_id=reported_user).exists()
+
+
+    context = {
+        'user': reported_user,
+        'favorites': favorites,
+        'recipes': recipes,
+        'following': following,
+        'followers': followers,
+        'self_following': self_following,
+        'followers_count': followers.count(),
+        'following_count': following.count(),
+        'has_reported': has_reported,
+    }
+
+    return render(request, 'profile/profile.html', context)
+
 
 def search_entities(request):
     query = request.GET.get('q', '')

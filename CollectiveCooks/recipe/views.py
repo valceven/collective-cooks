@@ -5,7 +5,7 @@ from django.contrib import messages
 from .forms import AddRecipeForm
 from .models import Recipe, Comment
 from accounts.models import User
-from favorites.models import Favorite
+from favorites.models import Favorite, RecipeReport
 
 @login_required(login_url="/auth/login")
 def add_recipe_view(request):
@@ -30,6 +30,7 @@ def add_recipe_view(request):
 def recipe_detail(request, username, recipe_id):
     user = get_object_or_404(User, username=username)
     recipe = get_object_or_404(Recipe, id=recipe_id, username=user)
+    has_reported = RecipeReport.objects.filter(recipe_id=recipe.id, reporter=request.user).exists()
 
     if request.method == 'POST':
         # Handling comment submission
@@ -61,12 +62,14 @@ def recipe_detail(request, username, recipe_id):
         # Redirect back to the same recipe page to avoid form resubmission on refresh
         return redirect('recipe:recipe_detail', username=username, recipe_id=recipe_id)
 
-    return render(request, 'view_recipe.html', {'recipe': recipe, 'user': user})
+    return render(request, 'view_recipe.html', {'recipe': recipe, 'user': user, 'has_reported' : has_reported})
 
 @login_required(login_url="/auth/login")
-def add_to_favorites(request, user_id, recipe_id):
-    user = get_object_or_404(User, id=user_id)
+def add_to_favorites(request, username, recipe_id):
+    user = get_object_or_404(User, username=username)
     recipe = get_object_or_404(Recipe, id=recipe_id)
+    has_reported = get_object_or_404(RecipeReport, recipe_id = recipe.id, reporter = user.id)
+
 
     favorite, created = Favorite.objects.get_or_create(user_id=user, recipe_id=recipe)
 
@@ -79,6 +82,22 @@ def add_to_favorites(request, user_id, recipe_id):
         'user': recipe.username ,
         'recipe': recipe,
         'is_favorite': is_favorite,
+        'has_reported' : has_reported
     })
 
+@login_required(login_url="/auth/login")
+def report_recipe(request,username,recipe_id):
+    reported_recipe = get_object_or_404(Recipe, id=recipe_id)
+    user = get_object_or_404(User, username=username)
 
+
+    if request.method == "POST":
+        report_detail = request.POST.get("report_detail", "").strip()
+        
+        if report_detail:
+            RecipeReport.objects.create(reporter=request.user, recipe_id=reported_recipe, report_detail=report_detail)
+            messages.success(request, "Recipe reported successfully.")
+        else:
+            messages.error(request, "Please provide details for the report.")
+
+    return redirect('recipe:recipe_detail', username=user.username, recipe_id=reported_recipe.id)

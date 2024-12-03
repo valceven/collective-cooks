@@ -1,5 +1,5 @@
-# 🍳 **Cooks Collective**  
-*Cooks Collective* is an online recipe-sharing platform designed to connect cooking enthusiasts, from novice home cooks to seasoned chefs.
+# 🍳 **CooksCollective**  
+*CooksCollective* is an online recipe-sharing platform designed to connect cooking enthusiasts, from novice home cooks to seasoned chefs.
 
 ---
 
@@ -47,10 +47,16 @@ Access the Figma prototype [here](https://www.figma.com/design/xnHAttOxHgNQuuTlT
 
 ---
 
-## **Tech Stack**
-- **Frontend**: HTML, CSS, JavaScript  
-- **Backend**: Python, Django  
-- **Database**: PostgreSQL  
+
+## Tech Stack
+| Technology | Version |
+|---|---|
+| Django | 5.1.1 |
+| Python | 3.12.5 |
+| HTML5 | 5 |
+| CSS3 | 3 |
+| JavaScript (ES6) |  |
+| Tailwind CSS | 3.4.13 |
 
 ---
 

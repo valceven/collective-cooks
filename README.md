@@ -22,8 +22,6 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -81,15 +79,15 @@
 
 ![Home Page][product-screenshot-0]
 
-[![Popular Recipes in Home Page][product-screenshot-1]](Popular Recipes in Home Page)
+![Popular Recipes in Home Page][product-screenshot-1]
 
-[![View User Profile][product-screenshot-2]](View User Profile)
+![View User Profile][product-screenshot-2]
 
-[![Adding Recipe][product-screenshot-3]](Adding Recipe)
+![Adding Recipe][product-screenshot-3]
 
-[![Viewing Recipe 1][product-screenshot-4]](Viewing Recipe 1)
+![Viewing Recipe 1][product-screenshot-4]
 
-[![Viewing Recipe 2][product-screenshot-5]](Viewing Recipe 2)
+![Viewing Recipe 2][product-screenshot-5]
 
 *Cooks Collective* is an online recipe-sharing platform designed to connect cooking enthusiasts, from novice home cooks to seasoned chefs.
 
@@ -97,40 +95,40 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## FUNCTIONAL REQUIREMENTS
-1. **User Registration**  
+1. **User Management**  
 
-    The customer will input required data in the fields provided. If the information is verified, the system will create an account for the customer.
+    Users can sign up, log in, log out, and manage their accounts.
 
-2. **User Log-In**  
+2. **Recipe Submission**  
 
-    The customer will input their username and password. If the information is verified, the system will
+    Submit recipes with ingredients, instructions, and cooking details.
 
-3. **Vehicle Search/Availability**  
+3. **Search Funcitonality**  
 
-    The customer can search for specific vehicle or view all the listing of vehicles based on the date that they want to rent
+    Search recipes by name or ingredients, or maybe even search for users.
 
-4. **Booking Process**  
+4. **Comment & Rating System**  
 
-    The customer has chosen vehicles to rent, the system will summarize the rental dues/fees, the list of vehicles rented, the duration of the rental. A cancel button and pay button will display. When the user proceeds to pay then the booking is successful, otherwise, the booking is unsuccessful.
+    Rate and comment on recipes from other users.
 
-5. **Admin Dashboard/CRUD Operations for Vehicle**  
+5. **Favorite Recipes**  
 
-    The admin can Create, Read, Update, and Delete records of vehicles in the system
+    Save favorite recipes to your profile.
 
-6. **Log Out**  
+6. **Popular Recipes Display**  
 
-    When the user clicks the log out button, the log-session will be deleted in the system.
+    View the most popular recipes on the home page.
 
 
 ## ADDITIONAL FEATURES
 
-7. **Vehicle Rating Functionality**  
+7. **Dark Mode Feature**  
 
-    The user can leave a rating of the vehicle and add comment after the transaction has been completed
+    For users who prefer dark colors while traversing through the website.
 
-6. **User Profile / Email and License Verification**  
+6. **Reporting System**  
 
-    The user can update their information and verify their email and license to make their account verify.
+    Users can report users, comments, or recipes that violates basic desency upon using the website.
 
 
 ## Built With
@@ -252,10 +250,6 @@ Project Link: [https://github.com/valceven/collective-cooks](https://github.com/
 [stars-url]: https://github.com/markyleangela/VehicleRentalSystem/stargazers
 [issues-shield]: https://img.shields.io/github/issues/markyleangela/VehicleRentalSystem.svg?style=for-the-badge
 [issues-url]: https://github.com/markyleangela/VehicleRentalSystem/issues
-[license-shield]: https://img.shields.io/github/license/markyleangela/VehicleRentalSystem.svg?style=for-the-badge
-[license-url]: https://github.com/markyleangela/VehicleRentalSystem/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/kyle-angela-mar-405aa3159/
 [product-screenshot-0]: images/product-screenshot-0.png
 [product-screenshot-1]: images/product-screenshot-1.png
 [product-screenshot-2]: images/product-screenshot-2.png

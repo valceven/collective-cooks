@@ -55,7 +55,7 @@ Access the Figma prototype [here](https://www.figma.com/design/xnHAttOxHgNQuuTlT
 | Python | 3.12.5 |
 | HTML5 | 5 |
 | CSS3 | 3 |
-| JavaScript (ES6) |  |
+| JavaScript |  (ES6) |
 | Tailwind CSS | 3.4.13 |
 
 ---

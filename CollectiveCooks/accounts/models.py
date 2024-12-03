@@ -14,6 +14,8 @@ class User(AbstractUser):
     gender = models.CharField(max_length=1, choices=Gender.choices, default=Gender.OTHER)
     details = models.TextField(max_length=254, null=True, blank=True)
     avatar = models.ImageField(null=True)
+    is_admin = models.BooleanField(default=False)
+
 
     def save(self, *args, **kwargs):
 

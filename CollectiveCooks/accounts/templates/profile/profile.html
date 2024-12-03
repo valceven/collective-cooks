@@ -3,7 +3,7 @@
 {% block title %}
   Profile - Collective Cooks
 {% endblock %}
-
+z
 {% block content %}
 <style>
     /* Set the background image for the body */
@@ -23,19 +23,55 @@
   <div class="w-[90%] lg:w-[80%] mx-auto py-6 px-2 lg:p-8 bg-white rounded-3xl shadow-lg dark:bg-slate-800 mt-5 lg:mt-0 ">
 
     <div class="flex flex-col items-top p-4 min-h-56">
-        <div class="block lg:flex items-center lg:space-x-6 space-y-4 lg:space-y-0">
+        <div class="block lg:flex items-center lg:space-x-6 space-y-4 lg:space-y-0 relative">
             <img src="{{ user.avatar.url }}" alt="Profile Image" class="w-32 h-32 lg:w-40 lg:h-40 rounded-full border-4 border-yellow-500 mx-auto lg:mx-0">
-            <div class="text-center lg:text-left">
-                <h1 class="text-2xl lg:text-4xl font-bold">{{ user.first_name }} {{ user.last_name }}</h1>
-                <p class="mt-3 text-gray-600 dark:text-gray-300">{{ user.email }}</p>
-                <button id="followingButton" class=" hover:text-blue-500 mt-3 text-lg lg:text-xl font-semibold">
-                    Following {{ following_count }} 
-                </button>
-                &nbsp<strong>|</strong>
-                <button id="followersButton" class=" mt-3 hover:text-blue-500 text-lg lg:text-xl font-semibold ml-1"> 
-                    Followers {{ followers_count }} 
-                </button>
-                <p class="mt-3 text-gray-600 dark:text-gray-300 italic">{{ user.details }}</p>
+            <div class="flex justify-between w-full relative">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-2xl lg:text-4xl font-bold">{{ user.first_name }} {{ user.last_name }}</h1>
+                    <p class="mt-3 text-gray-600 dark:text-gray-300">{{ user.email }}</p>
+                    <button id="followingButton" class="hover:text-blue-500 mt-3 text-lg lg:text-xl font-semibold">
+                        Following {{ following_count }}
+                    </button>
+                    &nbsp<strong>|</strong>
+                    <button id="followersButton" class="mt-3 hover:text-blue-500 text-lg lg:text-xl font-semibold ml-3">
+                        Followers {{ followers_count }}
+                    </button>
+                    <p class="mt-3 text-gray-600 dark:text-gray-300 italic">{{ user.details }}</p>
+                </div>
+                {% if request.user.id != user.id %}
+                    {% if not has_reported %}
+                    <div class="absolute top-0 right-0 p-0">
+                        <button id="openModalButton" class="bg-red-500 text-white p-2 rounded-full hover:bg-red-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
+                            </svg>
+                        </button>
+                    </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- ReportModal -->
+        <div id="reportModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white dark:bg-slate-800 p-6  rounded-lg shadow-lg w-[90%] lg:w-[40%]">
+                <h2 class="text-2xl font-bold mb-4">Report User</h2>
+                <form method="POST" action="{% url 'auth:report_user' user.id %}">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="reportReason" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Reason</label>
+                        <textarea id="reportReason" name="report_detail" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-black"></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" id="closeModalButton" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                            Submit Report
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -131,52 +167,94 @@
 
   </div>
 
-</div>
+  <script>
 
-    <script>
-        const followerModal = document.getElementById("followerModal");
-        const followingModal = document.getElementById("followingModal");
-
-        const followingBtn = document.getElementById("followingButton");
-        const followerBtn = document.getElementById("followersButton");
-        const closeFollowerBtn = document.getElementById("closeFollowerModal");
-        const closeFollowingBtn = document.getElementById("closeFollowingModal");
-
-        const openModal = (modal) => {
-            modal.classList.remove("hidden");
-            if (modal === followerModal) {
-                localStorage.setItem('followerModalOpen', 'true');
-            } else if (modal === followingModal) {
-                localStorage.setItem('followingModalOpen', 'true');
-            }
-        };
-
-        const closeModal = (modal) => {
-            modal.classList.add("hidden");
-            if (modal === followerModal) {
-                localStorage.removeItem('followerModalOpen');
-            } else if (modal === followingModal) {
-                localStorage.removeItem('followingModalOpen');
-            }
-        };
-
-        followerBtn.addEventListener("click", () => openModal(followerModal));
-        followingBtn.addEventListener("click", () => openModal(followingModal));
-        closeFollowerBtn.addEventListener("click", () => closeModal(followerModal));
-        closeFollowingBtn.addEventListener("click", () => closeModal(followingModal));
-
-        if (localStorage.getItem('followerModalOpen') === 'true') {
-            openModal(followerModal);
-        }
-        if (localStorage.getItem('followingModalOpen') === 'true') {
-            openModal(followingModal);
-        }
-
-        window.addEventListener("click", (e) => {
-            if (e.target === followerModal) closeModal(followerModal);
-            if (e.target === followingModal) closeModal(followingModal);
+    window.addEventListener("beforeunload", () => {
+        closeModal(followerModal);
+        closeModal(followingModal);
+    });
+    
+    const followerModal = document.getElementById("followerModal");
+    const followingModal = document.getElementById("followingModal");
+    const followingBtn = document.getElementById("followingButton");
+    const followerBtn = document.getElementById("followersButton");
+    const closeFollowerBtn = document.getElementById("closeFollowerModal");
+    const closeFollowingBtn = document.getElementById("closeFollowingModal");
+    const openModalButton = document.getElementById("openModalButton");
+    const closeModalButton = document.getElementById("closeModalButton");
+    const reportModal = document.getElementById("reportModal");
+    
+    // Open report modal
+    if (openModalButton) {
+        openModalButton.addEventListener("click", () => {
+            reportModal.classList.remove("hidden");
         });
+    }
+    
+    // Close report modal
+    if (closeModalButton) {
+        closeModalButton.addEventListener("click", () => {
+            reportModal.classList.add("hidden");
+        });
+    }
+    
+    // Close report modal if clicked outside
+    if (reportModal) {
+        reportModal.addEventListener("click", (e) => {
+            if (e.target === reportModal) {
+                reportModal.classList.add("hidden");
+            }
+        });
+    }
+    
+    // Open/Close modals
+    const openModal = (modal) => {
+        if (modal) {
+            modal.classList.remove("hidden");
+            const modalType = modal === followerModal ? 'follower' : 'following';
+            localStorage.setItem(`${modalType}ModalOpen`, 'true');
+        }
+    };
+    
+    const closeModal = (modal) => {
+        if (modal) {
+            modal.classList.add("hidden");
+            const modalType = modal === followerModal ? 'follower' : 'following';
+            localStorage.removeItem(`${modalType}ModalOpen`);
+        }
+    };
+    
+    // Event listeners for modal buttons
+    if (followerBtn && followerModal) {
+        followerBtn.addEventListener("click", () => openModal(followerModal));
+    }
+    
+    if (followingBtn && followingModal) {
+        followingBtn.addEventListener("click", () => openModal(followingModal));
+    }
+    
+    if (closeFollowerBtn && followerModal) {
+        closeFollowerBtn.addEventListener("click", () => closeModal(followerModal));
+    }
+    
+    if (closeFollowingBtn && followingModal) {
+        closeFollowingBtn.addEventListener("click", () => closeModal(followingModal));
+    }
+    
+    // Check if modals were previously open
+    if (localStorage.getItem('followerModalOpen') === 'true' && followerModal) {
+        openModal(followerModal);
+    }
+    
+    if (localStorage.getItem('followingModalOpen') === 'true' && followingModal) {
+        openModal(followingModal);
+    }
+    
+    // Close modals when clicking outside
+    window.addEventListener("click", (e) => {
+        if (followerModal && e.target === followerModal) closeModal(followerModal);
+        if (followingModal && e.target === followingModal) closeModal(followingModal);
+    });
     </script>
- 
 
 {% endblock %}

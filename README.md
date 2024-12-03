@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="/static/images/image-logo.png" alt="Logo" width="200" height="200">
+    <img src="CollectiveCooks/static/images/image-logo.png" alt="Logo" width="300" height="300">
   </a>
 
   <h3 align="center">Cooks Collective</h3>
@@ -79,11 +79,19 @@
 <!-- ABOUT THE PROJECT -->
 ## ABOUT THE PROJECT
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot-0]](Home Page)
 
-[![Product Name Screen Shot][product-screenshot-1]](https://example.com)
+[![Product Name Screen Shot][product-screenshot-1]](Popular Recipes in Home Page)
 
-Vehicle Rental System designed to streamline the rental process for both customers and administrators. Built with Django, this system allows users to browse available vehicles, book rentals, and manage profiles, while giving administrators control over vehicle inventory and rental records. 
+[![Product Name Screen Shot][product-screenshot-2]](View User Profile)
+
+[![Product Name Screen Shot][product-screenshot-3]](Adding Recipe)
+
+[![Product Name Screen Shot][product-screenshot-4]](Viewing Recipe 1)
+
+[![Product Name Screen Shot][product-screenshot-5]](Viewing Recipe 2)
+
+*Cooks Collective* is an online recipe-sharing platform designed to connect cooking enthusiasts, from novice home cooks to seasoned chefs.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

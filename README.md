@@ -48,16 +48,15 @@ Access the Figma prototype [here](https://www.figma.com/design/xnHAttOxHgNQuuTlT
 ---
 
 
-## Tech Stack
+🛠️Tech Stack
+Django
+SQLite
+Python
+HTML5
+CSS3
+JavaScript
+Tailwind CSS
 
-| Django | <span style="background-color:#008CBA; color:white;">5.1.1</span> |
-| Python | <span style="background-color:#f44336; color:white;">3.12.5</span> |
-| HTML5 | <span style="background-color:#ff9800; color:white;">5</span> |
-| CSS3 | <span style="background-color:#009688; color:white;">3</span> |
-| JavaScript (ES6) |  |
-| Tailwind CSS | <span style="background-color:#9b59b6; color:white;">3.4.13</span> |
-
-## Getting Started
 
 ---
 

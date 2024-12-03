@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% tailwind_css %}
 </head>
-<body class="my-5 lg:max-h-screen flex justify-center items-center bg-orange-200 dark:bg-dark-mode">
+<body class="my-5 lg:my-0 flex justify-center items-center bg-orange-200 dark:bg-dark-mode">
 
-    <main class="flex w-full max-w-full lg:mx-28 mx-8 rounded-lg shadow-lg overflow-hidden lg:max-h-screen">
-        <div class="w-full lg:w-[55%] flex flex-col justify-center p-8 lg:p-12 bg-white dark:bg-gray-800">
+    <main class="flex w-full lg:mx-28 mt-0 lg:mt-5 mx-8 p-2 lg:h-full">
+        <div class="w-full lg:w-[55%] h-full flex flex-col rounded-r-xl  lg:rounded-l-xl lg:rounded-r-none  justify-center p-8 bg-white dark:bg-gray-800">
             <h1 class="text-3xl font-bold mb-2 gradient-text inline-block">COOKSCOLLECTIVE</h1>
             <h1 class="text-2xl font-bold">Register</h1>
             <p class="mt-1 text-xs">Create an account to start cooking!</p>
 
-            <form method="POST" action="{% url 'auth:register' %}" class="space-y-3">
+            <form method="POST" action="{% url 'auth:register' %}" class="space-y-2">
                 {% csrf_token %}
 
                 <label for="id_username" class="block text-sm font-medium ml-1 mb-1">Username:</label>
@@ -164,11 +164,18 @@
 
         </div>
 
-        <div class="w-0 lg:w-[45%]">
+
+        {% comment %} <div class="w-0 lg:w-[45%] flex items-center justify-start bg-accent1 text-white font-bold text-3xl p-10 rounded-r-xl">
             <div class="">
-                <img src="{% static  'images/register-bg.jpg'%}" alt="A pizza was here" class="object-fit w-full max-h-screen">
+                <h1>Welcome To CooksCollective</h1>
+                <br>
+                <h1>The Platform for Sharing Recipes!</h1>
             </div>
-        </div>
+        </div> {% endcomment %}
+
+        <div class="w-0 lg:w-[55%] flex justify-center items-center">
+            <img src="{% static 'images/login-bg.jpg' %}" alt="An orange was here" class="object-cover w-full h-full rounded-r-xl">
+          </div>
 
     </main>
 

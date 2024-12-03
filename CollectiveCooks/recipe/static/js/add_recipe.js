@@ -26,7 +26,7 @@ function addProcedureStep(button) {
     // Create new step input
     const newStepInput = document.createElement('input');
     newStepInput.type = 'text';
-    newStepInput.classList.add('border', 'border-gray-300', 'p-2', 'w-full', 'rounded');
+    newStepInput.classList.add('bg-gray-200',  'border', 'border-gray-400', 'p-2', 'w-full', 'rounded');
     newStepInput.placeholder = `Step ${stepCount}...`;
     newStepInput.name = 'procedure';
 
@@ -40,7 +40,7 @@ function addProcedureStep(button) {
     // Create new - button (only for subsequent rows)
     const removeButton = document.createElement('button');
     removeButton.type = 'button';
-    removeButton.classList.add('ml-2', 'bg-cancel', 'text-white', 'rounded-full', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center');
+    removeButton.classList.add('appearance-none', 'ml-2', 'bg-cancel', 'text-white', 'rounded-full', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center');
     removeButton.innerText = '-';
     removeButton.setAttribute('onclick', 'removeProcedureStep(this)');
 
@@ -96,7 +96,7 @@ function addIngredientRow(button) {
     // Create new ingredient input
     const newIngredientInput = document.createElement('input');
     newIngredientInput.type = 'text';
-    newIngredientInput.classList.add('border', 'border-gray-300', 'p-2', 'w-full', 'rounded');
+    newIngredientInput.classList.add('bg-gray-200', 'border', 'border-gray-400', 'p-2', 'w-full', 'rounded');
     newIngredientInput.placeholder = `Ingredient ${ingredientCount}...`;
     newIngredientInput.name = 'ingredient';
 
@@ -107,21 +107,21 @@ function addIngredientRow(button) {
     // Create new amount input (smaller width)
     const newAmountInput = document.createElement('input');
     newAmountInput.type = 'text';
-    newAmountInput.classList.add('border', 'border-gray-300', 'p-2', 'w-2/3', 'rounded');
+    newAmountInput.classList.add('bg-gray-200', 'border', 'border-gray-400', 'p-2', 'w-2/3', 'rounded');
     newAmountInput.placeholder = 'Amount';
     newAmountInput.name = 'amount';
 
     // Create new + button
     const newButton = document.createElement('button');
     newButton.type = 'button';
-    newButton.classList.add('ml-2', 'bg-green-600', 'text-white', 'rounded-full', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center');
+    newButton.classList.add('ml-2', 'bg-confirm', 'text-white', 'rounded-full', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center');
     newButton.innerText = '+';
     newButton.setAttribute('onclick', 'addIngredientRow(this)');
 
     // Create new - button (only for subsequent rows)
     const removeButton = document.createElement('button');
     removeButton.type = 'button';
-    removeButton.classList.add('ml-2', 'bg-red-600', 'text-white', 'rounded-full', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center');
+    removeButton.classList.add('appearance-none', 'ml-2', 'bg-cancel', 'text-white', 'rounded-full', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center');
     removeButton.innerText = '-';
     removeButton.setAttribute('onclick', 'removeIngredientRow(this)');
 

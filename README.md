@@ -108,11 +108,11 @@ Before you start, ensure you have the following installed:
 
 ---
 
-## ✨ **Contributors**
-Our amazing contributors are:  
-- **Bolante, Val Mykel Ceven C.**  
-- **Omas-as, Fiel Louis L.**  
-- **Sullano, Dechie A.**  
+✨ Contributors
+Our amazing contributors are:
+
+<span style="color:orange; font-weight:bold;">Bolante, Val Mykel Ceven C.</span>	<span style="color:green; font-weight:bold;">Omas-as, Fiel Louis L.</span>	<span style="color:blue; font-weight:bold;">Sullano, Dechie A.</span>
+<img src="https://via.placeholder.com/100" alt="Bolante" style="border-radius:50%;"/>	<img src="https://via.placeholder.com/100" alt="Omas-as" style="border-radius:50%;"/>	<img src="https://via.placeholder.com/100" alt="Sullano" style="border-radius:50%;"/>
 
 ---
 

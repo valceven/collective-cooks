@@ -216,9 +216,8 @@ Before you start, ensure you have the following installed:
 ## Contributing
 
 ### Top contributors:
-
-<a href="https://github.com/valceven/collective-cooks/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=markyleangela/VehicleRentalSystem" alt="contrib.rocks image" />
+<a href="https://github.com/valceven/collective-cooks/graphs/contributors"> 
+  <img src="https://contrib.rocks/image?repo=valceven/collective-cooks" alt="contrib.rocks image" /> 
 </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -242,20 +241,25 @@ Project Link: [https://github.com/valceven/collective-cooks](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/markyleangela/VehicleRentalSystem.svg?style=for-the-badge
-[contributors-url]: https://github.com/markyleangela/VehicleRentalSystem/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/markyleangela/VehicleRentalSystem.svg?style=for-the-badge
-[forks-url]: https://github.com/markyleangela/VehicleRentalSystem/network/members
-[stars-shield]: https://img.shields.io/github/stars/markyleangela/VehicleRentalSystem.svg?style=for-the-badge
-[stars-url]: https://github.com/markyleangela/VehicleRentalSystem/stargazers
-[issues-shield]: https://img.shields.io/github/issues/markyleangela/VehicleRentalSystem.svg?style=for-the-badge
-[issues-url]: https://github.com/markyleangela/VehicleRentalSystem/issues
+[contributors-shield]: https://img.shields.io/github/contributors/valceven/collective-cooks.svg?style=for-the-badge
+[contributors-url]: https://github.com/valceven/collective-cooks/graphs/contributors
+
+[forks-shield]: https://img.shields.io/github/forks/valceven/collective-cooks.svg?style=for-the-badge
+[forks-url]: https://github.com/valceven/collective-cooks/network/members
+
+[stars-shield]: https://img.shields.io/github/stars/valceven/collective-cooks.svg?style=for-the-badge
+[stars-url]: https://github.com/valceven/collective-cooks/stargazers
+
+[issues-shield]: https://img.shields.io/github/issues/valceven/collective-cooks.svg?style=for-the-badge
+[issues-url]: https://github.com/valceven/collective-cooks/issues
+
 [product-screenshot-0]: images/product-screenshot-0.png
 [product-screenshot-1]: images/product-screenshot-1.png
 [product-screenshot-2]: images/product-screenshot-2.png
 [product-screenshot-3]: images/product-screenshot-3.png
 [product-screenshot-4]: images/product-screenshot-4.png
 [product-screenshot-5]: images/product-screenshot-5.png
+
 [Django]: https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white
 [Django-url]: https://www.djangoproject.com/
 
@@ -264,7 +268,6 @@ Project Link: [https://github.com/valceven/collective-cooks](https://github.com/
 
 [HTML]: https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white
 [HTML-url]: https://developer.mozilla.org/en-US/docs/Web/HTML
-
 
 [CSS]: https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white
 [CSS-url]: https://developer.mozilla.org/en-US/docs/Web/CSS

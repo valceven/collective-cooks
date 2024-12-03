@@ -48,14 +48,14 @@ Access the Figma prototype [here](https://www.figma.com/design/xnHAttOxHgNQuuTlT
 ---
 
 
-🛠️Tech Stack
-Django
-SQLite
-Python
-HTML5
-CSS3
-JavaScript
-Tailwind CSS
+## 🛠️Tech Stac
+
+| Django | 5.1.1 |
+| Python | 3.12.5 |
+| HTML5 | 5 |
+| CSS3 | 3 |
+| JavaScript (ES6) |  |
+| Tailwind CSS | 3.4.13 |
 
 
 ---

@@ -190,14 +190,6 @@ def report_user(request, user_id):
         else:
             messages.error(request, "Please provide details for the report.")
 
-    favorites = Favorite.objects.filter(user_id=reported_user)
-    recipes = Recipe.objects.filter(username=reported_user)
-    followers = Follow.objects.filter(following=reported_user)
-    following = Follow.objects.filter(follower=reported_user)
-    self_following = Follow.objects.filter(follower=request.user, following=reported_user)
-    has_reported = UserReport.objects.filter(reporter=request.user, user_id=reported_user).exists()
-
-
     return redirect('auth:profile', user_id=reported_user.id)
 
 

@@ -64,3 +64,48 @@ def recipe_detail(request, username, recipe_id):
         return redirect('recipe:recipe_detail', username=username, recipe_id=recipe_id)
 
     return render(request, 'view_recipe.html', {'recipe': recipe, 'user': user})
+
+@login_required
+def edit_recipe(request, id):
+    # Fetch the recipe object
+    recipe = get_object_or_404(Recipe, id=id)
+
+    # Verify ownership
+    if request.user != recipe.username:
+        return redirect('recipe:recipe_detail', username=recipe.username.username, recipe_id=recipe.id)
+
+    if request.method == 'POST':
+        # Handle form submission
+        title = request.POST.get('title', recipe.title)
+        description = request.POST.get('description', recipe.description)
+        ingredients = request.POST.get('ingredients', recipe.ingredients)
+        ingredients_count = request.POST.get('ingredients_count', recipe.ingredients_count)
+        procedures = request.POST.get('procedures', recipe.procedures)
+        category = request.POST.get('category', recipe.category)
+        image = request.FILES.get('image', recipe.image)
+
+        recipe.title = title
+        recipe.description = description
+        recipe.ingredients = ingredients
+        recipe.ingredients_count = ingredients_count
+        recipe.procedures = procedures
+        recipe.category = category
+        if image:
+            recipe.image = image
+        recipe.save()
+
+        return redirect('recipe:recipe_detail', username=recipe.username.username, recipe_id=recipe.id)
+
+    # Preprocess ingredients and procedures for rendering
+    ingredients_list = [
+        {'name': part.split(':')[0].strip(), 'amount': part.split(':')[1].strip() if ':' in part else ''}
+        for part in recipe.ingredients.split("\n") if part
+    ]
+    procedures_list = recipe.procedures.split("\n") if recipe.procedures else []
+
+    context = {
+        'recipe': recipe,
+        'ingredients_list': ingredients_list,
+        'procedures_list': procedures_list,
+    }
+    return render(request, 'edit_recipe.html', context)

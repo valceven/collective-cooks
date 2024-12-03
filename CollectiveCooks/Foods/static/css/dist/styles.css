@@ -783,6 +783,10 @@ select {
   }
 }
 
+.visible {
+  visibility: visible;
+}
+
 .static {
   position: static;
 }
@@ -1169,6 +1173,10 @@ select {
   width: 1.25rem;
 }
 
+.w-5\/6 {
+  width: 83.333333%;
+}
+
 .w-8 {
   width: 2rem;
 }
@@ -1208,10 +1216,6 @@ select {
 
 .w-full {
   width: 100%;
-}
-
-.w-5\/6 {
-  width: 83.333333%;
 }
 
 .min-w-32 {
@@ -1806,14 +1810,6 @@ select {
   padding-top: 2rem;
 }
 
-.pl-2 {
-  padding-left: 0.5rem;
-}
-
-.pl-3 {
-  padding-left: 0.75rem;
-}
-
 .text-left {
   text-align: left;
 }
@@ -1982,11 +1978,6 @@ select {
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
-}
-
-.text-red-600 {
-  --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
 .opacity-0 {

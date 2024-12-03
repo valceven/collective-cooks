@@ -1,0 +1,245 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Edit {{ recipe.title }} - Recipe
+{% endblock %}
+
+{% block content %}
+    <style>
+        /* Set the background image for the body */
+        .bg-container {
+            background-image: url('/static/images/add-bg1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        /* Custom styles for file upload button */
+        .file-upload {
+            position: relative;
+        }
+        .file-upload input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="bg-container">
+        <div class="container mx-auto my-8 p-6 bg-white rounded-lg shadow-lg w-full max-w-5xl dark:bg-slate-800">
+            {% if messages %}
+                <div class="mb-4">
+                    {% for message in messages %}
+                        {% if 'recipe_message' in message.tags %}
+                            <div class="p-4 mb-4 text-base 
+                                {% if 'success' in message.tags %}
+                                    text-green-700 bg-green-100
+                                {% elif 'error' in message.tags %}
+                                    text-red-700 bg-red-100
+                                {% else %}
+                                    text-gray-700 bg-gray-100
+                                {% endif %}
+                                rounded-lg">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data" onsubmit="return onFormSubmit()">
+                {% csrf_token %}
+
+                <div class="flex justify-between items-start mb-6">
+                    <h1 class="text-7xl text-accent1 font-bold">{{ recipe.title }}</h1>
+                    <a href="{% url 'recipe:recipe_detail' recipe.username.username recipe.id %}" class="bg-accent1 text-white rounded-full px-6 py-2 hover:bg-accent2">← Back</a>
+                </div>
+
+                <p class="text-2xl text-gray-700 mt-2 mb-4 dark:text-gray-300">Edit Recipe</p>
+
+                <!-- Recipe Name and Description -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <!-- Recipe Name -->
+                        <div class="mb-4">
+                            <label for="recipe_name" class="block text-base font-bold mb-2">Recipe Name</label>
+                            <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-full rounded dark:bg-slate-400 dark:placeholder-white" id="recipe_name" placeholder="Enter title" name="title" value="{{ recipe.title }}">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <label for="description" class="block text-base font-bold mb-2">Description</label>
+                            <textarea class="bg-gray-200 border border-gray-400 p-2 w-full rounded resize-none min-h-[240px] dark:bg-slate-400 dark:placeholder-white" id="description" rows="3" placeholder="Short Description of the Recipe..." name="description">{{ recipe.description }}</textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- Image Upload -->
+                        <div class="file-upload mb-4 flex items-center justify-center">
+                            <div class="flex items-center justify-center h-60 w-80 border-2 border-dashed border-accent1 rounded-lg bg-gray-50 dark:bg-slate-400 dark:placeholder-white">
+                                <input type="file" name="image" id="image-upload" onchange="previewImage(event)">
+                                
+                                <!-- New image preview -->
+                                <img id="image-preview" alt="Uploaded Image Preview" class="hidden w-full h-full object-cover rounded-lg">
+                                
+                                {% if recipe.image %}
+                                    <!-- Existing image -->
+                                    <img id="image-existing" src="{{ recipe.image.url }}" alt="Recipe Image" class="w-full h-full object-cover rounded-lg">
+                                {% else %}
+                                    <span id="image-placeholder" class="text-6xl text-accent1">+</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="mb-4">
+                            <label for="category" class="block text-base font-bold mb-2">Category</label>
+                            <div class="flex space-x-2" id="category">
+                                <button type="button" class="btn-category {% if recipe.category == 'Breakfast' %}selected bg-accent1 text-white{% else %}bg-white border-accent1 text-accent1{% endif %} rounded-full px-4 py-2" onclick="selectCategory(this)">Breakfast</button>
+                                <button type="button" class="btn-category {% if recipe.category == 'Lunch' %}selected bg-accent1 text-white{% else %}bg-white border-accent1 text-accent1{% endif %} rounded-full px-4 py-2" onclick="selectCategory(this)">Lunch</button>
+                                <button type="button" class="btn-category {% if recipe.category == 'Dinner' %}selected bg-accent1 text-white{% else %}bg-white border-accent1 text-accent1{% endif %} rounded-full px-4 py-2" onclick="selectCategory(this)">Dinner</button>
+                                <button type="button" class="btn-category {% if recipe.category == 'Dessert' %}selected bg-accent1 text-white{% else %}bg-white border-accent1 text-accent1{% endif %} rounded-full px-4 py-2" onclick="selectCategory(this)">Dessert</button>
+                                <button type="button" class="btn-category {% if recipe.category == 'Snack' %}selected bg-accent1 text-white{% else %}bg-white border-accent1 text-accent1{% endif %} rounded-full px-4 py-2" onclick="selectCategory(this)">Snack</button>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="category" id="selected_category" value="{{ recipe.category }}">
+                    </div>
+                </div>
+
+                <hr class="my-6 border-t-2 border-accent1">
+
+                <!-- Ingredients -->
+                {% comment %} <div class="mb-4" id="ingredients-container">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ingredient-row mb-2">
+                        <label for="ingredient" class="block text-base font-bold mb-2">Ingredients</label>
+                        {% for ingredient in ingredients_list %}
+                            <div>
+                                <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-full rounded dark:bg-slate-400 dark:placeholder-white" placeholder="Ingredient..." name="ingredient" value="{{ ingredient.name }}">
+                            </div>
+                            <div>
+                                <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-2/3 rounded dark:bg-slate-400 dark:placeholder-white" placeholder="Amount..." name="amount" value="{{ ingredient.amount }}">
+                                <button type="button" class="ml-2 bg-confirm text-white rounded-full w-8 h-8 flex items-center justify-center text-xl" onclick="addIngredientRow(this)">+</button>
+                            </div>
+                        {% endfor %}
+                        <button type="button" class="bg-accent1 text-white rounded-full px-4 py-2 hover:bg-accent2" onclick="addIngredientRow()">Add Ingredient</button>
+                    </div>
+                </div> {% endcomment %}
+
+                
+                <div class="mb-4" id="ingredients-container">
+                    <label for="ingredient" class="block text-base font-bold mb-2">Ingredients</label>
+                    {% for ingredient in ingredients_list %}
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ingredient-row mb-2">
+                            <div>
+                                <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-full rounded dark:bg-slate-400 dark:placeholder-white" placeholder="Ingredient {{ forloop.counter }}..." name="ingredient" value="{{ ingredient.name }}">
+                            </div>
+                            <div>
+                                <div class="flex items-center">
+                                    <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-2/3 rounded dark:bg-slate-400 dark:placeholder-white" placeholder="Amount" name="amount" value="{{ ingredient.amount }}">
+                                    <button type="button" class="ml-2 bg-confirm text-white rounded-full w-8 h-8 flex items-center justify-center text-xl" onclick="addIngredientRow(this)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                
+                
+                <input type="text" name="ingredients" id="concatenated_ingredients" value="{{ recipe.ingredients }}">
+                <input type="text" name="ingredients_count" id="concatenated_ingredients_counts" value="{{ recipe.ingredients_count }}">
+
+                <hr class="my-6 border-t-2 border-accent1">
+
+                <!-- Procedure -->
+                <div id="procedure-container">
+                    <label class="block text-base font-bold mb-2">Procedure</label>
+                    {% for step in procedures_list %}
+                        <div class="procedure-step flex mb-2">
+                            <input type="text" class="bg-gray-200 border border-gray-400 p-2 w-5/6 rounded dark:bg-slate-400 dark:placeholder-white" placeholder="Step {{ forloop.counter }}..." name="procedure" value="{{ step }}">
+                            <button type="button" class="ml-2 bg-confirm text-white rounded-full w-8 h-8 flex items-center justify-center" onclick="addProcedureStep(this)">+</button>
+                        </div>
+                    {% endfor %}
+                </div>                
+
+                <input type="text" name="procedures" id="concatenated_procedures" value="{{ recipe.procedures }}">
+
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-accent1 text-white rounded-full px-6 py-2 hover:bg-accent2">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let ingredientCount = {{ recipe.ingredients_count }}; // Initialize from existing data
+        let stepCount = {{ recipe.procedures|length }}; // Initialize from existing data
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const imagePreview = document.getElementById('image-preview');
+            const imageExisting = document.getElementById('image-existing');
+            const imagePlaceholder = document.getElementById('image-placeholder');
+        
+            // If a file is selected, display the new image preview
+            if (file) {
+                const reader = new FileReader();
+        
+                reader.onload = function(e) {
+                    // Show the preview image
+                    imagePreview.src = e.target.result;
+                    imagePreview.classList.remove('hidden');
+        
+                    // Hide the existing image or placeholder
+                    if (imageExisting) {
+                        imageExisting.classList.add('hidden');
+                    }
+                    if (imagePlaceholder) {
+                        imagePlaceholder.classList.add('hidden');
+                    }
+                };
+        
+                reader.readAsDataURL(file);
+            } else {
+                // If no new file is selected, show the existing image or placeholder
+                imagePreview.classList.add('hidden');  // Hide preview image
+        
+                if (imageExisting) {
+                    imageExisting.classList.remove('hidden');  // Show existing image
+                }
+                if (imagePlaceholder) {
+                    imagePlaceholder.classList.remove('hidden');  // Show placeholder if no image exists
+                }
+            }
+        }
+        
+        // Initialize the state when the page loads (for the first time)
+        document.addEventListener("DOMContentLoaded", function() {
+            const imagePreview = document.getElementById('image-preview');
+            const imageExisting = document.getElementById('image-existing');
+            const imagePlaceholder = document.getElementById('image-placeholder');
+            
+            if (!imagePreview.classList.contains('hidden') && imagePreview.src) {
+                imageExisting.classList.add('hidden');
+                imagePlaceholder.classList.add('hidden');
+            } else if (imageExisting && imageExisting.src) {
+                imageExisting.classList.remove('hidden');
+                imagePlaceholder.classList.add('hidden');
+            } else if (imagePlaceholder) {
+                imagePlaceholder.classList.remove('hidden');
+            }
+        });
+          
+        
+    </script>
+
+    <script src="/static/js/edit_recipe.js"></script>
+    <script src="/static/js/concat_input_edit.js"></script>
+    
+{% endblock %}

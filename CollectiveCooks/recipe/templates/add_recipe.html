@@ -52,13 +52,14 @@
                 </div>
             {% endif %}
 
-            <div class="flex justify-between items-start mb-6">
-                <h1 class="text-7xl text-accent1 font-bold">Add a Recipe</h1>
-                <a href="{% url 'auth:profile' request.user.id %}" class="bg-accent1 text-white rounded-full px-6 py-2 hover:bg-accent2">← Back</a>
-            </div>
-
             <form method="POST" enctype="multipart/form-data" onsubmit="return onFormSubmit()">
                 {% csrf_token %}
+                
+                <div class="flex justify-between items-start mb-6">
+                    <h1 class="text-7xl text-accent1 font-bold">Add a Recipe</h1>
+                    <a href="{% url 'auth:profile' request.user.id %}" class="bg-accent1 text-white rounded-full px-6 py-2 hover:bg-accent2">← Back</a>
+                </div>
+                
                 <p class="text-2xl text-gray-700 mt-2 mb-4 dark:text-gray-300">Share your recipe with the world!</p>
 
                 <!-- Recipe Name and Description -->

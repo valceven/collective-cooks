@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="static/images/image-logo.png" alt="Logo" width="200" height="200">
+    <img src="/static/images/image-logo.png" alt="Logo" width="200" height="200">
   </a>
 
   <h3 align="center">Cooks Collective</h3>
@@ -155,7 +155,7 @@ Before you start, ensure you have the following installed:
 1. **Clone the repository**  
    Open your terminal and run the following command:
    ```bash
-   git clone git@github.com:markyleangela/VehicleRentalSystem.git
+   git clone https://github.com/valceven/collective-cooks.git
    cd vrs
    ```
 
@@ -189,7 +189,7 @@ Before you start, ensure you have the following installed:
 4. **Apply database migrations**  
    Run the database migrations to set up the database schema:
    ```bash
-   python manage.py make migrations
+   python manage.py makemigrations
    python manage.py migrate
    ```
 

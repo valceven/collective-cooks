@@ -1009,10 +1009,13 @@ select {
   margin-top: 2rem;
 }
 
+<<<<<<< HEAD
 .ml-auto {
   margin-left: auto;
 }
 
+=======
+>>>>>>> omasas
 .block {
   display: block;
 }
@@ -1070,10 +1073,6 @@ select {
   height: 1rem;
 }
 
-.h-40 {
-  height: 10rem;
-}
-
 .h-5 {
   height: 1.25rem;
 }
@@ -1082,8 +1081,13 @@ select {
   height: 14rem;
 }
 
+<<<<<<< HEAD
 .h-6 {
   height: 1.5rem;
+=======
+.h-60 {
+  height: 15rem;
+>>>>>>> omasas
 }
 
 .h-8 {
@@ -1110,10 +1114,13 @@ select {
   height: 100vh;
 }
 
+<<<<<<< HEAD
 .h-60 {
   height: 15rem;
 }
 
+=======
+>>>>>>> omasas
 .max-h-48 {
   max-height: 12rem;
 }
@@ -1130,12 +1137,18 @@ select {
   min-height: 14rem;
 }
 
+<<<<<<< HEAD
 .min-h-\[160px\] {
   min-height: 160px;
+=======
+.min-h-\[240px\] {
+  min-height: 240px;
+>>>>>>> omasas
 }
 
 .min-h-\[300px\] {
   min-height: 300px;
+<<<<<<< HEAD
 }
 
 .min-h-screen {
@@ -1144,6 +1157,12 @@ select {
 
 .min-h-\[240px\] {
   min-height: 240px;
+=======
+>>>>>>> omasas
+}
+
+.min-h-screen {
+  min-height: 100vh;
 }
 
 .w-0 {
@@ -1198,6 +1217,7 @@ select {
   width: 1.25rem;
 }
 
+<<<<<<< HEAD
 .w-6 {
   width: 1.5rem;
 }
@@ -1206,8 +1226,14 @@ select {
   width: 15rem;
 }
 
+=======
+>>>>>>> omasas
 .w-8 {
   width: 2rem;
+}
+
+.w-80 {
+  width: 20rem;
 }
 
 .w-96 {
@@ -1247,10 +1273,13 @@ select {
   width: 83.333333%;
 }
 
+<<<<<<< HEAD
 .w-80 {
   width: 20rem;
 }
 
+=======
+>>>>>>> omasas
 .min-w-32 {
   min-width: 8rem;
 }
@@ -1496,11 +1525,14 @@ select {
   border-bottom-right-radius: 1.5rem;
 }
 
+<<<<<<< HEAD
 .rounded-r-xl {
   border-top-right-radius: 0.75rem;
   border-bottom-right-radius: 0.75rem;
 }
 
+=======
+>>>>>>> omasas
 .border {
   border-width: 1px;
 }
@@ -1634,14 +1666,14 @@ select {
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
 
+.bg-gray-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-
-.bg-gray-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .bg-gray-400 {
@@ -1887,16 +1919,23 @@ select {
   padding-top: 2rem;
 }
 
+<<<<<<< HEAD
+=======
+.pl-2 {
+  padding-left: 0.5rem;
+}
+
+.pl-3 {
+  padding-left: 0.75rem;
+}
+
+>>>>>>> omasas
 .text-left {
   text-align: left;
 }
 
 .text-center {
   text-align: center;
-}
-
-.font-sans {
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .font-serif {
@@ -1920,6 +1959,11 @@ select {
 
 .text-5xl {
   font-size: 3rem;
+  line-height: 1;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
   line-height: 1;
 }
 
@@ -2001,6 +2045,11 @@ select {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
@@ -2061,9 +2110,15 @@ select {
   color: rgb(234 179 8 / var(--tw-text-opacity));
 }
 
+<<<<<<< HEAD
 .text-gray-300 {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
+=======
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+>>>>>>> omasas
 }
 
 .opacity-0 {
@@ -2221,11 +2276,6 @@ select {
   background-color: rgb(255 237 213 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-orange-500:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 115 22 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-red-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
@@ -2354,6 +2404,11 @@ select {
 .dark\:bg-gray-800:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+
+.dark\:bg-slate-400:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
 }
 
 .dark\:bg-slate-700:is(.dark *) {
@@ -2758,6 +2813,7 @@ select {
     border-radius: 1.5rem;
   }
 
+<<<<<<< HEAD
   .lg\:rounded-l-xl {
     border-top-left-radius: 0.75rem;
     border-bottom-left-radius: 0.75rem;
@@ -2768,6 +2824,8 @@ select {
     border-bottom-right-radius: 0px;
   }
 
+=======
+>>>>>>> omasas
   .lg\:bg-accent1 {
     --tw-bg-opacity: 1;
     background-color: rgb(219 70 29 / var(--tw-bg-opacity));

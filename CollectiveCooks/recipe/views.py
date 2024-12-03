@@ -13,14 +13,18 @@ def add_recipe_view(request):
         form = AddRecipeForm(request.POST, request.FILES, user=request.user)
 
         if form.is_valid():
+            # Save the new recipe
             recipe = form.save(commit=False)
             recipe.username = request.user
             recipe.save()
 
-            messages.add_message(request, messages.SUCCESS, "Recipe Submitted", extra_tags='success')
+            # Add success message and redirect
+            messages.success(request, "Recipe Submitted", extra_tags='recipe_message')
             return render(request, 'add_recipe.html', {'form': form})
         else:
-            messages.add_message(request, messages.ERROR, "Recipe Not Submitted. Please correct your inputs", extra_tags='recipe_message_error')
+            # Add error message if form is invalid
+            messages.error(request, "Recipe Not Submitted. Please correct your inputs", extra_tags='recipe_message_error')
+
     else:
         form = AddRecipeForm(user=request.user)
 
@@ -42,9 +46,9 @@ def recipe_detail(request, username, recipe_id):
                 comment = Comment(recipe=recipe, user=request.user, text=comment_text)
                 comment.save()
                 
-                messages.add_message(request, messages.SUCCESS, "Comment added successfully!", extra_tags='comment_success')
+                messages.success(request, "Comment added successfully!", extra_tags='comment_success')
             else:
-                messages.add_message(request, messages.ERROR, "Comment cannot be empty", extra_tags='comment_error')
+                messages.error(request, "Comment cannot be empty", extra_tags='comment_error')
 
         # Handling rating submission
         elif 'rating' in request.POST:
@@ -55,9 +59,9 @@ def recipe_detail(request, username, recipe_id):
                 recipe.total_reviews += 1
                 recipe.save()
                 
-                messages.add_message(request, messages.SUCCESS, "Thank you for rating!", extra_tags='rating_success')
+                messages.success(request, "Thank you for rating!", extra_tags='rating_success')
             else:
-                messages.add_message(request, messages.ERROR, "Invalid rating submission", extra_tags='rating_error')
+                messages.error(request, "Invalid rating submission", extra_tags='rating_error')
 
         # Redirect back to the same recipe page to avoid form resubmission on refresh
         return redirect('recipe:recipe_detail', username=username, recipe_id=recipe_id)

@@ -39,4 +39,5 @@ module.exports = {
             addUtilities(newUtilities)
         }
     ],
+    safelist: ['bg-cancel'], // Safelist the 'bg-cancel' class
 };

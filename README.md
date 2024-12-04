@@ -136,6 +136,8 @@
 
 [![HTML][HTML]][HTML-url]
 [![CSS][CSS]][CSS-url]
+[![JS][JS]][JS-url]
+[![Node][Node]][Node-url]
 [![Python][Python]][Python-url]
 [![Django][Django]][Django-url]
 [![SQLite][SQLite]][SQLite-url]
@@ -279,6 +281,12 @@ Project Link: [https://github.com/valceven/collective-cooks](https://github.com/
 
 [CSS]: https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white
 [CSS-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
+
+[JS]: https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+[JS-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+
+[Node]: https://img.shields.io/badge/Node.js-8CC84B?style=for-the-badge&logo=node.js&logoColor=white
+[Node-url]: https://nodejs.org/en/
 
 [Python]: https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white
 [Python-url]: https://www.python.org/

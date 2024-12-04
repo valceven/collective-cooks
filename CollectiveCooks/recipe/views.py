@@ -35,6 +35,7 @@ def recipe_detail(request, username, recipe_id):
     user = get_object_or_404(User, username=username)
     recipe = get_object_or_404(Recipe, id=recipe_id, username=user)
     has_reported = RecipeReport.objects.filter(recipe_id=recipe.id, reporter=request.user).exists()
+    is_favorite = Favorite.objects.filter(user_id=user.id,recipe_id=recipe.id)
 
     if request.method == 'POST':
         # Handling comment submission
@@ -66,7 +67,7 @@ def recipe_detail(request, username, recipe_id):
         # Redirect back to the same recipe page to avoid form resubmission on refresh
         return redirect('recipe:recipe_detail', username=username, recipe_id=recipe_id)
 
-    return render(request, 'view_recipe.html', {'recipe': recipe, 'user': user})
+    return render(request, 'view_recipe.html', {'recipe': recipe, 'user': user, 'has_reported': has_reported, 'is_favorite': is_favorite})
 
 @login_required
 def delete_recipe(request, recipe_id):

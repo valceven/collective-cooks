@@ -94,6 +94,13 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## PROJECT RESOURCES
+1. ## [ERD](erd.md)
+2. ## [UI/UX](ui_ux.md)
+3. ## [Gantt Chart](gantt_chart.md)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## FUNCTIONAL REQUIREMENTS
 1. **User Management**  
 

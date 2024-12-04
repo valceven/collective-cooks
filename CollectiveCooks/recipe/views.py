@@ -69,49 +69,12 @@ def recipe_detail(request, username, recipe_id):
     return render(request, 'view_recipe.html', {'recipe': recipe, 'user': user})
 
 @login_required
-def edit_recipe(request, id):
-    # Fetch the recipe object
-    recipe = get_object_or_404(Recipe, id=id)
-
-    # Verify ownership
-    if request.user != recipe.username:
-        return redirect('recipe:recipe_detail', username=recipe.username.username, recipe_id=recipe.id)
-
-    if request.method == 'POST':
-        # Handle form submission
-        title = request.POST.get('title', recipe.title)
-        description = request.POST.get('description', recipe.description)
-        ingredients = request.POST.get('ingredients', recipe.ingredients)
-        ingredients_count = request.POST.get('ingredients_count', recipe.ingredients_count)
-        procedures = request.POST.get('procedures', recipe.procedures)
-        category = request.POST.get('category', recipe.category)
-        image = request.FILES.get('image', recipe.image)
-
-        recipe.title = title
-        recipe.description = description
-        recipe.ingredients = ingredients
-        recipe.ingredients_count = ingredients_count
-        recipe.procedures = procedures
-        recipe.category = category
-        if image:
-            recipe.image = image
-        recipe.save()
-
-        return redirect('recipe:recipe_detail', username=recipe.username.username, recipe_id=recipe.id)
-
-    # Preprocess ingredients and procedures for rendering
-    ingredients_list = [
-        {'name': part.split(':')[0].strip(), 'amount': part.split(':')[1].strip() if ':' in part else ''}
-        for part in recipe.ingredients.split("\n") if part
-    ]
-    procedures_list = recipe.procedures.split("\n") if recipe.procedures else []
-
-    context = {
-        'recipe': recipe,
-        'ingredients_list': ingredients_list,
-        'procedures_list': procedures_list,
-    }
-    return render(request, 'edit_recipe.html', context)
+def delete_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    if request.user == recipe.username:
+        recipe.delete()
+        return redirect('auth:profile', request.user.id)
+    return redirect('recipe:view_recipe.html', recipe_id)
 
 @login_required(login_url="/auth/login")
 def add_to_favorites(request, username, recipe_id):
@@ -150,3 +113,45 @@ def report_recipe(request,username,recipe_id):
             messages.error(request, "Please provide details for the report.")
 
     return redirect('recipe:recipe_detail', username=user.username, recipe_id=reported_recipe.id)
+
+# View to edit a comment
+def edit_comment(request, comment_id, username):
+    comment = get_object_or_404(Comment, id=comment_id)
+    
+    # Check if the logged-in user is the one who created the comment
+    if request.user != comment.user:
+        return redirect('recipe:recipe_detail', username=comment.recipe.username.username, recipe_id=comment.recipe.id)
+
+    if request.method == "POST":
+        # Get the updated text from the POST request
+        new_text = request.POST.get('text')
+        
+        if new_text:
+            # Update the comment text and save it
+            comment.text = new_text
+            comment.save()
+
+            # Redirect to the recipe detail page after editing the comment
+            return redirect('recipe:recipe_detail', username=comment.recipe.username.username, recipe_id=comment.recipe.id)
+
+    # Render the edit comment form
+    return render(request, 'edit_comment.html', {'comment': comment})
+
+
+# View to delete a comment
+def delete_comment(request, comment_id, username):
+    comment = get_object_or_404(Comment, pk=comment_id)
+
+    # Check if the logged-in user is the one who created the comment
+    if request.user != comment.user:
+        return redirect('recipe:recipe_detail', username=comment.recipe.username.username, recipe_id=comment.recipe.id)
+
+    if request.method == 'POST':
+        # Delete the comment if the user is the comment creator
+        comment.delete()
+        # Redirect to the recipe detail page after deleting the comment
+        return redirect('recipe:recipe_detail', username=comment.recipe.username.username, recipe_id=comment.recipe.id)
+
+    # If the method is not POST, render a confirmation page (optional, if you want to confirm before deletion)
+    return render(request, 'confirm_delete_comment.html', {'comment': comment})
+

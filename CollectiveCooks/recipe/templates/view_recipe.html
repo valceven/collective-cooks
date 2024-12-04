@@ -13,15 +13,6 @@
       <div class="flex items-center justify-between">
         <div>
           <h1 class="text-3xl lg:text-5xl font-bold">{{ recipe.title }}</h1>
-
-      <!-- Edit Button (only visible if the user is logged in and is the creator) -->
-      {% if request.user.is_authenticated and request.user.username == recipe.username.username %}
-        <form action="{% url 'recipe:edit_recipe' recipe.id %}" method="get">
-          <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-lg ml-auto mb-4">
-            Edit Recipe
-          </button>
-        </form>
-      {% endif %}
         </div>
         
         <div class="top-0 right-0 p-0">
@@ -92,21 +83,73 @@
         </div>
       </div>
 
-      <div class="flex items-center justify-center lg:block my-4 lg:my-5">
+      <div class="flex space-x-4 items-center justify-start my-4 lg:my-5">
+        <!-- Add/Remove to Favorites Button -->
         <form action="{% url 'recipe:add_to_favorites' request.user.username recipe.id %}" method="post">
-            {% csrf_token %}
-            
-            {% if not is_favorite %}
-                <button type="submit" class="bg-accent2 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-105">
-                    Add to Favorites
-                </button>    
-            {% else %}
-                <button type="submit" class="bg-accent2 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-105">
-                    Remove from Favorites
-                </button>
-            {% endif %}
+          {% csrf_token %}
+          {% if not is_favorite %}
+            <button type="submit" class="bg-accent2 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-105">
+              Add to Favorites
+            </button>    
+          {% else %}
+            <button type="submit" class="bg-accent2 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-105">
+              Remove from Favorites
+            </button>
+          {% endif %}
         </form>
-    </div>
+
+        <!-- Delete Recipe Button -->
+        {% if request.user.is_authenticated and request.user.username == recipe.username.username %}
+          <button id="deleteRecipeButton" class="bg-cancel hover:bg-red-500 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-105">
+            Delete Recipe
+          </button>
+        {% endif %}
+
+        <!-- Delete Modal -->
+        <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg w-[90%] lg:w-[40%]">
+          <h2 class="text-2xl font-bold mb-4 text-black dark:text-gray-300">Confirm Deletion</h2>
+          <p class="text-black dark:text-gray-300 ">Are you sure you want to delete this recipe? This action cannot be undone.</p>
+          <div class="flex justify-end mt-4">
+            <button type="button" id="cancelDeleteButton" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-transform transform hover:scale-105">
+              Cancel
+            </button>
+            <form method="POST" action="{% url 'recipe:delete_recipe' recipe.id %}">
+              {% csrf_token %}
+              <button type="submit" class="px-4 py-2 bg-cancel text-white rounded-lg hover:bg-red-500 transition-transform transform hover:scale-105">
+                Yes, Delete
+              </button>
+            </form>
+          </div>
+        </div>
+        </div>
+
+        <!-- JavaScript to handle the modal -->
+        <script>
+        const deleteRecipeButton = document.getElementById('deleteRecipeButton');
+        const deleteModal = document.getElementById('deleteModal');
+        const cancelDeleteButton = document.getElementById('cancelDeleteButton');
+
+        // Show the modal when the delete button is clicked
+        deleteRecipeButton.addEventListener('click', () => {
+          deleteModal.classList.remove('hidden');
+        });
+
+        // Hide the modal when the cancel button is clicked
+        cancelDeleteButton.addEventListener('click', () => {
+          deleteModal.classList.add('hidden');
+        });
+
+        // Close the modal when clicking outside of it
+        deleteModal.addEventListener('click', (e) => {
+          if (e.target === deleteModal) {
+            deleteModal.classList.add('hidden');
+          }
+        });
+        </script>
+
+      </div>
+      
 
     
       <!-- Flex container for the profile image and username -->
@@ -205,7 +248,7 @@
         <input type="hidden" name="rating" id="rating-input" value="0">
     
         <!-- Submit Button -->
-        <button type="button" id="submit-rating-btn" class="mt-4 bg-gray-400 text-white px-4 py-2 rounded-lg cursor-not-allowed" disabled>
+        <button type="button" id="submit-rating-btn" class="mt-4 bg-gray-400 text-white px-4 py-2 rounded-lg cursor-not-allowed transition-transform transform hover:scale-105" disabled>
           Submit Rating
         </button>
       </form>
@@ -235,10 +278,74 @@
                   <span class="text-sm text-gray-500">| {{ comment.created_at|date:"M d, Y H:i" }}</span>
                 </div>
               </div>
+
+              <!-- Edit/Delete Options for Logged-in User's Own Comment -->
+              {% if request.user == comment.user %}
+              <div class="ml-auto flex space-x-2">
+                <!-- Edit Button -->
+                <button 
+                  id="edit-comment-btn-{{ comment.id }}"
+                  class="bg-accent1 text-white p-2 rounded-lg transition-transform transform hover:scale-105" 
+                  onclick="editComment({{ comment.id }}, '{{ comment.text }}')">
+                  Edit
+                </button>
+              
+                <!-- Delete Comment Button -->
+                <form method="post" id="delete-form" action="{% url 'recipe:delete_comment' username=comment.user.username comment_id=comment.id %}" class="inline-block">
+                  {% csrf_token %}
+                  <!-- Delete Comment Button that triggers modal -->
+                  <button 
+                    id="delete-comment-btn-{{ comment.id }}"
+                    type="button" 
+                    class="bg-cancel hover:bg-red-500 text-white p-2 rounded-lg transition-transform transform hover:scale-105" 
+                    onclick="openModal()">
+                    Delete
+                  </button>
+              
+                  <!-- Delete Comment Modal -->
+                  <div id="delete-modal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+                    <div class="bg-white p-6 rounded-lg shadow-lg w-1/3 dark:text-gray-300 dark:bg-slate-800">
+                      <h2 class="text-xl font-semibold mb-4">Confirm Delete</h2>
+                      <p>Are you sure you want to delete this comment?</p>
+                      <div class="mt-4 flex justify-end space-x-4">
+                        <button type="button" class="bg-gray-300 text-gray-700 hover:bg-gray-400 px-4 py-2 rounded-md transition-transform transform hover:scale-105" onclick="closeModal()">Cancel</button>
+                        <button type="submit" class="bg-cancel hover:bg-red-500 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-105" onclick="closeModal()">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Modal JavaScript -->
+                  <script>
+                    function openModal() {
+                      document.getElementById('delete-modal').classList.remove('hidden');
+                    }
+
+                    function closeModal() {
+                      document.getElementById('delete-modal').classList.add('hidden');
+                    }
+                  </script>
+                </form>
+              </div>
+              
+              {% endif %}
             </div>
 
             <!-- Comment Text -->
-            <p>{{ comment.text }}</p>
+            <p id="comment-text-{{ comment.id }}">{{ comment.text }}</p>
+
+            <!-- Edit Form (Hidden by Default) -->
+            <form 
+              id="edit-comment-form-{{ comment.id }}" 
+              method="post" 
+              action="{% url 'recipe:edit_comment' username=comment.user.username comment_id=comment.id %}" 
+              class="hidden mt-2">
+              {% csrf_token %}
+              <textarea name="text" class="w-full p-2 border border-gray-300 rounded-lg dark:text-black">{{ comment.text }}</textarea>
+              <div class="flex space-x-2 mt-2">
+                <button type="submit" class="bg-accent1 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-105">Save</button>
+                <button type="button" class="bg-red-500 px-4 py-2 rounded-lg transition-transform transform hover:scale-105" onclick="cancelEdit({{ comment.id }})">Cancel</button>
+              </div>
+            </form>
           </div>
         {% endfor %}
       </div>
@@ -246,12 +353,13 @@
         <p class="text-gray-400">No comments yet. Be the first to comment!</p>
       {% endif %}
 
+
       <!-- Add a Comment Form -->
       {% if request.user.is_authenticated %}
       <form method="post" class="mt-4 text-black" id="comment-form">
         {% csrf_token %}
         <textarea name="comment" id="comment-textarea" rows="4" class="w-full p-4 rounded-lg bg-gray-200 border border-gray-400" placeholder="Write your comment..." oninput="toggleSubmitButton()"></textarea>
-        <button type="submit" id="submit-comment-btn" class="mt-2 bg-gray-400 text-white px-4 py-2 rounded-lg cursor-not-allowed" disabled>
+        <button type="submit" id="submit-comment-btn" class="mt-2 bg-gray-400 text-white px-4 py-2 rounded-lg cursor-not-allowed transition-transform transform hover:scale-105" disabled>
           Submit Comment
         </button>
       </form>
@@ -261,10 +369,34 @@
 
   </div>
 
+  <script>
+    function editComment(commentId, commentText) {
+      // Hide the comment text and show the edit form
+      document.getElementById('comment-text-' + commentId).classList.add('hidden');
+      document.getElementById('edit-comment-form-' + commentId).classList.remove('hidden');
+      
+      // Hide the edit and delete buttons
+      document.getElementById('edit-comment-btn-' + commentId).classList.add('hidden');
+      document.getElementById('delete-comment-btn-' + commentId).classList.add('hidden');
+    }
+  
+    function cancelEdit(commentId) {
+      // Hide the edit form and show the comment text
+      document.getElementById('edit-comment-form-' + commentId).classList.add('hidden');
+      document.getElementById('comment-text-' + commentId).classList.remove('hidden');
+      
+      // Show the edit and delete buttons again
+      document.getElementById('edit-comment-btn-' + commentId).classList.remove('hidden');
+      document.getElementById('delete-comment-btn-' + commentId).classList.remove('hidden');
+    }
+  </script>
+  
+  
+
 
   <!-- Modal Structure -->
   <div id="ratingModal" class="fixed z-10 inset-0 hidden bg-gray-800 bg-opacity-70 flex items-center justify-center">
-    <div class="bg-white w-96 h-auto rounded-lg shadow-lg transform opacity-0 transition-all duration-500 ease-in-out">
+    <div class="bg-white w-96 h-auto rounded-lg shadow-lg transform opacity-0 transition-all duration-500 ease-in-out dark:text-gray-300 dark:bg-slate-800">
         <div class="p-6">
             <h3 class="text-lg font-semibold mb-4">Confirm Your Rating</h3>
             <p>You have selected 
@@ -273,11 +405,11 @@
             </p>
             <div class="mt-6 flex justify-end space-x-4">
                 <!-- Cancel Button -->
-                <button id="cancel-modal-btn" class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-lg">
+                <button id="cancel-modal-btn" class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-105">
                     Cancel
                 </button>
                 <!-- Confirm Button -->
-                <button id="confirm-modal-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+                <button id="confirm-modal-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-105">
                     Confirm
                 </button>
             </div>

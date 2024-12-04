@@ -244,9 +244,9 @@ Before you start, ensure you have the following installed:
 <!-- CONTACT -->
 ## Contact
 
-Val Mykel Ceven Bolante - [@valceven](https://www.facebook.com/valmykelceven.bolante) - VAL GMAIL
+Val Mykel Ceven Bolante - [@valceven](https://www.facebook.com/valmykelceven.bolante) - valmykelcevenbolante@gmail.com
 
-Dechie Sullano - [@dechie](https://www.facebook.com/dechie.abella) - DECHIE GMAIL
+Dechie Sullano - [@dechie](https://www.facebook.com/dechie.abella) - dechiesullano@gmail.com
 
 Fiel Louis Omas-as - [@fiellouis](https://www.facebook.com/fiellouis.omasas) - fiellouisomasas@gmail.com
 

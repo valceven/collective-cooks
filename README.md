@@ -160,10 +160,13 @@ Before you start, ensure you have the following installed:
    Open your terminal and run the following command:
    ```bash
    git clone https://github.com/valceven/collective-cooks.git
-   cd vrs
    ```
 
 2. **Create a virtual environment**  
+   Open up a terminal and go to CollectiveCooks folder
+   ```bash
+   cd CollectiveCooks
+   ```
    It’s recommended to create a virtual environment to manage dependencies:
    ```bash
    python -m venv venv
@@ -190,20 +193,27 @@ Before you start, ensure you have the following installed:
    pip install -r requirements.txt
    ```
 
-4. **Apply database migrations**  
+4. **Run node.js**
+    Open up a different terminal to run Node.js
+    ```bash
+     cd CollectiveCook/Foods/static_src
+     npm run dev
+    ```
+
+5. **Apply database migrations**  
    Run the database migrations to set up the database schema:
    ```bash
    python manage.py makemigrations
    python manage.py migrate
    ```
 
-5. **Start the development server**  
+6. **Start the development server**  
    Now, you can start the development server and view the project locally:
    ```bash
    python manage.py runserver
    ```
 
-6. **Access the application**  
+7. **Access the application**  
    Open your browser and go to `http://127.0.0.1:8000/` or `http://localhost:8000/` to see the application running locally.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

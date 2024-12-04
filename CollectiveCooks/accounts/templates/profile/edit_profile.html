@@ -104,7 +104,7 @@
                     <label class="block text-gray-700 dark:text-gray-50 font-semibold mb-3">Gender</label>
                     <div class="flex items-center space-x-6">
                         {% for choice in form.gender %}
-                            <div class="text-gray-700">
+                            <div class="text-gray-700 dark:text-gray-50">
                                 <label 
                                     for="{{ choice.id_for_label }}" 
                                     class="relative flex items-center cursor-pointer p-3 rounded-lg {% if choice.is_checked %}bg-orange-200 border-2 border-orange-400{% endif %} hover:bg-orange-100 transition-colors"

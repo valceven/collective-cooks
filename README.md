@@ -126,14 +126,18 @@
 
     View the most popular recipes on the home page.
 
+6. **Follow Users Display**  
+
+    View the Followers and follow other users.
+
 
 ## ADDITIONAL FEATURES
 
-7. **Dark Mode Feature**  
+8. **Dark Mode Feature**  
 
     For users who prefer dark colors while traversing through the website.
 
-6. **Reporting System**  
+9. **Reporting System**  
 
     Users can report users, comments, or recipes that violates basic desency upon using the website.
 

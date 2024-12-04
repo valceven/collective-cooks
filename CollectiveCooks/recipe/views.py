@@ -65,8 +65,10 @@ def recipe_detail(request, username, recipe_id):
 
         # Redirect back to the same recipe page to avoid form resubmission on refresh
         return redirect('recipe:recipe_detail', username=username, recipe_id=recipe_id)
+    
+    is_favorite = Favorite.objects.filter(user_id=request.user.id, recipe_id=recipe.id).exists()
 
-    return render(request, 'view_recipe.html', {'recipe': recipe, 'user': user})
+    return render(request, 'view_recipe.html', {'recipe': recipe, 'user': user, 'has_reported': has_reported, 'is_favorite': is_favorite})
 
 @login_required
 def delete_recipe(request, recipe_id):
@@ -80,8 +82,6 @@ def delete_recipe(request, recipe_id):
 def add_to_favorites(request, username, recipe_id):
     user = get_object_or_404(User, username=username)
     recipe = get_object_or_404(Recipe, id=recipe_id)
-    has_reported = get_object_or_404(RecipeReport, recipe_id = recipe.id, reporter = user.id)
-
 
     favorite, created = Favorite.objects.get_or_create(user_id=user, recipe_id=recipe)
 
@@ -89,6 +89,9 @@ def add_to_favorites(request, username, recipe_id):
         favorite.delete()
 
     is_favorite = created
+
+    has_reported = RecipeReport.objects.filter(recipe_id=recipe.id, reporter=request.user).exists()
+
 
     return render(request, 'view_recipe.html', {
         'user': recipe.username ,

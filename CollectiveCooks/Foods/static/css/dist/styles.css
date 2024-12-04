@@ -847,6 +847,10 @@ select {
   z-index: 40;
 }
 
+.z-50 {
+  z-index: 50;
+}
+
 .col-span-4 {
   grid-column: span 4 / span 4;
 }

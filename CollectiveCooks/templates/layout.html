@@ -31,17 +31,6 @@
                             notification.classList.add('hidden');
                             notification.classList.remove('translate-x-0');
                         }, 5000);
-                    {% elif message.tags == "error" %}
-                        document.getElementById('messageText').textContent = "{{ message }}";
-                        let notification = document.getElementById('notification');
-                        notification.classList.remove('hidden');
-                        notification.classList.add('translate-x-0', 'bg-red-500');  // Error notification style
-        
-                        setTimeout(() => {
-                            notification.classList.add('hidden');
-                            notification.classList.remove('translate-x-0');
-                        }, 5000);
-                    {% endif %}
                 {% endfor %}
             });
         </script>

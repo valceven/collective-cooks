@@ -117,7 +117,7 @@
                                         {% if choice.is_checked %}checked{% endif %}
                                         class="border dark:bg-gray-100 border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-400 mr-2"
                                     >
-                                    <span class="text-gray-800 font-medium">{{ choice.choice_label }}</span>
+                                    <span class="text-gray-800 dark:text-white font-medium">{{ choice.choice_label }}</span>
                                 </label>
                             </div>
                         {% endfor %}
@@ -139,8 +139,8 @@
                 </div>
 
                 <div class="flex space-x-4 pt-4">
-                    <button type="submit" name="edit_profile" class="bg-orange-500 text-white border-transparent border-2 hover:border-accent2 py-2 px-6 rounded-lg">Save Profile</button>
-                    <a href="{% url 'auth:profile' user.id %}" class="bg-white border-transparent border-2 hover:border-accent1 hover:bg-stone-100 dark:bg-gray-300 text-gray-700 py-2 px-6 rounded-lg text-center">Cancel</a>
+                    <button type="submit" name="edit_profile" class="bg-accent1 text-white border-transparent border-2 py-2 px-6 rounded-lg transition-transform transform hover:scale-105">Save Profile</button>
+                    <a href="{% url 'auth:profile' user.id %}" class="bg-gray-300 text-gray-700 hover:bg-gray-400 px border-transparent border-2 transition-transform transform hover:scale-105 dark:bg-gray-300 text-gray-700 py-2 px-6 rounded-lg text-center">Cancel</a>
                 </div>
             </form>
 

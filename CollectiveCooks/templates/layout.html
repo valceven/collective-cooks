@@ -13,41 +13,6 @@
     <title>Cooks Collective</title>
 </head>
 
-    {% if messages %}
-        <div id="notification" class="hidden fixed top-5 right-5 bg-green-500 text-white p-4 rounded-lg shadow-lg transition-transform transform translate-x-full">
-            <span id="messageText"></span>
-        </div>
-
-        <script type="text/javascript">
-            window.addEventListener('DOMContentLoaded', (event) => {
-                {% for message in messages %}
-                    {% if message.tags == "success" %}
-                        document.getElementById('messageText').textContent = "{{ message }}";
-                        let notification = document.getElementById('notification');
-                        notification.classList.remove('hidden');
-                        notification.classList.add('translate-x-0', 'bg-green-500');  // Success notification style
-                        
-                        setTimeout(() => {
-                            notification.classList.add('hidden');
-                            notification.classList.remove('translate-x-0');
-                        }, 5000);
-                    {% endif %}
-                {% endfor %}
-            });
-        </script>
-
-        <style>
-            /* Tailwind CSS Transition classes for smooth sliding effect */
-            .translate-x-full {
-                transform: translateX(100%);
-            }
-
-            .translate-x-0 {
-                transform: translateX(0);
-            }
-        </style>
-    {% endif %}
-
     <header class="flex items-center mx-6 lg:mx-16 px-2 lg:px-4 lg:px-12  sm:mb-4 lg:mb-0 ">
         <nav id="navbar" class="w-full mx-auto bg-light-mode dark:bg-dark-mode sm:h-48 lg:h-48">
     
@@ -224,6 +189,41 @@
             </div>
         </div>
     </footer>
+
+    
+    {% if messages %}
+        <div id="notification" class="hidden z-50 fixed top-5 right-5 bg-green-500 text-white p-4 rounded-lg shadow-lg transition-transform transform translate-x-full">
+            <span id="messageText"></span>
+        </div>
+
+        <script type="text/javascript">
+            window.addEventListener('DOMContentLoaded', (event) => {
+                {% for message in messages %}
+                    {% if message.tags == "success" %}
+                        document.getElementById('messageText').textContent = "{{ message }}";
+                        let notification = document.getElementById('notification');
+                        notification.classList.remove('hidden');
+                        notification.classList.add('translate-x-0', 'bg-green-500');
+                        
+                        setTimeout(() => {
+                            notification.classList.add('hidden');
+                            notification.classList.remove('translate-x-0');
+                        }, 5000);
+                    {% endif %}
+                {% endfor %}
+            });
+        </script>
+
+        <style>
+            .translate-x-full {
+                transform: translateX(100%);
+            }
+
+            .translate-x-0 {
+                transform: translateX(0);
+            }
+        </style>
+    {% endif %}
     
     <!-- END OF MAIN -->
     <script>

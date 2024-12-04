@@ -136,6 +136,7 @@
 
 [![HTML][HTML]][HTML-url]
 [![CSS][CSS]][CSS-url]
+[![Tailwind CSS][Tailwind CSS]][Tailwind-url]
 [![JS][JS]][JS-url]
 [![Node][Node]][Node-url]
 [![Python][Python]][Python-url]
@@ -287,6 +288,9 @@ Project Link: [https://github.com/valceven/collective-cooks](https://github.com/
 
 [Node]: https://img.shields.io/badge/Node.js-8CC84B?style=for-the-badge&logo=node.js&logoColor=white
 [Node-url]: https://nodejs.org/en/
+
+[Tailwind CSS]: https://img.shields.io/badge/Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[Tailwind-url]: https://tailwindcss.com/
 
 [Python]: https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white
 [Python-url]: https://www.python.org/
